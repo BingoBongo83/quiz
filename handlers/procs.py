@@ -435,7 +435,7 @@ def get_next_question(round_id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
     result = connection.execute(
-        text(f"select id,question, answer, seq from songs where round = {round_id} and played = 0 order by seq asc limit 1"))
+        text(f"select id,question, answer, seq from questions where round = {round_id} and played = 0 order by seq asc limit 1"))
     next_question = {}
     for row in result:
         next_question["id"] = row.id
@@ -449,7 +449,7 @@ def get_next_question(round_id):
 
 def get_points_to_play(round_id):
     next_question = get_next_question(round_id)
-    maximum = get_round_maximum_songs(round_id)
+    maximum = get_round_maximum_questions(round_id)
     get_seq = next_question.get("seq",0)
     points_to_go = 0
     # for debugging:
@@ -1020,7 +1020,7 @@ def play_mode3(round_id):
     }
     round_name = get_round_name(round_id)
     print(f"\n\t{Color.MAGENTA}{round_name}\n{Color.BLUE}")
-    maximum = get_round_maximum_songs(round_id)
+    maximum = get_round_maximum_questions(round_id)
     set_monitor_round_by_round_id(round_id)
 
     next_question = {}
