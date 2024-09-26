@@ -469,8 +469,8 @@ def get_last_question():
         text(f"select question, answer from last_question"))
     last_question = {}
     for row in result:
-        last_song["question"] = row.question
-        last_song["answer"] = row.answer
+        last_question["question"] = row.question
+        last_question["answer"] = row.answer
     connection.close()
     return last_question
 
