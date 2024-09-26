@@ -48,7 +48,7 @@ INSERT INTO `config` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `last_song`
+-- Table structure for table `last_question`
 --
 
 DROP TABLE IF EXISTS `last_question`;
@@ -64,14 +64,14 @@ CREATE TABLE `last_question` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `last_song`
+-- Dumping data for table `last_question`
 --
 
 LOCK TABLES `last_question` WRITE;
-/*!40000 ALTER TABLE `last_song` DISABLE KEYS */;
+/*!40000 ALTER TABLE `last_question` DISABLE KEYS */;
 INSERT INTO `last_question` VALUES
 (1,'','');
-/*!40000 ALTER TABLE `last_song` ENABLE KEYS */;
+/*!40000 ALTER TABLE `last_question` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
