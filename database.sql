@@ -263,7 +263,7 @@ CREATE TABLE `questions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `ux_question` (`question`)
-) ENGINE=InnoDB AUTO_INCREMENT=175 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=254 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,7 +386,7 @@ INSERT INTO `questions` VALUES
 (111,'Welcher (welches) Stoff (Stoffgemisch) ist durch ein ovales Handrad an der Gasflasche zu erkennen?','Acetylen',7,11,0,NULL),
 (112,'Mit welchem Kennwort(en) wird durch den Atemschutztrupp eine Notfallmeldung abgesetzt?','„MAYDAY; MAYDAY; MAYDAY“',7,12,0,NULL),
 (113,'Welcher (welchen) Brandklasse(n) werden Brände fester Stoffe zugeordnet?','Brandklasse A',7,13,0,NULL),
-(114,'Welchen FMS Status setze ich beim verlassen der Einsatzstelle nach Ende des Einsatzes?','Status 1',7,14,0,NULL),
+(114,'Welchen FMS Status setze ich beim verlassen der Einsatzstelle nach Ende des Einsatzes?','Status 1',4,20,0,NULL),
 (115,'Welche technischen Merkmale hat ein Zumischer Z8?','800l/min Wasserleistung, B-Kupplung',7,15,0,NULL),
 (116,'Mit welchem Knoten wird gemäß FwDV10 das Zugseil einer Schiebleiter befestigt?','Mastwurf',7,16,0,NULL),
 (117,'Welchen FMS Status setze ich beim übernehmen des Einsatzauftrages bzw. verlassen des Gerätehauses mit Einsatzauftrag?','Status 3',7,17,0,NULL),
@@ -403,50 +403,26 @@ INSERT INTO `questions` VALUES
 (128,'Als was können tragbare Leitern der Feuerwehr grundsätzlich eingesetzt werden?','Rettungsweg, Angriffsweg, Hilfsgerät',7,28,0,NULL),
 (129,'Welcher (welchen) Brandklasse(n) werden Brände gasförmiger Stoffe zugeordnet?','Brandklasse C',7,29,0,NULL),
 (130,'Welches Löschmittel ist bei brennendem Holz am besten geeignet?','Wasser',7,30,0,NULL),
-(131,'In Welcher Norm ist das Spicher LF genormt?','DIN 14530',NULL,NULL,0,NULL),
-(132,'Welche(s) Löschmittel sind (ist) bei brennendem Dieselkraftstoff auf der Straße geeignet?','Mittelschaum, ABC-Pulver',NULL,NULL,0,NULL),
-(133,'Was ist ist nicht auf unserem Spicher LF verlastet, gehört aber nach aktueller Norm zur Ausrüctung eines LF20?','Sprungrettungsgerät (& 4 CSA)',NULL,NULL,0,NULL),
-(134,'Ab wann spricht man bei Wechselspannung von Hochspannung in einer Anlage?','1000V',NULL,NULL,0,NULL),
-(135,'Wofür steht im ABC-Einsatz die Abkürzung GAMS?','Gefahr erkennen, Absperren des Gefahrenbereichs, Menschenrettung einleiten, Spezialkräfte nachfordern.',NULL,NULL,0,NULL),
-(136,'Wofür steht die Abkürzung OEG?','Obere Explosionsgrenze',NULL,NULL,0,NULL),
-(137,'Wo wird das Wegerecht geregelt?','§38 StVO',NULL,NULL,0,NULL),
-(138,'Was unfasst Gefahrgutklasse 1?','explosive Stoffe',NULL,NULL,0,NULL),
-(139,'In Welcher FwDV werden Leitern beschrieben?','FwDV10',NULL,NULL,0,NULL),
-(140,'Welchen FMS Status setze ich beim ankommen am Gerätehaus nach Ende des Einsatzes?','Status 2',NULL,NULL,0,NULL),
-(141,'Wann dürfen Atemfilter nicht eingesetzt werden?','Art der Atemgifte unbekannt, starke Rußbildung, unzureichend Luftsauerstoff',NULL,NULL,0,NULL),
-(142,'Was bedeutet der FMS Status 4?','Ankunft am Einsatzort ',NULL,NULL,0,NULL),
-(143,'Was versteht man unter Körperschutz Form 3?','Gasdichter Chemikalienschutzanzug',NULL,NULL,0,NULL),
-(144,'Gegen welche(n) Stoff(e) schützt der ABEK2-P3 Filter nicht?','Kohlenstoffmonoxid',NULL,NULL,0,NULL),
-(145,'Was bedeutet der FMS Status 5?','Sprechwunsch',NULL,NULL,0,NULL),
-(146,'Wer darf Wegerechte in Anspruch nehmen? Nenne 5!','Feuerwehr, Polizei, Rettungsdienst, Notfallmanager der DB, Bundeswehr, Stadtwerke, Zoll, THW',NULL,NULL,0,NULL),
-(147,'Wie viel Wasser fasst ein 15 m C42-Druckschlauch?','21 Liter',NULL,NULL,0,NULL),
-(148,'Welchen FMS Status setze ich bei Großschadenslagen oder Großeinsatzlagen, bei viel Funkverkehr, wenn ich einen Sprechwunsch habe?','Status 5',NULL,NULL,0,NULL),
-(149,'Wie viel % des Nennfülldrucks müssen Atemschutzgeräte beinhalten, damit Sie eingesetzt werden dürfen?','> 90%',NULL,NULL,0,NULL),
-(150,'Der wievielte LG Führer ist Alexander Ossendorf?','14.',NULL,NULL,0,NULL),
-(151,'Welche technischen Merkmale hat ein Zumischer Z4?','400l/min Wasserleistung, C-Kupplung',NULL,NULL,0,NULL),
-(152,'Wer ist für die Rückstellung einer ausgelösten Brandmeldeanlage zuständig?','Der Einsatzleiter',NULL,NULL,0,NULL),
-(153,'Wer darf, unter gebührender Berücksichtigung der öffentlichen Sicherheit und Ordnung, Sonderrechten nach §35 StVO ausüben? Nenne 5!','Feuerwehr, Polizei, Rettungsdienst, Notfallmanager der DB, Bundeswehr, Stadtwerke, Zoll, THW, Stadtreinigung, Müllabfuhr',NULL,NULL,0,NULL),
-(154,'Welchen Wasserdurchfluss weist ein B-Mehrzweckstrahlrohr bei 5 bar Strahlrohrdruck auf?','400/800 l/m (mit und ohne Mundstück)',NULL,NULL,0,NULL),
-(155,'Welche Hydranten werden für Feuerlöschzwecke genutzt?','Unterflurhyranten, Oberflurhydranten, Wandhydranten',NULL,NULL,0,NULL),
-(156,'Welchen Wasserdurchfluss weist ein D-Mehrzweckstrahlrohr bei 5 bar Strahlrohrdruck auf?','25/50 l/m (mit und ohne Mundstück)',NULL,NULL,0,NULL),
-(157,'Welche Information(en) kann man Hinweisschildern für Hydranten entnehmen?','Nennweite der Versorgungsleitung, Lage des Hydranten (evtl Nummer)',NULL,NULL,0,NULL),
-(158,'Welche taktische Einheit ist die Grundeinheit der Feuerwehr?','Die Gruppe',NULL,NULL,0,NULL),
-(159,'Womit kann der pH-Wert von Flüssigkeiten im Einsatz ermittelt werden?','Indikatorpapier?',NULL,NULL,0,NULL),
-(160,'Wofür steht die Abkürzung UVV?','Unfallverhütungsvorschriften',NULL,NULL,0,NULL),
-(161,'Eine 6 Liter Pressluftflasche ist mit Atemluft und einem Fülldruck von 300 bar gefüllt. Wie viel Liter Atemluft entspricht dies bei 1 bar Umgebungsdruck (Faustwert)?','1600 Liter',NULL,NULL,0,NULL),
-(162,'Welche Schaumart erzeugt man bei einer VZ 201?','Leichtschaum',NULL,NULL,0,NULL),
-(163,'Wie hieß der erste Löschgruppenführer der LG Spich?','Conrad Fliersbach',NULL,NULL,0,NULL),
-(164,'Aus welchen Materialien darf die Steckleiter nach FwDV10 sein?','Holz, Aluminium',NULL,NULL,0,NULL),
-(165,'Nenne die Luftverzleichszahl von Kohlenstoffmonoxid','28',NULL,NULL,0,NULL),
-(166,'Welche Einsatzkraft (Einsatzkräfte) darf (dürfen) per Gesetz bei einem Feuerwehreinsatz einen Platzverweis aussprechen?','Polizei, Einsatzleiter',NULL,NULL,0,NULL),
-(167,'Wie rufen wir per TMO die Leitstelle an?','Leitstelle Rhein Sieg von Spich LF20, kommen!',NULL,NULL,0,NULL),
-(168,'Was ist (sind) zulässige Sicherung(en) für den Rückweg im Atemschutzeinsatz?','Feuerwehrleine, Schlauchleitung',NULL,NULL,0,NULL),
-(169,'Wo wird das 1. Rohr am Verteiler (in Flussrichtung) angeschlossen?','Links',NULL,NULL,0,NULL),
-(170,'Bis zu welchem Obergeschoss kann die 3-teilige Schiebleiter üblicherweise eingesetzt werden?','3. OG',NULL,NULL,0,NULL),
-(171,'Wie viel Wasser fasst ein 20 m A-Druckschlauch?','190 Liter',NULL,NULL,0,NULL),
-(172,'Was bedeutet ein X auf der orangenen Gefahrgut-Warntafel','Stoff reagiert gefährlich mit Wasser',NULL,NULL,0,NULL),
-(173,'Aus welchen Trupps und Personen besteht eine Staffel?','Staffelführer, Maschinist, Angriffstrupp, Wassertrupp',NULL,NULL,0,NULL),
-(174,'Welche Pumpe ist bei einem LF20 verbaut?','FPN 10-2000',NULL,NULL,0,NULL);
+(234,'Eine 6 Liter Pressluftflasche ist mit Atemluft und einem Fülldruck von 300 bar gefüllt. Wie viel Liter Atemluft entspricht dies bei 1 bar Umgebungsdruck (Faustwert)?','1800 Liter',1,16,0,NULL),
+(235,'Wer ist für die Rückstellung einer ausgelösten Brandmeldeanlage zuständig?','Der Einsatzleiter',1,17,0,NULL),
+(236,'Welche beiden Dinge sind nicht auf dem Spicher LF verlastet, gehören aber nach aktueller Norm zur Ausrüstung eines LF20?','Sprungrettungsgerät & 4 CSA',1,18,0,NULL),
+(237,'Ab wann spricht man bei Wechselspannung von Hochspannung in einer Anlage?','1000V',1,19,0,NULL),
+(238,'Wofür steht im ABC-Einsatz die Abkürzung GAMS?','Gefahr erkennen, Absperren des Gefahrenbereichs, Menschenrettung einleiten, Spezialkräfte nachfordern.',1,20,0,NULL),
+(239,'Wofür steht die Abkürzung OEG?','Obere Explosionsgrenze',2,16,0,NULL),
+(240,'Welche Hydranten werden für Feuerlöschzwecke genutzt?','Unterflurhyranten, Oberflurhydranten, Wandhydranten',2,17,0,NULL),
+(241,'Was unfasst Gefahrgutklasse 1?','explosive Stoffe',2,18,0,NULL),
+(242,'In Welcher FwDV werden Leitern beschrieben?','FwDV10',2,19,0,NULL),
+(243,'Welchen FMS Status setze ich beim ankommen am Gerätehaus nach Ende des Einsatzes?','Status 2',2,20,0,NULL),
+(244,'Wann dürfen Atemfilter nicht eingesetzt werden?','Art der Atemgifte unbekannt, starke Rußbildung, unzureichend Luftsauerstoff',3,16,0,NULL),
+(245,'Was bedeutet der FMS Status 4?','Ankunft am Einsatzort ',3,17,0,NULL),
+(246,'Was versteht man unter Körperschutz Form 3?','Gasdichter Chemikalienschutzanzug',3,18,0,NULL),
+(247,'Wofür steht die Abkürzung UVV?','Unfallverhütungsvorschriften',3,19,0,NULL),
+(248,'Was bedeutet der FMS Status 5?','Sprechwunsch',3,20,0,NULL),
+(249,'Welche taktische Einheit ist die Grundeinheit der Feuerwehr?','Die Gruppe',4,16,0,NULL),
+(250,'Wie viel Wasser fasst ein 15 m C42-Druckschlauch?','21 Liter',4,17,0,NULL),
+(251,'Welchen FMS Status setze ich bei Großschadenslagen oder Großeinsatzlagen, bei viel Funkverkehr, wenn ich einen Sprechwunsch habe?','Status 5',4,18,0,NULL),
+(252,'Wie viel % des Nennfülldrucks müssen Atemschutzgeräte beinhalten, damit Sie eingesetzt werden dürfen?','> 90%',4,19,0,NULL),
+(253,'Der wievielte LG Führer der LG Spich ist Dirk Walsdorf?','15.',7,14,0,NULL);
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -493,4 +469,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-26 16:29:15
+-- Dump completed on 2024-09-26 16:51:17
