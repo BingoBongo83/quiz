@@ -1,5 +1,4 @@
 from app import app
-from admin import app
 
 
 if __name__ == "__main__":
