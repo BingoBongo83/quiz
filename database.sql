@@ -95,7 +95,7 @@ CREATE TABLE `max_questions` (
 --
 
 LOCK TABLES `max_questions` WRITE;
-/*!40000 ALTER TABLE `max_songs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `max_questions` DISABLE KEYS */;
 INSERT INTO `max_questions` VALUES
 (1,'1',10),
 (2,'2',10),
@@ -104,7 +104,7 @@ INSERT INTO `max_questions` VALUES
 (5,'5',15),
 (6,'6',15),
 (7,'7',20);
-/*!40000 ALTER TABLE `max_songs` ENABLE KEYS */;
+/*!40000 ALTER TABLE `max_questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -301,13 +301,13 @@ CREATE TABLE `questions` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `songs`
+-- Dumping data for table `questions`
 --
 
 LOCK TABLES `questions` WRITE;
-/*!40000 ALTER TABLE `songs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `questions` DISABLE KEYS */;
 
-/*!40000 ALTER TABLE `songs` ENABLE KEYS */;
+/*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
