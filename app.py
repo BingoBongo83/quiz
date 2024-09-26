@@ -11,7 +11,7 @@ print(cwd)
 @app.route('/')
 def index():
     round_id = procs.get_monitor_round()
-    last_song = procs.get_last_question()
+    last_question = procs.get_last_question()
     buzzer_blocked = procs.get_buzzer_blocked()
     countdown = procs.countdown()
     if round_id == 0:
