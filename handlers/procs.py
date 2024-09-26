@@ -479,7 +479,7 @@ def mark_question_as_played(round_id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
     connection.execute(
-        text(f"update question set played = 1 where round = {round_id} and played = 0 order by seq asc limit 1"))
+        text(f"update questions set played = 1 where round = {round_id} and played = 0 order by seq asc limit 1"))
     connection.commit()
     connection.close()
 
