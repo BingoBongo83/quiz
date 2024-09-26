@@ -871,7 +871,7 @@ def play_mode1(round_id):
             handler.__call__()
     sort_ranking(round_id)
     mark_question_as_played(round_id)
-    set_last_question(next_question['title'],next_question['artist'])
+    set_last_question(next_question['question'],next_question['answer'])
     set_buzzer_blocked(round_id)
 
     if (next_question.get("seq",0) < maximum) and (next_question.get("seq",0) != 0):
@@ -998,105 +998,6 @@ def play_mode2(round_id):
                     mainmenu()
             else:
                 play_mode2(round_id)
-        else:
-            if round_id == "7":
-                set_monitor_to_winner()
-                mainmenu()
-            else:
-                set_monitor_to_pause()
-                mainmenu()
-def play_mode3(round_id):
-    actions = {
-        "1": ("player 1 correct", update_player),
-        "2": ("player 2 correct", update_player),
-        "3": ("player 3 correct", update_player),
-        "4": ("player 4 correct", update_player),
-        "q": ("player 1 fault", update_player),
-        "w": ("player 2 fault", update_player),
-        "e": ("player 3 fault", update_player),
-        "r": ("player 4 fault", update_player),
-        "s": ("skip song", update_player),
-        "l": ("leave game" , mainmenu),
-    }
-    round_name = get_round_name(round_id)
-    print(f"\n\t{Color.MAGENTA}{round_name}\n{Color.BLUE}")
-    maximum = get_round_maximum_questions(round_id)
-    set_monitor_round_by_round_id(round_id)
-
-    next_question = {}
-    next_question = get_next_question(round_id)
-    points_to_play = get_points_to_play(round_id)
-
-    player_1_points = get_player_points(1,round_id)
-    player_2_points = get_player_points(2,round_id)
-    player_3_points = get_player_points(3,round_id)
-    player_4_points = get_player_points(4,round_id)
-    player_1_name = get_player_name(1,round_id)
-    player_2_name = get_player_name(2,round_id)
-    player_3_name = get_player_name(3,round_id)
-    player_4_name = get_player_name(4,round_id)
-    global_player_id_1 = get_global_player_id(1,round_id)
-    global_player_id_2 = get_global_player_id(2,round_id)
-    global_player_id_3 = get_global_player_id(3,round_id)
-    global_player_id_4 = get_global_player_id(4,round_id)
-
-    set_buzzer_blocked(round_id)
-    buzzer_blocked = get_buzzer_blocked()
-    buzzer_blocked = int(buzzer_blocked)
-    show_scoreboard(buzzer_blocked,player_1_name,player_2_name,player_3_name,player_4_name,player_1_points,player_2_points,player_3_points,player_4_points)
-    print(f"\n\t{Color.YELLOW}[ Song# {next_question['seq']} / {maximum} ({next_question['total']}) ]{Color.MAGENTA}   {next_question['title']} - {next_question['artist']} ({next_question['year']}{Color.BLUE})")
-    print(f"\n\tInfo: {next_question['comment']}")
-    print(f"\n\t{Color.YELLOW}Points to play: {points_to_play}{Color.BLUE}\n")
-    print("\taction: ")
-    key = click.getchar()
-    if key in actions:
-        _, handler = actions[key]
-        if key == "1":
-            handler.__call__(global_player_id_1,round_id,"correct")
-        if key == "2":
-            handler.__call__(global_player_id_2,round_id,"correct")
-        if key == "3":
-            handler.__call__(global_player_id_3,round_id,"correct")
-        if key == "4":
-            handler.__call__(global_player_id_4,round_id,"correct")
-        if key == "q":
-            handler.__call__(global_player_id_1,round_id,"false")
-        if key == "w":
-            handler.__call__(global_player_id_2,round_id,"false")
-        if key == "e":
-            handler.__call__(global_player_id_3,round_id,"false")
-        if key == "r":
-            handler.__call__(global_player_id_4,round_id,"false")
-        if key == "s":
-            handler.__call__(global_player_id_1,round_id,"skip")
-        if key == "l":
-            handler.__call__()
-    sort_ranking(round_id)
-    mark_song_as_played(round_id)
-    set_last_song(next_question['title'],next_question['artist'],next_question['year'])
-    set_buzzer_blocked(round_id)
-
-    if next_question['seq'] < maximum:
-        play(round_id)
-    else:
-        player_1_points = get_player_points(1,round_id)
-        player_2_points = get_player_points(2,round_id)
-        player_3_points = get_player_points(3,round_id)
-        player_4_points = get_player_points(4,round_id)
-        print()
-        show_scoreboard(buzzer_blocked,player_1_name,player_2_name,player_3_name,player_4_name,player_1_points,player_2_points,player_3_points,player_4_points)
-        print("\n\tMit Play-Off (Stechen) weitermachen? (y/n)")
-        key = click.getchar()
-        if next_question['seq'] < next_question['total']:
-            if key == "n":
-                if round_id == "7":
-                    set_monitor_to_winner()
-                    mainmenu()
-                else:
-                    set_monitor_to_pause()
-                    mainmenu()
-            else:
-                play(round_id)
         else:
             if round_id == "7":
                 set_monitor_to_winner()
