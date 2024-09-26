@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 import os
 
-QUIZ_TABLE = "musikquiz"
+QUIZ_TABLE = "quiz"
 # is path for id_deployer
 
 

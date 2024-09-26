@@ -50,10 +50,10 @@ def help():
     print(f"\t({Color.GREEN} 1 2 3 4 {Color.BLUE})")
     print("\n\tpress for wrong answer for player 1,2,3,4:")
     print(f"\t({Color.RED} q w e r {Color.BLUE})")
-    print(f"\n\tpress {Color.WHITE}s{Color.BLUE} for skip song.")
+    print(f"\n\tpress {Color.WHITE}s{Color.BLUE} for skip question.")
     print(f"\tpress {Color.WHITE}l{Color.BLUE} for leave round, points will be saved\n")
     print("\tyou can zero all points without changing names.")
-    print("\tby changing ALL NAMES all points will be zeroed and songs will be marked unplayed!")
+    print("\tby changing ALL NAMES all points will be zeroed and questions will be marked unplayed!")
 
 def change_play_mode():
     print("\tWelchen Spielmodus setzen?\n\t[ 1 = 16 Spieler / 2 = 12 Spieler / 3 = 8 Spieler(Duelle) ]: \n\t ALLE SPIELSTÄNDE WERDEN GENULLT!")
@@ -221,9 +221,9 @@ def reset_player_points():
         connection.commit()
         connection.execute(text(f"update player_round set player = NULL where round = 5 or round = 6 or round = 7"))
         connection.commit()
-        connection.execute(text(f"update songs set played = 0"))
+        connection.execute(text(f"update questions set played = 0"))
         connection.commit()
-        connection.execute(text(f"update last_song set title ='', artist='', year = ''"))
+        connection.execute(text(f"update last_question set question ='', answer=''"))
         connection.commit()
         connection.execute(text(f"update config set value = 0 where name ='monitor_round'"))
         connection.commit()
@@ -378,14 +378,12 @@ def set_monitor_round_by_round_id(round_id):
     connection.commit()
     connection.close()
 
-def set_last_song(title,artist,year):
+def set_last_question(question,answer):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
-    connection.execute(text(f"update last_song set title = '{title}'"))
+    connection.execute(text(f"update last_question set question = '{question}'"))
     connection.commit()
-    connection.execute(text(f"update last_song set artist = '{artist}'"))
-    connection.commit()
-    connection.execute(text(f"update last_song set year = '{year}'"))
+    connection.execute(text(f"update last_question set answer = '{answer}'"))
     connection.commit()
     connection.close()
 
@@ -433,28 +431,26 @@ def get_round_info(round_id):
     connection.close()
     return players
 
-def get_next_song(round_id):
+def get_next_question(round_id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
     result = connection.execute(
-        text(f"select id,title, artist, year, comment, seq from songs where round = {round_id} and played = 0 order by seq asc limit 1"))
-    next_song = {}
+        text(f"select id,question, answer, seq from songs where round = {round_id} and played = 0 order by seq asc limit 1"))
+    next_question = {}
     for row in result:
-        next_song["id"] = row.id
-        next_song["title"] = row.title
-        next_song["artist"] = row.artist
-        next_song["year"] = row.year
-        next_song["comment"] = row.comment
-        next_song["seq"] = row.seq
-    result = connection.execute(text(f"select * from songs where round = {round_id}"))
-    next_song["total"] = result.rowcount
+        next_question["id"] = row.id
+        next_question["question"] = row.question
+        next_question["answer"] = row.answer
+        next_question["seq"] = row.seq
+    result = connection.execute(text(f"select * from questions where round = {round_id}"))
+    next_question["total"] = result.rowcount
     connection.close()
-    return next_song
+    return next_question
 
 def get_points_to_play(round_id):
-    next_song = get_next_song(round_id)
+    next_question = get_next_question(round_id)
     maximum = get_round_maximum_songs(round_id)
-    get_seq = next_song.get("seq",0)
+    get_seq = next_question.get("seq",0)
     points_to_go = 0
     # for debugging:
     # print(f"points to go: {points_to_go}")
@@ -466,25 +462,24 @@ def get_points_to_play(round_id):
         points_to_go = (maximum - (get_seq-1))*2
     return points_to_go
 
-def get_last_song():
+def get_last_question():
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
     result = connection.execute(
-        text(f"select title, artist, year from last_song"))
-    last_song = {}
+        text(f"select question, answer from last_question"))
+    last_question = {}
     for row in result:
-        last_song["title"] = row.title
-        last_song["artist"] = row.artist
-        last_song["year"] = row.year
+        last_song["question"] = row.question
+        last_song["answer"] = row.answer
     connection.close()
-    return last_song
+    return last_question
 
 
-def mark_song_as_played(round_id):
+def mark_question_as_played(round_id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
     connection.execute(
-        text(f"update songs set played = 1 where round = {round_id} and played = 0 order by seq asc limit 1"))
+        text(f"update question set played = 1 where round = {round_id} and played = 0 order by seq asc limit 1"))
     connection.commit()
     connection.close()
 
@@ -819,16 +814,16 @@ def play_mode1(round_id):
         "s": ("player 2 fault", update_player),
         "d": ("player 3 fault", update_player),
         "f": ("player 4 fault", update_player),
-        "k": ("skip song", update_player),
+        "k": ("skip question", update_player),
         "l": ("leave game" , mainmenu),
     }
     round_name = get_round_name(round_id)
     print(f"\n\t{Color.MAGENTA}{round_name}\n{Color.BLUE}")
-    maximum = get_round_maximum_songs(round_id)
+    maximum = get_round_maximum_questions(round_id)
     set_monitor_round_by_round_id(round_id)
 
-    next_song = {}
-    next_song = get_next_song(round_id)
+    next_question = {}
+    next_question = get_next_question(round_id)
     points_to_play = get_points_to_play(round_id)
 
     player_1_points = get_player_points(1,round_id)
@@ -848,8 +843,7 @@ def play_mode1(round_id):
     buzzer_blocked = get_buzzer_blocked()
     buzzer_blocked = int(buzzer_blocked)
     show_scoreboard(buzzer_blocked,player_1_name,player_2_name,player_3_name,player_4_name,player_1_points,player_2_points,player_3_points,player_4_points)
-    print(f"\n\t{Color.YELLOW}[ Song# {next_song.get("seq",0)} / {maximum} ({next_song['total']}) ]{Color.MAGENTA}   {next_song.get("title","")} - {next_song.get("artist","")} ({next_song.get("year","")}{Color.BLUE})")
-    print(f"\n\tInfo: {next_song.get("comment","")}")
+    print(f"\n\t{Color.YELLOW}[ Song# {next_question.get("seq",0)} / {maximum} ({next_question['total']}) ]{Color.MAGENTA}   {next_question.get("question","")} - {next_question.get("answer","")}{Color.BLUE}")
     print(f"\n\t{Color.YELLOW}Points to play: {points_to_play}{Color.BLUE}\n")
     # key = input(print("\taction: "))
     key = click.getchar()
@@ -876,11 +870,11 @@ def play_mode1(round_id):
         if key == "l":
             handler.__call__()
     sort_ranking(round_id)
-    mark_song_as_played(round_id)
-    set_last_song(next_song['title'],next_song['artist'],next_song['year'])
+    mark_question_as_played(round_id)
+    set_last_question(next_question['title'],next_question['artist'])
     set_buzzer_blocked(round_id)
 
-    if (next_song.get("seq",0) < maximum) and (next_song.get("seq",0) != 0):
+    if (next_question.get("seq",0) < maximum) and (next_question.get("seq",0) != 0):
         play_mode1(round_id)
     else:
         player_1_points = get_player_points(1,round_id)
@@ -891,7 +885,7 @@ def play_mode1(round_id):
         show_scoreboard(buzzer_blocked,player_1_name,player_2_name,player_3_name,player_4_name,player_1_points,player_2_points,player_3_points,player_4_points)
         print("\n\tMit Play-Off (Stechen) weitermachen? (y/n)")
         key = click.getchar()
-        if next_song.get("seq",0) < next_song['total']:
+        if next_question.get("seq",0) < next_question['total']:
             if key == "n":
                 if round_id == "7":
                     set_monitor_to_winner()
@@ -924,11 +918,11 @@ def play_mode2(round_id):
     }
     round_name = get_round_name(round_id)
     print(f"\n\t{Color.MAGENTA}{round_name}\n{Color.BLUE}")
-    maximum = get_round_maximum_songs(round_id)
+    maximum = get_round_maximum_questions(round_id)
     set_monitor_round_by_round_id(round_id)
 
-    next_song = {}
-    next_song = get_next_song(round_id)
+    next_question = {}
+    next_question = get_next_question(round_id)
     points_to_play = get_points_to_play(round_id)
 
     player_1_points = get_player_points(1,round_id)
@@ -948,8 +942,7 @@ def play_mode2(round_id):
     buzzer_blocked = get_buzzer_blocked()
     buzzer_blocked = int(buzzer_blocked)
     show_scoreboard(buzzer_blocked,player_1_name,player_2_name,player_3_name,player_4_name,player_1_points,player_2_points,player_3_points,player_4_points)
-    print(f"\n\t{Color.YELLOW}[ Song# {next_song.get("seq",0)} / {maximum} ({next_song['total']}) ]{Color.MAGENTA}   {next_song.get("title","")} - {next_song.get("artist","")} ({next_song.get("year","")}{Color.BLUE})")
-    print(f"\n\tInfo: {next_song.get("comment","")}")
+    print(f"\n\t{Color.YELLOW}[ Song# {next_question.get("seq",0)} / {maximum} ({next_question['total']}) ]{Color.MAGENTA}   {next_question.get("question","")} - {next_question.get("answer","")}{Color.BLUE}")
     print(f"\n\t{Color.YELLOW}Points to play: {points_to_play}{Color.BLUE}\n")
     print("\taction: ")
     key = click.getchar()
@@ -979,12 +972,12 @@ def play_mode2(round_id):
     if round_id != "4":
         sort_ranking_playoff(round_id)
 
-    mark_song_as_played(round_id)
-    set_last_song(next_song.get("title",""),next_song.get("artist",""),next_song.get("year",""))
+    mark_question_as_played(round_id)
+    set_last_question(next_question.get("question",""),next_question.get("answer",""))
     set_buzzer_blocked(round_id)
     get_play_off_players_to_round()
 
-    if (next_song.get("seq",0) < maximum) and (next_song.get("seq",0) != 0):
+    if (next_question.get("seq",0) < maximum) and (next_question.get("seq",0) != 0):
         play_mode2(round_id)
     else:
         player_1_points = get_player_points(1,round_id)
@@ -995,7 +988,7 @@ def play_mode2(round_id):
         show_scoreboard(buzzer_blocked,player_1_name,player_2_name,player_3_name,player_4_name,player_1_points,player_2_points,player_3_points,player_4_points)
         print("\n\tMit Play-Off (Stechen) weitermachen? (y/n)")
         key = click.getchar()
-        if next_song.get("seq",0) < next_song['total']:
+        if next_question.get("seq",0) < next_question['total']:
             if key == "n":
                 if round_id == "7":
                     set_monitor_to_winner()
@@ -1030,8 +1023,8 @@ def play_mode3(round_id):
     maximum = get_round_maximum_songs(round_id)
     set_monitor_round_by_round_id(round_id)
 
-    next_song = {}
-    next_song = get_next_song(round_id)
+    next_question = {}
+    next_question = get_next_question(round_id)
     points_to_play = get_points_to_play(round_id)
 
     player_1_points = get_player_points(1,round_id)
@@ -1051,8 +1044,8 @@ def play_mode3(round_id):
     buzzer_blocked = get_buzzer_blocked()
     buzzer_blocked = int(buzzer_blocked)
     show_scoreboard(buzzer_blocked,player_1_name,player_2_name,player_3_name,player_4_name,player_1_points,player_2_points,player_3_points,player_4_points)
-    print(f"\n\t{Color.YELLOW}[ Song# {next_song['seq']} / {maximum} ({next_song['total']}) ]{Color.MAGENTA}   {next_song['title']} - {next_song['artist']} ({next_song['year']}{Color.BLUE})")
-    print(f"\n\tInfo: {next_song['comment']}")
+    print(f"\n\t{Color.YELLOW}[ Song# {next_question['seq']} / {maximum} ({next_question['total']}) ]{Color.MAGENTA}   {next_question['title']} - {next_question['artist']} ({next_question['year']}{Color.BLUE})")
+    print(f"\n\tInfo: {next_question['comment']}")
     print(f"\n\t{Color.YELLOW}Points to play: {points_to_play}{Color.BLUE}\n")
     print("\taction: ")
     key = click.getchar()
@@ -1080,10 +1073,10 @@ def play_mode3(round_id):
             handler.__call__()
     sort_ranking(round_id)
     mark_song_as_played(round_id)
-    set_last_song(next_song['title'],next_song['artist'],next_song['year'])
+    set_last_song(next_question['title'],next_question['artist'],next_question['year'])
     set_buzzer_blocked(round_id)
 
-    if next_song['seq'] < maximum:
+    if next_question['seq'] < maximum:
         play(round_id)
     else:
         player_1_points = get_player_points(1,round_id)
@@ -1094,7 +1087,7 @@ def play_mode3(round_id):
         show_scoreboard(buzzer_blocked,player_1_name,player_2_name,player_3_name,player_4_name,player_1_points,player_2_points,player_3_points,player_4_points)
         print("\n\tMit Play-Off (Stechen) weitermachen? (y/n)")
         key = click.getchar()
-        if next_song['seq'] < next_song['total']:
+        if next_question['seq'] < next_question['total']:
             if key == "n":
                 if round_id == "7":
                     set_monitor_to_winner()
@@ -1112,10 +1105,10 @@ def play_mode3(round_id):
                 set_monitor_to_pause()
                 mainmenu()
 
-def get_round_maximum_songs(round_id):
+def get_round_maximum_questions(round_id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
-    result = connection.execute(text(f"select maximum from max_songs where round = '{round_id}'"))
+    result = connection.execute(text(f"select maximum from max_questions where round = '{round_id}'"))
     for row in result:
         maximum = row.maximum
     connection.close()
@@ -1156,7 +1149,7 @@ def update_player(player_id,round_id,action):
         connection.execute(text(f"update player_round set is_active = 1 WHERE round = '{round_id}'"))
         connection.execute(text(f"update config set value = 0 WHERE name = 'buzzer_blocked'"))
         connection.commit()
-        print("\tskipped song")
+        print("\tskipped question")
     connection.close()
 
 def connect(database):
