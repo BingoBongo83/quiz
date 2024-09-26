@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="countdown">
+    <thead>
+        <tr>
+            <th class="countdown">
+                <p>MusikQuiz 2024{% block title %} {% endblock %}</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="countdown">&nbsp{{countdown['daytext']}}&nbsp
+            </td>
+        </tr>
+        <tr>
+            <td class="countdown">&nbsp{{countdown['hours']}}:{{countdown['minutes']}}:{{countdown['seconds']}}&nbsp</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

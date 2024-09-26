@@ -1,0 +1,11 @@
+[Unit]
+Description=musikquiz app
+After=network.target
+
+[Service]
+Group=www-data
+WorkingDirectory=/home/benny/Dokumente/musikquiz_local/musikquiz
+ExecStart=/home/benny/Dokumente/musikquiz_local/musikquiz/env/bin/gunicorn --error-logfile /var/log/gunicornmusikquiz_error.log --bind 127.0.0.1:5555 web:app
+
+[Install]
+WantedBy=multi-user.target
