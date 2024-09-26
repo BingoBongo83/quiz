@@ -843,7 +843,7 @@ def play_mode1(round_id):
     buzzer_blocked = get_buzzer_blocked()
     buzzer_blocked = int(buzzer_blocked)
     show_scoreboard(buzzer_blocked,player_1_name,player_2_name,player_3_name,player_4_name,player_1_points,player_2_points,player_3_points,player_4_points)
-    print(f"\n\t{Color.YELLOW}[ Song# {next_question.get("seq",0)} / {maximum} ({next_question['total']}) ]{Color.MAGENTA}   {next_question.get("question","")} - {next_question.get("answer","")}{Color.BLUE}")
+    print(f"\n\t{Color.YELLOW}[ Frage# {next_question.get("seq",0)} / {maximum} ({next_question['total']}) ]{Color.MAGENTA}\n\tFRAGE: {next_question.get("question","")}\n\tANTWORT:{next_question.get("answer","")}{Color.BLUE}")
     print(f"\n\t{Color.YELLOW}Points to play: {points_to_play}{Color.BLUE}\n")
     # key = input(print("\taction: "))
     key = click.getchar()
