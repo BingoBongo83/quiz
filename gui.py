@@ -26,9 +26,6 @@ global_player_id_2 = 0
 global_player_id_3 = 0
 global_player_id_4 = 0
 round_name = "-"
-display_spotify_song = "-"
-spotify_song ="-"
-spotify_artist = "-"
 
 pygame.mixer.init()
 
@@ -69,11 +66,11 @@ def main():
     style = ttk.Style()
     style.configure("Tournament.TSeparator", background="green4")
     style = ttk.Style()
-    style.configure("SongNumber.TLabel", background="black", foreground="yellow3", font=("Verdana", 16))
+    style.configure("QuestionNumber.TLabel", background="black", foreground="yellow3", font=("Verdana", 16))
     style = ttk.Style()
-    style.configure("Song.TLabel", background="black", foreground="dodgerblue2", font=("Verdana", 20))
+    style.configure("Question.TLabel", background="black", foreground="dodgerblue2", font=("Verdana", 20))
     style = ttk.Style()
-    style.configure("SongInfo.TLabel", background="black", foreground="dodgerblue2", font=("Verdana", 20))
+    style.configure("QuestionAnswer.TLabel", background="black", foreground="dodgerblue2", font=("Verdana", 20))
     style = ttk.Style()
     style.configure("green.Horizontal.TProgressbar", troughcolor="black", bordercolor="yellow3", background="yellow3")
     style.map("green.Horizontal.TProgressbar" , background=[("active", "yellow3")], troughcolor=[("active", "black")], bordercolor=[("active", "yellow3")])
@@ -137,13 +134,13 @@ def playmode():
 
     title_label = ttk.Label(game_window, text=title, style="Title.TLabel")
 
-    button_set_round_id_1 = ttk.Button(game_window, text=f"{round_name_1}", width=15, command=lambda:[set_round_id(1),update_spotify_song()])
-    button_set_round_id_2 = ttk.Button(game_window, text=f"{round_name_2}", width=15, command=lambda:[set_round_id(2),update_spotify_song()])
-    button_set_round_id_3 = ttk.Button(game_window, text=f"{round_name_3}", width=15, command=lambda:[set_round_id(3),update_spotify_song()])
-    button_set_round_id_4 = ttk.Button(game_window, text=f"{round_name_4}", width=15, command=lambda:[set_round_id(4),update_spotify_song()])
-    button_set_round_id_5 = ttk.Button(game_window, text=f"{round_name_5}", width=15, command=lambda:[set_round_id(5),update_spotify_song()])
-    button_set_round_id_6 = ttk.Button(game_window, text=f"{round_name_6}", width=15, command=lambda:[set_round_id(6),update_spotify_song()])
-    button_set_round_id_7 = ttk.Button(game_window, text=f"{round_name_7}", width=15, command=lambda:[set_round_id(7),update_spotify_song()])
+    button_set_round_id_1 = ttk.Button(game_window, text=f"{round_name_1}", width=15, command=lambda:[set_round_id(1)])
+    button_set_round_id_2 = ttk.Button(game_window, text=f"{round_name_2}", width=15, command=lambda:[set_round_id(2)])
+    button_set_round_id_3 = ttk.Button(game_window, text=f"{round_name_3}", width=15, command=lambda:[set_round_id(3)])
+    button_set_round_id_4 = ttk.Button(game_window, text=f"{round_name_4}", width=15, command=lambda:[set_round_id(4)])
+    button_set_round_id_5 = ttk.Button(game_window, text=f"{round_name_5}", width=15, command=lambda:[set_round_id(5)])
+    button_set_round_id_6 = ttk.Button(game_window, text=f"{round_name_6}", width=15, command=lambda:[set_round_id(6)])
+    button_set_round_id_7 = ttk.Button(game_window, text=f"{round_name_7}", width=15, command=lambda:[set_round_id(7)])
     button_player_1_correct = ttk.Button(game_window, text="P1 Richtig", width=16, style="Correct.TButton", command=lambda:[answer(1,my_round_id,"correct"),play_correct()])
     button_player_2_correct = ttk.Button(game_window, text="P2 Richtig", width=16, style="Correct.TButton", command=lambda:[answer(2,my_round_id,"correct"),play_correct()])
     button_player_3_correct = ttk.Button(game_window, text="P3 Richtig", width=16, style="Correct.TButton",command=lambda:[answer(3,my_round_id,"correct"),play_correct()])
@@ -153,7 +150,7 @@ def playmode():
     button_player_3_wrong = ttk.Button(game_window, text="P3  Falsch", width=16, style="False.TButton",command=lambda:[answer(3,my_round_id,"false"),play_wrong()])
     button_player_4_wrong = ttk.Button(game_window, text="P4  Falsch", width=16, style="False.TButton",command=lambda:[answer(4,my_round_id,"false"),play_wrong()])
     button_clock = ttk.Button(game_window, text="TikTak", style="Skip.TButton", width=16, command=lambda: play_clock())
-    button_skip_song = ttk.Button(game_window, text="Frage überspringen", style="Skip.TButton", width=16, command=lambda:[answer(1,my_round_id,"skip"),play_hit(),update_spotify_song()])
+    button_skip_question = ttk.Button(game_window, text="Frage überspringen", style="Skip.TButton", width=16, command=lambda:[answer(1,my_round_id,"skip"),play_hit()])
     exit_button = ttk.Button(game_window, text="EXIT", command=game_window.destroy, width=15)
 
     player_1_name_label = Label(game_window, text=f"{player_1_name}", width=12, anchor="center", fg="green3", bg="black", font=("Verdana", 30))
@@ -164,9 +161,9 @@ def playmode():
     player_2_points_label = Label(game_window, text=f"{player_2_points}", width=12, anchor="center", fg="green3", bg="black", font=("Verdana", 35))
     player_3_points_label = Label(game_window, text=f"{player_3_points}", width=12, anchor="center", fg="green3", bg="black", font=("Verdana", 35))
     player_4_points_label = Label(game_window, text=f"{player_4_points}", width=12, anchor="center", fg="green3", bg="black", font=("Verdana", 35))
-    question_counter_label = ttk.Label(game_window, text=f"SONG# {next_question.get("seq",0)} / {maximum} ({next_question['total']}):", style="SongNumber.TLabel")
-    next_question_label = ttk.Label(game_window, text=f"FRAGE:  {next_song.get("question","")}", style="Song.TLabel")
-    next_question_answer_label = ttk.Label(game_window, text=f"ANTWORT:   {next_song.get("answer","")}", style="SongInfo.TLabel")
+    question_counter_label = ttk.Label(game_window, text=f"FRAGE# {next_question.get("seq",0)} / {maximum} ({next_question['total']}):", style="QuestionNumber.TLabel")
+    next_question_label = ttk.Label(game_window, text=f"FRAGE:  {next_question.get("question","")}", style="Question.TLabel")
+    next_question_answer_label = ttk.Label(game_window, text=f"ANTWORT:   {next_question.get("answer","")}", style="QuestionAnswer.TLabel")
     # calculate progress bar
     progress = DoubleVar()
     progressbar = ttk.Progressbar(game_window, variable=progress, maximum=100, length=800, style="green.Horizontal.TProgressbar")
@@ -189,7 +186,7 @@ def playmode():
     button_player_3_wrong.grid(row = 5, column = 2)
     button_player_4_wrong.grid(row = 5, column = 3)
     progressbar.grid(row = 11, column = 1, columnspan=3)
-    button_skip_song.grid(row = 8, column = 2)
+    button_skip_question.grid(row = 8, column = 2)
     button_clock.grid(row = 9, column = 2)
     button_set_round_id_1.grid(row = 4, column = 8)
     button_set_round_id_2.grid(row = 5, column = 8)
@@ -204,7 +201,7 @@ def playmode():
     exit_button.grid(row = 16, column = 8)
 
     def answer(player_id, my_round_id, answer):
-        print(f"max songs: {maximum}, round_id: {my_round_id}, round_name: {round_name}")
+        print(f"max questionss: {maximum}, round_id: {my_round_id}, round_name: {round_name}")
         print(f"global player ids: {global_player_id_1}, {global_player_id_2}, {global_player_id_3}, {global_player_id_4}")
         global_player = 0
         if player_id == 1:
@@ -318,9 +315,9 @@ def playmode():
         global global_player_id_4
         global_player_id_4 = procs.get_global_player_id(4,round_id)
         procs.set_monitor_round_by_round_id(round_id)
-        global next_song
-        next_song = {}
-        next_song = procs.get_next_question(round_id)
+        global next_question
+        next_question = {}
+        next_question = procs.get_next_question(round_id)
         title_label.config(text=f"{round_name}")
         player_1_name_label.config(text=f"{player_1_name}")
         player_2_name_label.config(text=f"{player_2_name}")
@@ -331,8 +328,8 @@ def playmode():
         player_3_points_label.config(text=f"{player_3_points}")
         player_4_points_label.config(text=f"{player_4_points}")
         question_counter_label.config(text=f"FRAGE# {next_question.get('seq',0)} / {maximum} ({next_question['total']}): ")
-        next_question_label.config(text=f"FRAGE:  {next_song.get("question","")}")
-        next_question_answer_label.config(text=f"ANTWORT:   {next_song.get("answer","")}")
+        next_question_label.config(text=f"FRAGE:  {next_question.get("question","")}")
+        next_question_answer_label.config(text=f"ANTWORT:   {next_question.get("answer","")}")
         print(f"set round to {my_round_id} ({round_name})")
         return round_id, global_player_id_1, global_player_id_2, global_player_id_3, global_player_id_4
         update_progressbar()
@@ -341,7 +338,7 @@ def playmode():
         if maximum == 0:
             progress = 0
         else:
-            progress = int((next_song.get("seq",0) / maximum) * 100)
+            progress = int((next_question.get("seq",0) / maximum) * 100)
         # print(f"Progress: {progress}")
         new_value = progress
         progressbar["value"] = new_value
