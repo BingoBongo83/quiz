@@ -70,6 +70,142 @@ def change_play_mode():
         get_play_off_players_to_round()
     reset_player_points()
 
+def change_play_mode_silent(play_mode):
+    engine = connect(QUIZ_TABLE)
+    connection = engine.connect()
+    connection.execute(text(f"update config set value = {play_mode} where name ='play_mode'"))
+    connection.commit()
+    connection.close()
+    if play_mode == 1:
+        print("set round 4 normal")
+        set_round_four_normal()
+    if play_mode == 2:
+        print("set round 4 playoff")
+        set_round_four_playoff()
+        print("get play off players to round")
+        get_play_off_players_to_round()
+    reset_player_points_silent()
+
+def reset_player_points():
+    print("\tDas aktuelle Quiz zurücksetzen? (y/n): ")
+    action = click.getchar()
+    if action == "y":
+        engine = connect(QUIZ_TABLE)
+        connection = engine.connect()
+        connection.execute(text(f"update player_round set points = 0"))
+        connection.commit()
+        play_mode = get_play_mode()
+        if play_mode == "1" or play_mode == 1:
+            connection.execute(text(f"update player_round set player = 13 where id = 13"))
+            connection.execute(text(f"update player_round set player = 14 where id = 14"))
+            connection.execute(text(f"update player_round set player = 15 where id = 15"))
+            connection.execute(text(f"update player_round set player = 16 where id = 16"))
+            connection.execute(text(f"update player_round set player = 1 where id = 17"))
+            connection.execute(text(f"update player_round set player = 5 where id = 18"))
+            connection.execute(text(f"update player_round set player = 10 where id = 19"))
+            connection.execute(text(f"update player_round set player = 14 where id = 20"))
+            connection.execute(text(f"update player_round set player = 9 where id = 21"))
+            connection.execute(text(f"update player_round set player = 13 where id = 22"))
+            connection.execute(text(f"update player_round set player = 2 where id = 23"))
+            connection.execute(text(f"update player_round set player = 6 where id = 24"))
+            connection.execute(text(f"update player_round set player = 1 where id = 25"))
+            connection.execute(text(f"update player_round set player = 9 where id = 26"))
+            connection.execute(text(f"update player_round set player = 5 where id = 27"))
+            connection.execute(text(f"update player_round set player = 13 where id = 28"))
+            connection.execute(text(f"update player_round set player = 1 where id = 29"))
+            connection.commit()
+        if play_mode == "2" or play_mode == 2:
+            connection.execute(text(f"update player_round set player = 3 where id = 13"))
+            connection.execute(text(f"update player_round set player = 7 where id = 14"))
+            connection.execute(text(f"update player_round set player = 11 where id = 15"))
+            connection.execute(text(f"update player_round set player = 4 where id = 16"))
+            connection.execute(text(f"update player_round set player = 1 where id = 17"))
+            connection.execute(text(f"update player_round set player = 5 where id = 18"))
+            connection.execute(text(f"update player_round set player = 10 where id = 19"))
+            connection.execute(text(f"update player_round set player = 7 where id = 20"))
+            connection.execute(text(f"update player_round set player = 9 where id = 21"))
+            connection.execute(text(f"update player_round set player = 3 where id = 22"))
+            connection.execute(text(f"update player_round set player = 2 where id = 23"))
+            connection.execute(text(f"update player_round set player = 6 where id = 24"))
+            connection.execute(text(f"update player_round set player = 1 where id = 25"))
+            connection.execute(text(f"update player_round set player = 9 where id = 26"))
+            connection.execute(text(f"update player_round set player = 5 where id = 27"))
+            connection.execute(text(f"update player_round set player = 13 where id = 28"))
+            connection.execute(text(f"update player_round set player = 1 where id = 29"))
+            connection.commit()
+        connection.commit()
+        connection.execute(text(f"update songs set played = 0"))
+        connection.commit()
+        connection.execute(text(f"update last_song set title ='', artist='', year = ''"))
+        connection.commit()
+        connection.execute(text(f"update config set value = 0 where name ='monitor_round'"))
+        connection.commit()
+        connection.execute(text(f"update config set value = 0 where name ='buzzer_blocked'"))
+        connection.commit()
+        connection.execute(text(f"update player_round set is_active = 1"))
+        connection.commit()
+        connection.close()
+
+def reset_player_points_silent():
+    engine = connect(QUIZ_TABLE)
+    connection = engine.connect()
+    connection.execute(text(f"update player_round set points = 0"))
+    connection.commit()
+    play_mode = get_play_mode()
+    if play_mode == "1" or play_mode == 1:
+        connection.execute(text(f"update player_round set player = 13 where id = 13"))
+        connection.execute(text(f"update player_round set player = 14 where id = 14"))
+        connection.execute(text(f"update player_round set player = 15 where id = 15"))
+        connection.execute(text(f"update player_round set player = 16 where id = 16"))
+        connection.execute(text(f"update player_round set player = 1 where id = 17"))
+        connection.execute(text(f"update player_round set player = 5 where id = 18"))
+        connection.execute(text(f"update player_round set player = 10 where id = 19"))
+        connection.execute(text(f"update player_round set player = 14 where id = 20"))
+        connection.execute(text(f"update player_round set player = 9 where id = 21"))
+        connection.execute(text(f"update player_round set player = 13 where id = 22"))
+        connection.execute(text(f"update player_round set player = 2 where id = 23"))
+        connection.execute(text(f"update player_round set player = 6 where id = 24"))
+        connection.execute(text(f"update player_round set player = 1 where id = 25"))
+        connection.execute(text(f"update player_round set player = 9 where id = 26"))
+        connection.execute(text(f"update player_round set player = 5 where id = 27"))
+        connection.execute(text(f"update player_round set player = 13 where id = 28"))
+        connection.execute(text(f"update player_round set player = 1 where id = 29"))
+        connection.commit()
+    if play_mode == "2" or play_mode == 2:
+        # get_play_off_players_to_round()
+        connection.execute(text(f"update player_round set player = 3 where id = 13"))
+        connection.execute(text(f"update player_round set player = 7 where id = 14"))
+        connection.execute(text(f"update player_round set player = 11 where id = 15"))
+        connection.execute(text(f"update player_round set player = 4 where id = 16"))
+        connection.execute(text(f"update player_round set player = 1 where id = 17"))
+        connection.execute(text(f"update player_round set player = 5 where id = 18"))
+        connection.execute(text(f"update player_round set player = 10 where id = 19"))
+        connection.execute(text(f"update player_round set player = 7 where id = 20"))
+        connection.execute(text(f"update player_round set player = 9 where id = 21"))
+        connection.execute(text(f"update player_round set player = 3 where id = 22"))
+        connection.execute(text(f"update player_round set player = 2 where id = 23"))
+        connection.execute(text(f"update player_round set player = 6 where id = 24"))
+        connection.execute(text(f"update player_round set player = 1 where id = 25"))
+        connection.execute(text(f"update player_round set player = 9 where id = 26"))
+        connection.execute(text(f"update player_round set player = 5 where id = 27"))
+        connection.execute(text(f"update player_round set player = 13 where id = 28"))
+        connection.execute(text(f"update player_round set player = 1 where id = 29"))
+        connection.commit()
+    connection.commit()
+    connection.execute(text(f"update songs set played = 0"))
+    connection.commit()
+    connection.execute(text(f"update last_song set title ='', artist='', year = ''"))
+    connection.commit()
+    connection.execute(text(f"update config set value = 0 where name ='monitor_round'"))
+    connection.commit()
+    connection.execute(text(f"update config set value = 0 where name ='buzzer_blocked'"))
+    connection.commit()
+    connection.execute(text(f"update player_round set is_active = 1"))
+    connection.commit()
+    connection.close()
+    print("reset player points silent")
+
+
 def set_round_four_normal():
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
@@ -210,29 +346,6 @@ def new_player_names():
             update_player_name(16,player_16_name)
 
     reset_player_points()
-
-def reset_player_points():
-    print("\tDas aktuelle Quiz zurücksetzen? (y/n): ")
-    action = click.getchar()
-    if action == "y":
-        engine = connect(QUIZ_TABLE)
-        connection = engine.connect()
-        connection.execute(text(f"update player_round set points = 0"))
-        connection.commit()
-        connection.execute(text(f"update player_round set player = NULL where round = 5 or round = 6 or round = 7"))
-        connection.commit()
-        connection.execute(text(f"update questions set played = 0"))
-        connection.commit()
-        connection.execute(text(f"update last_question set question ='', answer=''"))
-        connection.commit()
-        connection.execute(text(f"update config set value = 0 where name ='monitor_round'"))
-        connection.commit()
-        connection.execute(text(f"update config set value = 0 where name ='buzzer_blocked'"))
-        connection.commit()
-        connection.execute(text(f"update player_round set is_active = 1"))
-        connection.commit()
-        connection.close()
-
 
 def reset_buzzer_blocked():
     engine = connect(QUIZ_TABLE)
@@ -662,38 +775,28 @@ def sort_ranking(round_id):
     round_id = int(round_id)
 
     if round_id == 1:
-        final_round_id = 5
-        final_player_id_first = 1
-        final_player_id_second = 2
+        update_final_round(1,5,keys[0])
+        update_final_round(3,6,keys[1])
     if round_id == 2:
-        final_round_id = 5
-        final_player_id_first = 3
-        final_player_id_second = 4
+        update_final_round(2,5,keys[0])
+        update_final_round(4,6,keys[1])
     if round_id == 3:
-        final_round_id = 6
-        final_player_id_first = 1
-        final_player_id_second = 2
+        update_final_round(1,6,keys[0])
+        update_final_round(3,5,keys[1])
     if round_id == 4:
-        final_round_id = 6
-        final_player_id_first = 3
-        final_player_id_second = 4
+        update_final_round(2,6,keys[0])
+        update_final_round(4,5,keys[1])
     if round_id == 5:
-        final_round_id = 7
-        final_player_id_first = 1
-        final_player_id_second = 2
+        update_final_round(1,7,keys[0])
+        update_final_round(3,7,keys[1])
     if round_id == 6:
-        final_round_id = 7
-        final_player_id_first = 3
-        final_player_id_second = 4
+        update_final_round(2,7,keys[0])
+        update_final_round(4,7,keys[1])
     if round_id == 7:
-       final_round_id = 8
-       final_player_id_first = 1
-       update_final_round(final_player_id_first,final_round_id,keys[0])
-    else:
-       update_final_round(final_player_id_first,final_round_id,keys[0])
-       update_final_round(final_player_id_second,final_round_id,keys[1])
+        update_final_round(1,8,keys[0])
 
 def sort_ranking_playoff(round_id):
+    print(f"sorting playoffs for round {round_id}")
     ranks = {
     get_global_player_id(1,round_id):get_player_points(1,round_id),
     get_global_player_id(2,round_id):get_player_points(2,round_id),
@@ -708,32 +811,26 @@ def sort_ranking_playoff(round_id):
         play_off_round_id = 4
         final_player_id_first = 1
         final_player_id_second = 2
-        update_playoff_round(final_player_id_first,keys[2],ranks[keys[2]])
-        update_playoff_round(final_player_id_second,keys[3],ranks[keys[3]])
+        update_playoff_round(1,keys[2],ranks[keys[2]])
+        update_playoff_round(4,keys[3],ranks[keys[3]])
     if round_id == 2:
         play_off_round_id = 4
         final_player_id_first = 3
         final_player_id_second = 4
-        update_playoff_round(final_player_id_first,keys[2],ranks[keys[2]])
-        update_playoff_round(final_player_id_second,keys[3],ranks[keys[3]])
+        update_playoff_round(2,keys[2],ranks[keys[2]])
+        update_playoff_round(5,keys[3],ranks[keys[3]])
     if round_id == 3:
         play_off_round_id = 4
         final_player_id_first = 5
         final_player_id_second = 6
-        update_playoff_round(final_player_id_first,keys[2],ranks[keys[2]])
-        update_playoff_round(final_player_id_second,keys[3],ranks[keys[3]])
+        update_playoff_round(3,keys[2],ranks[keys[2]])
+        update_playoff_round(6,keys[3],ranks[keys[3]])
     if round_id == 5:
-        final_round_id = 7
-        final_player_id_first = 1
-        final_player_id_second = 2
-        update_final_round(final_player_id_first,final_round_id,keys[0])
-        update_final_round(final_player_id_second,final_round_id,keys[1])
+        update_final_round(1,7,keys[0])
+        update_final_round(3,7,keys[1])
     if round_id == 6:
-        final_round_id = 7
-        final_player_id_first = 3
-        final_player_id_second = 4
-        update_final_round(final_player_id_first,final_round_id,keys[0])
-        update_final_round(final_player_id_second,final_round_id,keys[1])
+        update_final_round(2,7,keys[0])
+        update_final_round(4,7,keys[1])
     if round_id == 7:
         final_round_id = 8
         final_player_id_first = 1
@@ -756,7 +853,6 @@ def get_play_off_players_to_round():
     update_final_round(4,4,keys[3])
 
     return play_off_ranking
-
 
 def update_final_round(player_id,round_id,global_player_id):
     engine = connect(QUIZ_TABLE)
