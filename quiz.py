@@ -90,7 +90,7 @@ class QuestionAdd(QDialog):
         self.LabelQuestionImage.setText("Bild:")
 
         # count Questions in round for default seq value
-        countQuestions = procs.count_Questions_by_round(round_id)
+        countQuestions = procs.count_questions_by_round(round_id)
 
         self.questionQuestion = QLineEdit()
         self.questionQuestion.setFixedSize(400, 30)
