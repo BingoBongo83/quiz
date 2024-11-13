@@ -26,8 +26,8 @@ roundPlayoffColor = "rgb(255, 255, 0)"
 background_color = "#333436"
 main_color = "#00c300"
 active_button_color = "black"
-song_color = "#dcdcdc"
-song_bg_color = "#333436"
+question_color = "#dcdcdc"
+question_bg_color = "#333436"
 
 # toggle colors
 ToggleBgColor = "#000000"
