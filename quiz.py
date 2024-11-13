@@ -2295,55 +2295,55 @@ class GameWindow(QMainWindow):
         self.pBPlayer4Wrong.clicked.connect(self.initGame)
         self.GridScoreLayout.addWidget(self.pBPlayer4Wrong, 3, 3, 1, 1)
 
-        self.pBPreviousSongSpotify = QPushButton(self.verticalLayoutWidget)
-        self.pBPreviousSongSpotify.setObjectName("pBPreviousSongSpotify")
-        self.pBPreviousSongSpotify.setMinimumSize(QSize(0, 40))
-        self.pBPreviousSongSpotify.setMaximumSize(QSize(250, 16777215))
-        self.pBPreviousSongSpotify.setFont(font2)
-        self.pBPreviousSongSpotify.setStyleSheet(
-            "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
-        )
-        self.pBPreviousSongSpotify.clicked.connect(lambda: procs.media_previous_song())
-        self.pBPreviousSongSpotify.clicked.connect(self.initGame)
-        self.GridScoreLayout.addWidget(self.pBPreviousSongSpotify, 4, 0, 1, 1)
+        # self.pBPreviousSongSpotify = QPushButton(self.verticalLayoutWidget)
+        # self.pBPreviousSongSpotify.setObjectName("pBPreviousSongSpotify")
+        # self.pBPreviousSongSpotify.setMinimumSize(QSize(0, 40))
+        # self.pBPreviousSongSpotify.setMaximumSize(QSize(250, 16777215))
+        # self.pBPreviousSongSpotify.setFont(font2)
+        # self.pBPreviousSongSpotify.setStyleSheet(
+        #     "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
+        # )
+        # self.pBPreviousSongSpotify.clicked.connect(lambda: procs.media_previous_song())
+        # self.pBPreviousSongSpotify.clicked.connect(self.initGame)
+        # self.GridScoreLayout.addWidget(self.pBPreviousSongSpotify, 4, 0, 1, 1)
 
-        self.pBPlaySpotify = QPushButton(self.verticalLayoutWidget)
-        self.pBPlaySpotify.setObjectName("pBPlaySpotify")
-        self.pBPlaySpotify.setMinimumSize(QSize(0, 40))
-        self.pBPlaySpotify.setMaximumSize(QSize(250, 16777215))
-        self.pBPlaySpotify.setFont(font2)
-        self.pBPlaySpotify.setStyleSheet(
-            "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
-        )
-        self.pBPlaySpotify.setAutoDefault(True)
-        self.pBPlaySpotify.setFlat(False)
-        self.pBPlaySpotify.clicked.connect(lambda: procs.media_play())
-        # self.pBPlaySpotify.clicked.connect(self.initGame)
-        self.GridScoreLayout.addWidget(self.pBPlaySpotify, 4, 1, 1, 1)
+        # self.pBPlaySpotify = QPushButton(self.verticalLayoutWidget)
+        # self.pBPlaySpotify.setObjectName("pBPlaySpotify")
+        # self.pBPlaySpotify.setMinimumSize(QSize(0, 40))
+        # self.pBPlaySpotify.setMaximumSize(QSize(250, 16777215))
+        # self.pBPlaySpotify.setFont(font2)
+        # self.pBPlaySpotify.setStyleSheet(
+        #     "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
+        # )
+        # self.pBPlaySpotify.setAutoDefault(True)
+        # self.pBPlaySpotify.setFlat(False)
+        # self.pBPlaySpotify.clicked.connect(lambda: procs.media_play())
+        # # self.pBPlaySpotify.clicked.connect(self.initGame)
+        # self.GridScoreLayout.addWidget(self.pBPlaySpotify, 4, 1, 1, 1)
 
-        self.pBPauseSpotify = QPushButton(self.verticalLayoutWidget)
-        self.pBPauseSpotify.setObjectName("pBPauseSpotify")
-        self.pBPauseSpotify.setMinimumSize(QSize(0, 40))
-        self.pBPauseSpotify.setMaximumSize(QSize(250, 16777215))
-        self.pBPauseSpotify.setFont(font2)
-        self.pBPauseSpotify.setStyleSheet(
-            "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
-        )
-        self.pBPauseSpotify.clicked.connect(lambda: procs.media_pause())
-        self.pBPauseSpotify.clicked.connect(self.initGame)
-        self.GridScoreLayout.addWidget(self.pBPauseSpotify, 4, 2, 1, 1)
+        # self.pBPauseSpotify = QPushButton(self.verticalLayoutWidget)
+        # self.pBPauseSpotify.setObjectName("pBPauseSpotify")
+        # self.pBPauseSpotify.setMinimumSize(QSize(0, 40))
+        # self.pBPauseSpotify.setMaximumSize(QSize(250, 16777215))
+        # self.pBPauseSpotify.setFont(font2)
+        # self.pBPauseSpotify.setStyleSheet(
+        #     "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
+        # )
+        # self.pBPauseSpotify.clicked.connect(lambda: procs.media_pause())
+        # self.pBPauseSpotify.clicked.connect(self.initGame)
+        # self.GridScoreLayout.addWidget(self.pBPauseSpotify, 4, 2, 1, 1)
 
-        self.pBNextSongSpotify = QPushButton(self.verticalLayoutWidget)
-        self.pBNextSongSpotify.setObjectName("pBNextSongSpotify")
-        self.pBNextSongSpotify.setMinimumSize(QSize(0, 40))
-        self.pBNextSongSpotify.setMaximumSize(QSize(250, 16777215))
-        self.pBNextSongSpotify.setFont(font2)
-        self.pBNextSongSpotify.setStyleSheet(
-            "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
-        )
-        self.pBNextSongSpotify.clicked.connect(lambda: procs.media_next_song())
-        self.pBNextSongSpotify.clicked.connect(self.initGame)
-        self.GridScoreLayout.addWidget(self.pBNextSongSpotify, 4, 3, 1, 1)
+        # self.pBNextSongSpotify = QPushButton(self.verticalLayoutWidget)
+        # self.pBNextSongSpotify.setObjectName("pBNextSongSpotify")
+        # self.pBNextSongSpotify.setMinimumSize(QSize(0, 40))
+        # self.pBNextSongSpotify.setMaximumSize(QSize(250, 16777215))
+        # self.pBNextSongSpotify.setFont(font2)
+        # self.pBNextSongSpotify.setStyleSheet(
+        #     "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
+        # )
+        # self.pBNextSongSpotify.clicked.connect(lambda: procs.media_next_song())
+        # self.pBNextSongSpotify.clicked.connect(self.initGame)
+        # self.GridScoreLayout.addWidget(self.pBNextSongSpotify, 4, 3, 1, 1)
 
         self.pBQuizControls = QPushButton(self.verticalLayoutWidget)
         self.pBQuizControls.setObjectName("pBQuizControls")
