@@ -7,7 +7,7 @@ from sqlalchemy import text, create_engine
 import dbus
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
-from config import QUIZ_TABLE, config, ARDUINO_USE, ARDUINO_PORT, ARDUINO_BAUD, cover_image, background_color, main_color, active_button_color, song_color, song_bg_color, hwindowsize, vwindowsize
+from config import QUIZ_TABLE, config, ARDUINO_USE, ARDUINO_PORT, ARDUINO_BAUD 
 import serial
 from faker import Faker
 
