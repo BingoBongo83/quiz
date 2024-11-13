@@ -2496,10 +2496,6 @@ class GameWindow(QMainWindow):
         self.ColorTimer.timeout.connect(self.get_player_color)
         self.ColorTimer.start(1000)
 
-        # start timer for get spotify playing song
-        # self.SpotifyTimer = QTimer()
-        # self.SpotifyTimer.timeout.connect(self.get_spotify_playing_song)
-        # self.SpotifyTimer.start(2000)
 
         # start subprocess for checking arduino serial signal (buzzer pressed)
         self.buzzer_checker = subprocess.Popen(["python3", "buzzer.py"])
@@ -2749,7 +2745,6 @@ class GameWindow(QMainWindow):
         procs.set_monitor_to_pause()
         print("----- CLOSE GAME WINDOW -----")
         self.ColorTimer.stop()
-        self.SpotifyTimer.stop()
         self.buzzer_checker.kill()
         self.close()
 
