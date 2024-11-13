@@ -14,6 +14,16 @@ from faker import Faker
 # if arduino cant connect try this to find ttyACM* or ttyUSB* port: ls /dev/tty*
 arduino = serial.Serial(ARDUINO_PORT, ARDUINO_BAUD, timeout=1)
 
+def count_questions_by_round(round_id):
+    engine = connect(QUIZ_TABLE)
+    connection = engine.connect()
+    result = connection.execute(
+        text(f"SELECT COUNT(*) FROM questions WHERE round = {round_id}")
+    )
+    for row in result:
+        count = row[0]
+    connection.close()
+    return count
 
 def get_questions_for_round(round_id):
     engine = connect(QUIZ_TABLE)
@@ -21,7 +31,7 @@ def get_questions_for_round(round_id):
     questions = []
     result = connection.execute(text(f"SELECT id, question, answer, seq FROM questions WHERE round = {round_id} ORDER BY seq ASC"))
     for row in result:
-        songs.append([row.id, row.seq, row.question, row.answer])
+        questions.append([row.id, row.seq, row.question, row.answer])
     connection.close()
     return questions
 
