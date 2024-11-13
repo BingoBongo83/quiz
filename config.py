@@ -2,7 +2,7 @@ from configparser import ConfigParser
 from PySide6.QtCore import QSize
 import os
 
-QUIZ_TABLE = "musikquiz"
+QUIZ_TABLE = "quiz"
 
 ARDUINO_USE = "yes"
 ARDUINO_PORT = "/dev/ttyACM0"
