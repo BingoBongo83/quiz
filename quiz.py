@@ -2659,10 +2659,10 @@ class GameWindow(QMainWindow):
         #     f"Spotify spielt gerade: {spotify_song} - {spotify_artist}"
         # )
 
-        self.PreviousquestionLabelTitle.setText(
+        self.PreviousQuestionLabelTitle.setText(
             f"{previous_question['question']} - {previous_question['answer']})"
         )
-        self.PreviousquestionLabelComment.setPlainText(previous_question["comment"])
+        self.PreviousQuestionLabelComment.setPlainText(previous_question["comment"])
         PreviousQuestionCover = previous_question["cover"]
         PreviousQuestionCover = "".join(cover_path + PreviousQuestionCover)
         self.PreviousQuestionCoverPixmap = QPixmap(PreviousQuestionCover)
