@@ -1,152 +1,322 @@
--- -------------------------------------------------------------
--- -------------------------------------------------------------
--- TablePlus 1.2.2
+/*!999999\- enable the sandbox mode */ 
+-- MariaDB dump 10.19  Distrib 10.11.8-MariaDB, for debian-linux-gnu (x86_64)
 --
--- https://tableplus.com/
+-- Host: localhost    Database: musikquiz
+-- ------------------------------------------------------
+-- Server version	10.11.8-MariaDB-0ubuntu0.24.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
 --
--- Database: musikquiz
--- Generation Time: 2024-11-13 12:08:20.871187
--- -------------------------------------------------------------
+-- Table structure for table `config`
+--
 
-DROP TABLE `musikquiz`.`songs`;
-
-
-CREATE TABLE `songs` (
+DROP TABLE IF EXISTS `config`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `config` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) DEFAULT NULL,
-  `artist` varchar(255) DEFAULT NULL,
+  `name` varchar(64) DEFAULT NULL,
+  `value` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `config`
+--
+
+LOCK TABLES `config` WRITE;
+/*!40000 ALTER TABLE `config` DISABLE KEYS */;
+INSERT INTO `config` VALUES
+(1,'monitor_round','0'),
+(2,'buzzer_blocked','4'),
+(10,'final_date','Mar 8 2025  19:30:00'),
+(11,'player_correct','0'),
+(12,'play_mode','2'),
+(13,'play_round','1'),
+(14,'buzzer_pressed','4'),
+(15,'version','0.9');
+/*!40000 ALTER TABLE `config` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `last_song`
+--
+
+DROP TABLE IF EXISTS `last_question`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `last_question` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `question` varchar(255) DEFAULT NULL,
+  `answer` varchar(255) DEFAULT NULL,
+  `image` varchar(64) DEFAULT NULL,
+  `comment` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `last_song`
+--
+
+LOCK TABLES `last_question` WRITE;
+/*!40000 ALTER TABLE `last_song` DISABLE KEYS */;
+INSERT INTO `last_question` VALUES
+(1,'','','standard.jpg','');
+/*!40000 ALTER TABLE `last_song` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `max_songs`
+--
+
+DROP TABLE IF EXISTS `max_questions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `max_questions` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `round` varchar(64) DEFAULT NULL,
+  `maximum` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `max_songs`
+--
+
+LOCK TABLES `max_questions` WRITE;
+/*!40000 ALTER TABLE `max_songs` DISABLE KEYS */;
+INSERT INTO `max_questions` VALUES
+(1,'1',20),
+(2,'2',20),
+(3,'3',20),
+(4,'4',20),
+(5,'5',25),
+(6,'6',25),
+(7,'7',30);
+/*!40000 ALTER TABLE `max_songs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `play_off`
+--
+
+DROP TABLE IF EXISTS `play_off`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `play_off` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `player` bigint(20) unsigned DEFAULT NULL,
+  `points` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `name_idx` (`player`),
+  CONSTRAINT `fk_name_2` FOREIGN KEY (`player`) REFERENCES `player` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `play_off`
+--
+
+LOCK TABLES `play_off` WRITE;
+/*!40000 ALTER TABLE `play_off` DISABLE KEYS */;
+INSERT INTO `play_off` VALUES
+(1,3,0),
+(2,7,0),
+(3,11,0),
+(4,4,0),
+(5,8,0),
+(6,12,0);
+/*!40000 ALTER TABLE `play_off` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `player`
+--
+
+DROP TABLE IF EXISTS `player`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `player` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `player`
+--
+
+LOCK TABLES `player` WRITE;
+/*!40000 ALTER TABLE `player` DISABLE KEYS */;
+INSERT INTO `player` VALUES
+(1,'Robin'),
+(2,'Sahin'),
+(3,'Gernot'),
+(4,'Cäcilia'),
+(5,'Alex'),
+(6,'Jessika'),
+(7,'Henning'),
+(8,'Albertine'),
+(9,'Thies'),
+(10,'Anatol'),
+(11,'Alexander'),
+(12,'Karlfried'),
+(13,'Yvette'),
+(14,'Roselinde'),
+(15,'Karl-Heinrich'),
+(16,'Xaver');
+/*!40000 ALTER TABLE `player` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `player_round`
+--
+
+DROP TABLE IF EXISTS `player_round`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `player_round` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `player_round_id` bigint(20) unsigned DEFAULT NULL,
+  `player` bigint(20) unsigned DEFAULT NULL,
+  `round` bigint(20) unsigned DEFAULT NULL,
+  `points` int(11) unsigned DEFAULT NULL,
+  `is_active` tinyint(1) unsigned DEFAULT NULL,
+  `color` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `name_idx` (`player`),
+  KEY `round_idx` (`round`),
+  CONSTRAINT `fk_name` FOREIGN KEY (`player`) REFERENCES `player` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_round` FOREIGN KEY (`round`) REFERENCES `round` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `player_round`
+--
+
+LOCK TABLES `player_round` WRITE;
+/*!40000 ALTER TABLE `player_round` DISABLE KEYS */;
+INSERT INTO `player_round` VALUES
+(1,1,1,1,0,1,NULL),
+(2,2,2,1,0,1,NULL),
+(3,3,3,1,0,1,NULL),
+(4,4,4,1,0,1,NULL),
+(5,1,5,2,0,1,NULL),
+(6,2,6,2,0,1,NULL),
+(7,3,7,2,0,1,NULL),
+(8,4,8,2,0,1,NULL),
+(9,1,9,3,0,1,NULL),
+(10,2,10,3,0,1,NULL),
+(11,3,11,3,0,1,NULL),
+(12,4,12,3,0,1,NULL),
+(13,1,3,4,0,1,NULL),
+(14,2,7,4,0,1,NULL),
+(15,3,11,4,0,1,NULL),
+(16,4,4,4,0,1,NULL),
+(17,1,1,5,0,1,NULL),
+(18,2,5,5,0,1,NULL),
+(19,3,10,5,0,1,NULL),
+(20,4,7,5,0,1,NULL),
+(21,1,9,6,0,1,NULL),
+(22,2,3,6,0,1,NULL),
+(23,3,2,6,0,1,NULL),
+(24,4,6,6,0,1,NULL),
+(25,1,1,7,0,1,NULL),
+(26,2,9,7,0,1,NULL),
+(27,3,5,7,0,1,NULL),
+(28,4,13,7,0,1,NULL),
+(29,1,1,8,0,1,NULL);
+/*!40000 ALTER TABLE `player_round` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `round`
+--
+
+DROP TABLE IF EXISTS `round`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `round` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `round` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `round`
+--
+
+LOCK TABLES `round` WRITE;
+/*!40000 ALTER TABLE `round` DISABLE KEYS */;
+INSERT INTO `round` VALUES
+(1,'Vorrunde 1'),
+(2,'Vorrunde 2'),
+(3,'Vorrunde 3'),
+(4,'Playoff'),
+(5,'Halbfinale 1'),
+(6,'Halbfinale 2'),
+(7,'Finale'),
+(8,'Gewinner'),
+(9,'Pause');
+/*!40000 ALTER TABLE `round` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `songs`
+--
+
+DROP TABLE IF EXISTS `questions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `questions` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `question` varchar(255) DEFAULT NULL,
+  `answer` varchar(255) DEFAULT NULL,
   `round` bigint(20) unsigned DEFAULT NULL,
   `seq` bigint(20) unsigned DEFAULT NULL,
   `played` bigint(20) unsigned DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
-  `year` bigint(20) unsigned DEFAULT NULL,
-  `cover` varchar(64) DEFAULT NULL,
+  `image` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-INSERT INTO `musikquiz`.`songs` (`id`, `title`, `artist`, `round`, `seq`, `played`, `comment`, `year`, `cover`) VALUES 
-(1, 'Ordinary World ', 'Duran Duran', 1, 3, 0, 'Benannt nach dem Bösewicht Durand Durand,
-aus den SciFiFilm Barbarella
-', 1993, 'R-854954-1165753222.jpg'),
-(2, 'Love Will Tear Us Apart', 'Joy Division ', 1, 2, 0, 'Kurz vor dem Suizid von Sänger Ian Curtis veröffentlich, Love will tear us apart steht auf seinem Grabstein ', 1980, 'R-28027-1163963079.jpg'),
-(4, ' Boom, Boom, Boom, Boom!! ', 'Vengaboys ', 1, 4, 0, 'Erste Strophe aus `Lay all your love on me - ABBA` ', 1998, 'R-371317-1466283790-1815.jpg'),
-(5, 'Bitter Sweet Symphony', 'The Verve ', 1, 5, 0, 'Streicher aus einer Orchester-Version von `the last time - rolling stones`', 1997, 'R-881598-1230071652.jpg'),
-(6, 'Come As You Are ', 'Nirvana ', 1, 6, 0, 'Come as you are steht auf den Ortseingangschilder der Stadt Aberdeen
-(Geburtort Kurt Cobain)', 1991, 'R-783216-1416890641-7794.jpg'),
-(7, 'Don`t Speak ', 'No Doubt ', 1, 7, 0, '', 1995, 'R-678365-1594718493-2561.jpg'),
-(8, 'Hyper Hyper ', 'Scooter ', 1, 8, 0, 'Feinste Lyric von Hans Peter Gerdes', 1994, 'R-125910-1395612429-9704.jpg'),
-(9, 'Ein bisschen Aroma', 'Roger Whittaker ', 1, 9, 0, '', 1986, 'R-3048914-1709500460-5114.jpg'),
-(10, 'Only You ', 'Yazoo ', 1, 10, 0, 'Vince clark schrieb den Song mit Depeche Mode
+--
+-- Dumping data for table `songs`
+--
 
-erst mit Yazoo (mit Alyson Moyet) aufgenommen
-', 1982, 'R-4824598-1426733035-2407.jpg'),
-(11, 'Eins Zwei Polizei ', 'Mo-Do ', 1, 11, 0, 'Eurodance des italienischen Dance-Projects Mo-Do', 1995, 'R-193925-1262119140.jpg'),
-(12, 'Suspicious Minds ', 'Elvis Presley ', 1, 14, 0, 'Im Original von Mark James (1968), der lediglich 12 Platten davon verkaufte', 1969, 'R-5243431-1388570549-1457.jpg'),
-(14, 'Mrs. Robinson', 'Simon & Garfunkel ', 1, 15, 0, 'Veröffentlichung:
-1967 im Film die Reifeprüfung
-1968 als Single', 1968, 'R-1695140-1589733272-2457.jpg'),
-(15, 'Shout ', 'Tears For Fears ', 1, 21, 0, '15 Coverversionen von TfF selbst', 1985, 'R-148862-1165181725.jpg'),
-(16, 'Thank You ', 'Dido ', 1, 18, 0, 'Dido nach Faithless Solo,
-2000 durch `Stan` von Eminem erfolgreicher als zuvor
-Dido ist die Gründerin Karthagos', 1999, 'R-654897-1462033082-6624.jpg'),
-(17, 'Paranoid ', 'Black Sabbath ', 1, 19, 0, 'Die Begründer des Heavy Metal,
-Paranoid ist ihre Debutsingle ', 1970, 'R-10509769-1518886177-5588.jpg'),
-(18, 'I`m a Believer', 'The Monkees ', 1, 20, 0, 'Erfolgreichste Single, geschrieben von Neil Diamond
-Bekanntestes Cover: Neil Diamond 1967', 1967, 'R-1181460-1449650967-3295.jpg'),
-(19, 'You Give Love A Bad Name ', 'Bon Jovi ', 1, 17, 0, 'Platz 1 USA
-Österreich Platz 25
-in Deutschland nie in den Charts', 1994, 'R-1052784-1248623822.jpg'),
-(20, 'Flat Beat ', 'Mr. Oizo ', 1, 22, 0, 'Mr. Oizo ist Quentin Dupieux (Regisseur)
-Europaweit in den Top Ten
-', 1999, 'R-11699-1167567049.jpg'),
-(21, 'Eifel - Radio Edit ', 'Brings ', 1, 23, 0, '', 2007, 'R-11873040-1714982974-4591.jpg'),
-(22, 'Don`t Stop Believin` ', 'Journey ', 1, 13, 0, '', 1981, 'R-419741-1454675353-7372.jpg'),
-(23, 'Son Of A Preacher Man ', 'Dusty Springfield ', 1, 24, 0, '', 1969, 'R-556921-1273994950.jpg'),
-(24, 'König von Deutschland ', 'Rio Reiser ', 1, 16, 0, '', 1986, 'R-1010856-1539874254-7239.jpg'),
-(25, 'Invisible Touch', 'Genesis ', 1, 25, 0, '', 1986, 'R-512282-1275630548.jpg'),
-(26, 'Friday I`m In Love ', 'The Cure ', 2, 1, 0, '', 1992, ''),
-(27, 'Fast Car ', 'Tracy Chapman ', 2, 2, 0, '', 1988, ''),
-(28, '7 Seconds', 'Youssou N`Dour, Neneh Cherry ', 2, 3, 0, '', 1994, ''),
-(29, 'Hedonism (Just Because You Feel Good) ', 'Skunk Anansie ', 2, 4, 0, '', 1996, ''),
-(30, 'It`s My Life', 'Talk Talk ', 2, 5, 0, '', 1984, ''),
-(31, 'Bette Davis Eyes ', 'Kim Carnes ', 2, 6, 0, '', 1981, ''),
-(32, 'Because the Night ', 'Patti Smith ', 2, 7, 0, '', 1978, ''),
-(33, 'Time After Time ', 'Cyndi Lauper ', 2, 8, 0, '', 1983, ''),
-(34, 'Luka ', 'Suzanne Vega ', 2, 9, 0, '', 1987, ''),
-(35, 'Let`s Dance', 'David Bowie ', 2, 10, 0, '', 1983, ''),
-(36, 'Song 2', 'Blur ', 2, 11, 0, '', 1997, ''),
-(37, 'Thunderstruck ', 'AC/DC ', 2, 12, 0, '', 1990, ''),
-(38, 'Nessaja ', 'Peter Maffay, Tabaluga ', 2, 13, 0, '', 1983, ''),
-(39, 'To Be With You', 'Mr. Big ', 2, 14, 0, '', 1991, ''),
-(40, 'Breakfast At Tiffany`s ', 'Deep Blue Something ', 2, 15, 0, '', 1995, ''),
-(41, 'Wellenreiter ', 'BAP ', 2, 16, 0, '', 1982, ''),
-(42, 'I`ve Been Thinking About You ', 'Londonbeat ', 2, 17, 0, '', 1995, ''),
-(43, 'Don`t Look Back In Anger', 'Oasis ', 2, 18, 0, '', 1995, ''),
-(44, 'Miami ', 'Will Smith ', 2, 19, 0, '', 1997, ''),
-(45, 'Vienna ', 'Ultravox ', 2, 20, 0, '', 1980, ''),
-(46, 'Love Shine a Light ', 'Katrina And The Waves ', 2, 21, 0, '', 1997, ''),
-(47, 'Albany - German Version ', 'Roger Whittaker ', 2, 22, 0, '', 1981, ''),
-(48, 'Hard to Say I`m Sorry ', 'Chicago ', 2, 23, 0, '', 1982, ''),
-(49, 'Talkin` Bout a Revolution ', 'Tracy Chapman ', 2, 24, 0, '', 1988, ''),
-(50, 'Whatever You Want ', 'Status Quo ', 2, 25, 0, '', 1979, ''),
-(51, 'Give A Little Bit ', 'Supertramp ', 3, 1, 0, 'Das ist 
-Ein 
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-Text', 1977, ''),
-(52, 'Drive', 'The Cars ', 3, 2, 0, '', 1984, ''),
-(53, 'My Sweet Lord', 'George Harrison ', 3, 3, 0, '', 1970, ''),
-(54, 'Wild World ', 'Yusuf / Cat Stevens ', 3, 4, 0, '', 1970, ''),
-(55, 'How Bizarre ', 'OMC ', 3, 5, 0, '', 1996, ''),
-(56, 'It Must Have Been Love', 'Roxette ', 3, 6, 0, '', 1990, ''),
-(57, 'The Boxer ', 'Simon & Garfunkel ', 3, 7, 0, '', 1970, ''),
-(58, 'Californication ', 'Red Hot Chili Peppers ', 3, 8, 0, '', 1999, ''),
-(59, 'Drink doch eine met ', 'Bläck Fööss ', 3, 9, 0, '', 1990, ''),
-(60, 'Message In A Bottle ', 'The Police ', 3, 10, 0, '', 1979, ''),
-(61, 'Basket Case ', 'Green Day ', 3, 11, 0, '', 1994, ''),
-(62, 'A Whiter Shade of Pale', 'Procul Harum ', 3, 12, 0, '', 1985, ''),
-(63, 'You Can`t Always Get What You Want ', 'The Rolling Stones ', 3, 13, 0, '', 1969, ''),
-(64, 'Komet ', 'Udo Lindenberg, Apache 207 ', 3, 14, 0, '', 2023, ''),
-(65, 'Wir sagen danke schön', 'Die Flippers ', 3, 15, 0, '', 2022, ''),
-(66, 'Cold as Ice ', 'Foreigner ', 3, 16, 0, '', 1977, ''),
-(67, 'Hells Bells ', 'AC/DC ', 3, 17, 0, '', 1980, ''),
-(68, 'Celebration ', 'Fun Factory ', 3, 18, 0, '', 2016, ''),
-(69, ' Another Brick In The Wall, Pt. 2', 'Pink Floyd ', 3, 19, 0, '', 1979, ''),
-(70, 'Horny', 'Mousse T., Hot `N` Juicy ', 3, 20, 0, '', 2019, ''),
-(71, 'A Horse with No Name ', 'America, George Martin ', 3, 21, 0, '', 1972, ''),
-(72, 'Tell Me When ', 'The Human League ', 3, 22, 0, '', 1995, ''),
-(73, 'True', 'Spandau Ballet ', 3, 23, 0, '', 1983, ''),
-(74, 'Walking in Memphis ', 'Marc Cohn ', 3, 24, 0, '', 1991, ''),
-(75, 'One ', 'U2 ', 3, 25, 0, '', 1991, ''),
-(76, 'Mmm Mmm Mmm Mmm ', 'Crash Test Dummies ', 4, 1, 0, '', 1993, ''),
-(77, 'The Logical Song', 'Supertramp ', 4, 2, 0, '', 1979, ''),
-(78, 'Every Breath You Take ', 'The Police ', 4, 3, 0, '', 1983, ''),
-(79, 'Do Wah Diddy Diddy', 'Manfred Mann ', 4, 4, 0, '', 1963, ''),
-(80, 'San Francisco (Be Sure to Wear Some Flowers In Your Hair) ', 'Scott McKenzie ', 4, 5, 0, '', 1967, ''),
-(81, 'Cats In The Cradle ', 'Ugly Kid Joe ', 4, 6, 0, '', 1992, ''),
-(82, 'Mambo No. 5 (a Little Bit of...) ', 'Lou Bega ', 4, 7, 0, '', 1999, ''),
-(83, 'I Don`t Like Mondays ', 'The Boomtown Rats ', 4, 8, 0, '', 1979, ''),
-(84, 'Old Pop in an Oak ', 'Rednex ', 4, 9, 0, '', 1994, ''),
-(85, 'Lück wie ich un du ', 'Bläck Fööss ', 4, 10, 0, '', 1988, ''),
-(86, 'Lullaby ', 'The Cure ', 4, 11, 0, '', 1989, ''),
-(87, 'Start Me Up', 'The Rolling Stones ', 4, 12, 0, '', 1981, ''),
-(88, 'Friesenjung ', 'Ski Aggu, Joost, Otto Waalkes ', 4, 13, 0, '', 2023, ''),
-(89, 'All Right Now ', 'Free ', 4, 14, 0, '', 1970, ''),
-(90, 'Hotel California', 'Eagles ', 4, 15, 0, '', 1976, ''),
-(91, 'All The Small Things ', 'blink-182 ', 4, 16, 0, '', 1999, ''),
-(92, 'Go Your Own Way', 'Fleetwood Mac ', 4, 17, 0, '', 1977, ''),
-(93, 'Amoi seg` ma uns wieder', 'Andreas Gabalier ', 4, 18, 0, '', 2014, ''),
-(94, ' Take Me Home, Country Roads', 'John Denver ', 4, 19, 0, '', 1973, ''),
-(95, 'Heroes', 'David Bowie ', 4, 20, 0, '', 1977, ''),
-(96, 'Our House ', 'Madness ', 4, 21, 0, '', 1982, ''),
-(97, 'The Safety Dance ', 'Men Without Hats ', 4, 22, 0, '', 1982, ''),
-(98, 'Karma Chameleon', 'Culture Club ', 4, 23, 0, '', 1983, ''),
-(99, 'I Walk The Line', 'Johnny Cash', 4, 24, 0, '', 1958, ''),
-(100, 'She Drives Me Crazy ', 'Fine Young Cannibals ', 4, 25, 0, '', 1988, ''),
-(101, 'Hungry like the Wolf', 'Duran Duran', 5, 1, 0, '', 1982, 'standard.jpg'),
-(102, 'Infinity', 'Guru Josh', 5, 2, 0, '', 1990, 'standard.jpg'),
-(103, 'Let The Beat Control Your Body', '2 Unlimited', 5, 3, 0, 'Kommentar', 1993, 'standard.jpg'),
-(105, 'Just Can´t Get Enough', 'Depeche Mode', 1, 1, 0, 'Kommentar', 1981, 'standard.jpg'),
-(106, 'Two Princes', 'Spin Doctors', 1, 12, 0, 'Kommentar', 1991, 'standard.jpg'),
-(110, 'All Night Long', 'Lionel Richie', 5, 4, 0, 'Kommentar', 1983, 'standard.jpg');
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+-- Dump completed on 2024-11-13 14:24:40

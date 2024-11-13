@@ -15,53 +15,6 @@ from faker import Faker
 arduino = serial.Serial(ARDUINO_PORT, ARDUINO_BAUD, timeout=1)
 
 
-def count_years():
-    oldest_song = get_oldest_song()
-    youngest_song = get_youngest_song()
-    oldest_song_year = oldest_song["year"]
-    youngest_song_year = youngest_song["year"]
-    engine = connect(QUIZ_TABLE)
-    connection = engine.connect()
-    years = range(oldest_song_year, youngest_song_year + 1)
-    years_result = {}
-    for year in years:
-        result = connection.execute(
-            text(f"SELECT COUNT(*) FROM songs WHERE year = {year}")
-        )
-        for row in result:
-            years_result[year] = row[0]
-    connection.close()
-    return years_result
-
-def count_songs_by_round(round_id):
-    engine = connect(QUIZ_TABLE)
-    connection = engine.connect()
-    result = connection.execute(
-        text(f"SELECT COUNT(*) FROM songs WHERE round = {round_id}")
-    )
-    for row in result:
-        count = row[0]
-    connection.close()
-    return count
-
-def count_years_by_round(round_id):
-    oldest_song = get_oldest_song()
-    youngest_song = get_youngest_song()
-    oldest_song_year = oldest_song["year"]
-    youngest_song_year = youngest_song["year"]
-    engine = connect(QUIZ_TABLE)
-    connection = engine.connect()
-    years = range(oldest_song_year, youngest_song_year + 1)
-    years_result = {}
-    for year in years:
-        result = connection.execute(
-            text(f"SELECT COUNT(*) FROM songs WHERE year = {year} AND round = {round_id}")
-        )
-        for row in result:
-            years_result[year] = row[0]
-    connection.close()
-    return years_result
-
 def get_songs_for_round(round_id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
@@ -71,60 +24,6 @@ def get_songs_for_round(round_id):
         songs.append([row.id, row.seq, row.title, row.artist, row.year])
     connection.close()
     return songs
-
-def get_oldest_song():
-    engine = connect(QUIZ_TABLE)
-    connection = engine.connect()
-    oldest_song = {}
-    result = connection.execute(
-        text("SELECT title, artist, year FROM songs WHERE year IS NOT NULL ORDER BY year ASC LIMIT 1")
-    )
-    for row in result:
-        oldest_song["title"] = row.title
-        oldest_song["artist"] = row.artist
-        oldest_song["year"] = row.year
-    connection.close()
-    return oldest_song
-
-def get_youngest_song():
-    engine = connect(QUIZ_TABLE)
-    connection = engine.connect()
-    youngest_song = {}
-    result = connection.execute(
-        text("SELECT title, artist, year FROM songs WHERE year IS NOT NULL ORDER BY year DESC LIMIT 1")
-    )
-    for row in result:
-        youngest_song["title"] = row.title
-        youngest_song["artist"] = row.artist
-        youngest_song["year"] = row.year
-    connection.close()
-    return youngest_song
-
-def get_most_songs_year():
-    engine = connect(QUIZ_TABLE)
-    connection = engine.connect()
-    most_songs_year = {}
-    result = connection.execute(
-        text("SELECT year, COUNT(year) AS count_value FROM songs WHERE year IS NOT NULL GROUP BY year ORDER BY count_value DESC LIMIT 1")
-    )
-    for row in result:
-        most_songs_year["year"] = row.year
-        most_songs_year["count"] = row[1]
-    connection.close()
-    return most_songs_year
-
-def get_most_songs_artist():
-    engine = connect(QUIZ_TABLE)
-    connection = engine.connect()
-    most_songs_artist = {}
-    result = connection.execute(
-        text("SELECT artist, COUNT(artist) AS count_value FROM songs WHERE artist IS NOT NULL GROUP BY artist ORDER BY count_value DESC LIMIT 1")
-    )
-    for row in result:
-        most_songs_artist["artist"] = row.artist
-        most_songs_artist["count"] = row[1]
-    connection.close()
-    return most_songs_artist
 
 def change_play_mode_silent(play_mode):
     engine = connect(QUIZ_TABLE)
@@ -213,47 +112,6 @@ def countdown():
         f"\tnoch {countdown.days} Tage : {countdown.hours} Stunden : {countdown.minutes} Minuten : {countdown.seconds} Sekunden..."
     )
     return countdown
-
-
-def get_song_infos():
-    session_bus = dbus.SessionBus()
-    spotify_bus = session_bus.get_object(
-        "org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2"
-    )
-    spotify_properties = dbus.Interface(spotify_bus, "org.freedesktop.DBus.Properties")
-    metadata = spotify_properties.Get("org.mpris.MediaPlayer2.Player", "Metadata")
-    spotify_song = metadata["xesam:title"]
-    spotify_artist = metadata["xesam:artist"][0]
-    spotify_info = {}
-    spotify_info["song"] = spotify_song
-    spotify_info["artist"] = spotify_artist
-
-    return spotify_song, spotify_artist
-
-
-def media_play():
-    print("\n----- PLAY SPOTIFY -----")
-    command = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Play > /dev/null"
-    os.system(command)
-
-
-def media_pause():
-    print("\n----- PAUSE SPOTIFY -----")
-    command = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Pause > /dev/null"
-    os.system(command)
-
-
-def media_next_song():
-    print("\n----- NEXT SONG SPOTIFY -----")
-    command = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next > /dev/null"
-    os.system(command)
-    time.sleep(0.2)
-
-
-def media_previous_song():
-    print("\n----- PREVIOUS SONG SPOTIFY -----")
-    command = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous > /dev/null"
-    os.system(command)
 
 
 def play_correct():
@@ -779,18 +637,16 @@ def set_monitor_round_by_round_id(round_id):
     connection.close()
 
 
-def set_last_song(title, artist, year, cover, comment):
+def set_last_question(question, answer, image, comment):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
-    connection.execute(text(f"update last_song set title = '{title}'"))
+    connection.execute(text(f"update last_question set title = '{question}'"))
     connection.commit()
-    connection.execute(text(f"update last_song set artist = '{artist}'"))
+    connection.execute(text(f"update last_question set artist = '{answer}'"))
     connection.commit()
-    connection.execute(text(f"update last_song set year = '{year}'"))
+    connection.execute(text(f"update last_question set cover = '{image}'"))
     connection.commit()
-    connection.execute(text(f"update last_song set cover = '{cover}'"))
-    connection.commit()
-    connection.execute(text(f"update last_song set comment = '{comment}'"))
+    connection.execute(text(f"update last_question set comment = '{comment}'"))
     connection.commit()
     connection.close()
 
@@ -843,30 +699,29 @@ def get_round_info(round_id):
     return players
 
 
-def get_next_song(round_id):
+def get_next_question(round_id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
     result = connection.execute(
         text(
-            f"select id,title, artist, year, comment, seq, cover from songs where round = {round_id} and played = 0 order by seq asc limit 1"
+            f"select id,question, answer, comment, seq, image from questions where round = {round_id} and played = 0 order by seq asc limit 1"
         )
     )
-    next_song = {}
+    next_question = {}
     for row in result:
-        next_song["id"] = row.id
-        next_song["title"] = row.title
-        next_song["artist"] = row.artist
-        next_song["year"] = row.year
-        next_song["comment"] = row.comment
-        next_song["seq"] = row.seq
-        if row.cover == "":
-            next_song["cover"] = "standard.jpg"
+        next_question["id"] = row.id
+        next_question["question"] = row.question
+        next_question["answer"] = row.answer
+        next_question["comment"] = row.comment
+        next_question["seq"] = row.seq
+        if row.image == "":
+            next_question["image"] = "standard.jpg"
         else:
-            next_song["cover"] = row.cover
-    result = connection.execute(text(f"select * from songs where round = {round_id}"))
-    next_song["total"] = result.rowcount
+            next_question["image"] = row.image
+    result = connection.execute(text(f"select * from questions where round = {round_id}"))
+    next_question["total"] = result.rowcount
     connection.close()
-    return next_song
+    return next_question
 
 # to remove?
 def get_points_to_play(round_id):
@@ -885,37 +740,20 @@ def get_points_to_play(round_id):
     return points_to_go
 
 
-def get_last_song():
+def get_last_question():
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
     result = connection.execute(
-        text(f"select title, artist, year, cover, comment from last_song")
+        text(f"select question, answer, image, comment from last_question")
     )
-    last_song = {}
+    last_question = {}
     for row in result:
-        last_song["title"] = row.title
-        last_song["artist"] = row.artist
-        last_song["year"] = row.year
-        last_song["cover"] = row.cover
-        last_song["comment"] = row.comment
+        last_question["question"] = row.question
+        last_question["answer"] = row.answer
+        last_question["image"] = row.image
+        last_question["comment"] = row.comment
     connection.close()
-    return last_song
-
-def find_double_songs():
-    doubleSongs = {}
-    engine = connect(QUIZ_TABLE)
-    connection = engine.connect()
-    result = connection.execute(
-        text(
-            "select title, count(*) as count from songs group by title having count > 1"
-        )
-    )
-    for row in result:
-        title = row.title
-        doubleSongs[title] = row.count
-    connection.close()
-
-    return doubleSongs
+    return last_question
 
 def get_song_details(id):
     engine = connect(QUIZ_TABLE)
@@ -952,61 +790,59 @@ def get_song_details_by_name(title):
     connection.close()
     return songDetails
 
-def add_song_to_database(title, artist, round, seq, played, comment, year, cover):
+def add_question_to_database(question, answer, round, seq, played, comment, image):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
     connection.execute(
         text(
-            f"insert into songs (title, artist, round, seq, played, comment, year, cover) values ('{title}', '{artist}', '{round}', '{seq}', '{played}', '{comment}', '{year}', '{cover}')"
+            f"insert into questions (question, answer, round, seq, played, comment, image) values ('{question}', '{answer}', '{round}', '{seq}', '{played}', '{comment}', '{image}')"
         )
     )
     connection.commit()
-    print(f"song {title} - {artist} added to database")
+    print(f"QUESTION {question} ADDED")
     connection.close()
 
-def remove_song_from_database(id):
+def remove_question_from_database(id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
-    connection.execute(text(f"delete from songs where id = {id}"))
+    connection.execute(text(f"delete from questions where id = {id}"))
     connection.commit()
-    print(f"song with id {id} removed from database")
+    print(f"QUESTION {id} DELETED")
     connection.close()
 
-def change_song_details(id, title, artist, round, seq, played, comment, year, cover):
+def change_question_details(id, question, answer, round, seq, played, comment, image):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
-    connection.execute(text(f"update songs set title = '{title}' where id = {id}"))
+    connection.execute(text(f"update questions set question = '{question}' where id = {id}"))
     connection.commit()
-    connection.execute(text(f"update songs set artist = '{artist}' where id = {id}"))
+    connection.execute(text(f"update questions set answer = '{answer}' where id = {id}"))
     connection.commit()
-    connection.execute(text(f"update songs set round = '{round}' where id = {id}"))
+    connection.execute(text(f"update questions set round = '{round}' where id = {id}"))
     connection.commit()
-    connection.execute(text(f"update songs set seq = '{seq}' where id = {id}"))
+    connection.execute(text(f"update questions set seq = '{seq}' where id = {id}"))
     connection.commit()
-    connection.execute(text(f"update songs set played = '{played}' where id = {id}"))
+    connection.execute(text(f"update questions set played = '{played}' where id = {id}"))
     connection.commit()
-    connection.execute(text(f"update songs set comment = '{comment}' where id = {id}"))
+    connection.execute(text(f"update questions set comment = '{comment}' where id = {id}"))
     connection.commit()
-    connection.execute(text(f"update songs set year = '{year}' where id = {id}"))
+    connection.execute(text(f"update questions set image = '{image}' where id = {id}"))
     connection.commit()
-    connection.execute(text(f"update songs set cover = '{cover}' where id = {id}"))
-    connection.commit()
-    print(f"song with id {id} updated in database")
+    print(f"QUESTION {id} UPDATED")
     connection.close()
 
-def change_song_seq(id, seq):
+def change_question_seq(id, seq):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
-    connection.execute(text(f"update songs set seq = '{seq}' where id = {id}"))
+    connection.execute(text(f"update questions set seq = '{seq}' where id = {id}"))
     connection.commit()
     connection.close()
 
-def mark_song_as_played(round_id):
+def mark_question_as_played(round_id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
     connection.execute(
         text(
-            f"update songs set played = 1 where round = {round_id} and played = 0 order by seq asc limit 1"
+            f"update questions set played = 1 where round = {round_id} and played = 0 order by seq asc limit 1"
         )
     )
     connection.commit()
@@ -1216,11 +1052,11 @@ def update_playoff_round(player_id, global_player_id, points):
     connection.close()
 
 
-def get_round_maximum_songs(round_id):
+def get_round_maximum_questions(round_id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
     result = connection.execute(
-        text(f"select maximum from max_songs where round = '{round_id}'")
+        text(f"select maximum from max_questions where round = '{round_id}'")
     )
     for row in result:
         maximum = row.maximum
@@ -1289,7 +1125,7 @@ def update_player_on_answer(player_id, round_id, action):
             text(f"update config set value = 4 WHERE name = 'buzzer_blocked'")
         )
         connection.commit()
-        print("SONG ÜBERSPRUNGEN")
+        print("FRAGE ÜBERSPRUNGEN")
     connection.close()
 
 def update_player(player_id, round_id, action):
