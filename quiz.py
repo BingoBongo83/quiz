@@ -2642,7 +2642,7 @@ class GameWindow(QMainWindow):
         else:
             self.pBQuizControls.setStyleSheet("color: rgb(249, 240, 107);")
         self.pBTikTak.setText("\u23f2 - ticking")
-        self.pBSkipquestionQuiz.setText("skip question")
+        self.pBSkipQuestionQuiz.setText("skip question")
         self.pBResetBuzzer.setText("reset buzzer")
 
         self.NextquestionLabelTitle.setText(
