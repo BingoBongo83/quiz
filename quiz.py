@@ -2605,7 +2605,7 @@ class GameWindow(QMainWindow):
         next_question = {}
         next_question = procs.get_next_question(my_round_id)
 
-        spotify_song, spotify_artist = procs.get_song_infos()
+        # spotify_song, spotify_artist = procs.get_song_infos()
 
         previous_question = {}
         previous_question = procs.get_last_question()
@@ -2632,10 +2632,10 @@ class GameWindow(QMainWindow):
         self.pBPlayer3Wrong.setText("X")
         self.pBPlayer4Wrong.setText("X")
 
-        self.pBPreviousSongSpotify.setText("\u23ee")
-        self.pBPlaySpotify.setText("\u23f5")
-        self.pBPauseSpotify.setText("\u23f8")
-        self.pBNextSongSpotify.setText("\u23ed")
+        # self.pBPreviousSongSpotify.setText("\u23ee")
+        # self.pBPlaySpotify.setText("\u23f5")
+        # self.pBPauseSpotify.setText("\u23f8")
+        # self.pBNextSongSpotify.setText("\u23ed")
         self.pBQuizControls.setText(question_count)
         if questionsToPlay < 6:
             self.pBQuizControls.setStyleSheet("color: rgb(255, 0, 0);")
@@ -2655,9 +2655,9 @@ class GameWindow(QMainWindow):
         self.nextquestionCoverPixmap = self.nextquestionCoverPixmap.scaled(small_cover)
         self.nextquestionCover.setPixmap(self.nextquestionCoverPixmap)
 
-        self.currentSpotifySong.setText(
-            f"Spotify spielt gerade: {spotify_song} - {spotify_artist}"
-        )
+        # self.currentSpotifySong.setText(
+        #     f"Spotify spielt gerade: {spotify_song} - {spotify_artist}"
+        # )
 
         self.PreviousquestionLabelTitle.setText(
             f"{previous_question['question']} - {previous_question['answer']})"
