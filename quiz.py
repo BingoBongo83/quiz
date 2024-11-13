@@ -2391,13 +2391,13 @@ class GameWindow(QMainWindow):
 
         self.HLayoutNextQuestionInfo = QHBoxLayout()
 
-        nextQuestionCover = cover_path + "standard.jpg"
-        self.nextQuestionCoverPixmap = QPixmap(nextQuestionCover)
-        self.nextQuestionCoverPixmap = self.nextQuestionCoverPixmap.scaled(small_cover)
-        self.nextQuestionCover = QLabel(self)
-        self.nextQuestionCover.setPixmap(self.nextQuestionCoverPixmap)
+        NextQuestionCover = cover_path + "standard.jpg"
+        self.NextQuestionCoverPixmap = QPixmap(NextQuestionCover)
+        self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_cover)
+        self.NextQuestionCover = QLabel(self)
+        self.NextQuestionCover.setPixmap(self.NextQuestionCoverPixmap)
 
-        self.nextQuestionInfo = QVBoxLayout()
+        self.NextQuestionInfo = QVBoxLayout()
 
         self.NextQuestionLabelTop = QLabel(self)
         self.NextQuestionLabelTop.setText("Nächster Question:")
@@ -2411,18 +2411,18 @@ class GameWindow(QMainWindow):
         self.NextQuestionLabelComment.setStyleSheet("font-size: 20px;")
         self.NextQuestionLabelComment.setFixedWidth(600)
 
-        self.nextQuestionInfo.addWidget(
+        self.NextQuestionInfo.addWidget(
             self.NextQuestionLabelTop, 0, Qt.AlignmentFlag.AlignCenter
         )
-        self.nextQuestionInfo.addWidget(
+        self.NextQuestionInfo.addWidget(
             self.NextQuestionLabelTitle, 0, Qt.AlignmentFlag.AlignCenter
         )
-        self.nextQuestionInfo.addWidget(
+        self.NextQuestionInfo.addWidget(
             self.NextQuestionLabelComment, 0, Qt.AlignmentFlag.AlignCenter
         )
 
-        self.HLayoutNextQuestionInfo.addLayout(self.nextQuestionInfo)
-        self.HLayoutNextQuestionInfo.addWidget(self.nextQuestionCover)
+        self.HLayoutNextQuestionInfo.addLayout(self.NextQuestionInfo)
+        self.HLayoutNextQuestionInfo.addWidget(self.NextQuestionCover)
         self.HLayoutNextQuestionInfo.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         self.VLayoutMain.addLayout(self.HLayoutNextQuestionInfo)
 
@@ -2436,11 +2436,11 @@ class GameWindow(QMainWindow):
         # self.HLayoutSpotifySong.addWidget(self.currentSpotifySong)
         # self.VLayoutMain.addLayout(self.HLayoutSpotifySong)
 
-        previousQuestionCover = cover_path + "standard.jpg"
-        self.previousQuestionCoverPixmap = QPixmap(previousQuestionCover)
-        self.nextQuestionCoverPixmap = self.nextQuestionCoverPixmap.scaled(small_cover)
-        self.previousQuestionCover = QLabel(self)
-        self.previousQuestionCover.setPixmap(self.previousQuestionCoverPixmap)
+        PreviousQuestionCover = cover_path + "standard.jpg"
+        self.PreviousQuestionCoverPixmap = QPixmap(PreviousQuestionCover)
+        self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_cover)
+        self.PreviousQuestionCover = QLabel(self)
+        self.PreviousQuestionCover.setPixmap(self.PreviousQuestionCoverPixmap)
 
         self.PreviousQuestionInfo = QVBoxLayout()
 
@@ -2471,7 +2471,7 @@ class GameWindow(QMainWindow):
 
         self.HLayoutPreviousQuestionInfo.addLayout(self.PreviousQuestionInfo)
         self.HLayoutPreviousQuestionInfo.addWidget(
-            self.previousQuestionCover, 0, Qt.AlignmentFlag.AlignCenter
+            self.PreviousQuestionCover, 0, Qt.AlignmentFlag.AlignCenter
         )
         self.HLayoutPreviousQuestionInfo.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         self.VLayoutMain.addLayout(self.HLayoutPreviousQuestionInfo)
@@ -2645,15 +2645,15 @@ class GameWindow(QMainWindow):
         self.pBSkipQuestionQuiz.setText("skip question")
         self.pBResetBuzzer.setText("reset buzzer")
 
-        self.NextquestionLabelTitle.setText(
+        self.NextQuestionLabelTitle.setText(
             f"{next_question['question']} - {next_question['answer']}"
         )
-        self.NextquestionLabelComment.setPlainText(next_question["comment"])
-        nextquestionCover = next_question["image"]
-        nextquestionCover = "".join(cover_path + nextquestionCover)
-        self.nextquestionCoverPixmap = QPixmap(nextquestionCover)
-        self.nextquestionCoverPixmap = self.nextquestionCoverPixmap.scaled(small_cover)
-        self.nextquestionCover.setPixmap(self.nextquestionCoverPixmap)
+        self.NextQuestionLabelComment.setPlainText(next_question["comment"])
+        NextQuestionCover = next_question["image"]
+        NextQuestionCover = "".join(cover_path + NextQuestionCover)
+        self.NextQuestionCoverPixmap = QPixmap(NextQuestionCover)
+        self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_cover)
+        self.NextQuestionCover.setPixmap(self.NextQuestionCoverPixmap)
 
         # self.currentSpotifySong.setText(
         #     f"Spotify spielt gerade: {spotify_song} - {spotify_artist}"
@@ -2663,11 +2663,11 @@ class GameWindow(QMainWindow):
             f"{previous_question['question']} - {previous_question['answer']})"
         )
         self.PreviousquestionLabelComment.setPlainText(previous_question["comment"])
-        previousquestionCover = previous_question["cover"]
-        previousquestionCover = "".join(cover_path + previousquestionCover)
-        self.previousquestionCoverPixmap = QPixmap(previousquestionCover)
-        self.previousquestionCoverPixmap = self.previousquestionCoverPixmap.scaled(small_cover)
-        self.previousquestionCover.setPixmap(self.previousquestionCoverPixmap)
+        PreviousQuestionCover = previous_question["cover"]
+        PreviousQuestionCover = "".join(cover_path + PreviousQuestionCover)
+        self.PreviousQuestionCoverPixmap = QPixmap(PreviousQuestionCover)
+        self.PreviousQuestionCoverPixmap = self.PreviousQuestionCoverPixmap.scaled(small_cover)
+        self.PreviousQuestionCover.setPixmap(self.PreviousQuestionCoverPixmap)
 
         self.exit_button.setText: window("Schließen")
 
