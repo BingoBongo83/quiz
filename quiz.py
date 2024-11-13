@@ -2426,15 +2426,15 @@ class GameWindow(QMainWindow):
         self.HLayoutNextQuestionInfo.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         self.VLayoutMain.addLayout(self.HLayoutNextQuestionInfo)
 
-        self.HLayoutSpotifySong = QHBoxLayout()
-        self.HLayoutSpotifySong.setObjectName("HLayoutSpotifySong")
-        self.currentSpotifySong = QLabel(self.verticalLayoutWidget)
-        self.currentSpotifySong.setObjectName("currentSpotifySong")
-        self.currentSpotifySong.setStyleSheet("color: rgb(0, 255, 0);")
-        self.currentSpotifySong.setFont(font2)
-        self.currentSpotifySong.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.HLayoutSpotifySong.addWidget(self.currentSpotifySong)
-        self.VLayoutMain.addLayout(self.HLayoutSpotifySong)
+        # self.HLayoutSpotifySong = QHBoxLayout()
+        # self.HLayoutSpotifySong.setObjectName("HLayoutSpotifySong")
+        # self.currentSpotifySong = QLabel(self.verticalLayoutWidget)
+        # self.currentSpotifySong.setObjectName("currentSpotifySong")
+        # self.currentSpotifySong.setStyleSheet("color: rgb(0, 255, 0);")
+        # self.currentSpotifySong.setFont(font2)
+        # self.currentSpotifySong.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        # self.HLayoutSpotifySong.addWidget(self.currentSpotifySong)
+        # self.VLayoutMain.addLayout(self.HLayoutSpotifySong)
 
         previousQuestionCover = cover_path + "standard.jpg"
         self.previousQuestionCoverPixmap = QPixmap(previousQuestionCover)
@@ -2497,9 +2497,9 @@ class GameWindow(QMainWindow):
         self.ColorTimer.start(1000)
 
         # start timer for get spotify playing song
-        self.SpotifyTimer = QTimer()
-        self.SpotifyTimer.timeout.connect(self.get_spotify_playing_song)
-        self.SpotifyTimer.start(2000)
+        # self.SpotifyTimer = QTimer()
+        # self.SpotifyTimer.timeout.connect(self.get_spotify_playing_song)
+        # self.SpotifyTimer.start(2000)
 
         # start subprocess for checking arduino serial signal (buzzer pressed)
         self.buzzer_checker = subprocess.Popen(["python3", "buzzer.py"])
