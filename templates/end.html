@@ -1,15 +1,21 @@
-{% extends 'base.html' %}
-{% block content %}
+<html>
+<head>
+  <meta charset="UTF-8" http-equiv="refresh" content="1">
+  <title>Musikquiz</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
 <table class="pause">
     <thead>
         <tr>
-            <th class="winner">{% block title %} Gewinner des 1. FeuerwehrQUIZ 2024{% endblock %}</th>
+            <th class="winner">Gewinner des 2. MUSIKQUIZ 2024</th>
         </tr>
     </thead>
 <tbody>
     <tr>
-        <td class="winner">🔥   {{player_name}}   🔥</td>
+        <td class="winner">𝅘𝅥𝅮   {{player_name}}   𝅘𝅥𝅰</td>
     </tr>
 </tbody>
 </table>
-{% endblock %}
+</body>
+</html>

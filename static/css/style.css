@@ -4,7 +4,7 @@
 body {
     font-family: "Bebas Neue", sans-serif;
     font-size: 16px;
-    color: #d2f492;
+    color: #41a317;
     background-color: #000000;
     margin: 0;
     padding: 0;
@@ -28,7 +28,7 @@ table.countdown {
 
 th.pause {
     background-color: #000000;
-    color: #d2f492;
+    color: #41a317;
     font-family: "Single Day", sans-serif;
     font-size: 160px;
     font-weight: bold;
@@ -37,7 +37,7 @@ th.pause {
 
 td.pause {
     background-color: #000000;
-    color: #d2f492;
+    color: #41a317;
     font-family: "Single Day", sans-serif;
     font-size: 100px;
     font-weight: bold;
@@ -46,7 +46,7 @@ td.pause {
 
 th.winner {
     background-color: #000000;
-    color: #d2f492;
+    color: #41a317;
     font-family: "Anton", sans-serif;
     font-size: 100px;
     padding: 10px;
@@ -54,7 +54,7 @@ th.winner {
 
 td.winner {
     background-color: #000000;
-    color: #d2f492;
+    color: #41a317;
     font-family: "Anton", sans-serif;
     font-size: 260px;
     padding: 10px;
@@ -62,7 +62,7 @@ td.winner {
 
 th.countdown {
     background-color: #000000;
-    color: #d2f492;
+    color: #41a317;
     font-family: "Anton", sans-serif;
     font-size: 140px;
     padding: 30px;
@@ -70,7 +70,7 @@ th.countdown {
 
 td.countdown {
     background-color: #000000;
-    color: #d2f492;
+    color: #41a317;
     font-family: "Anton", sans-serif;
     font-size: 120px;
     padding: 10px;
@@ -84,7 +84,7 @@ tr {
 
 th.roundname {
     background-color: #000000;
-    color: #d2f492;
+    color: #41a317;
     font-size: 120px;
     font-weight: bold;
     padding: 10px;
@@ -122,14 +122,14 @@ tr.scoreboard {
 }
 
 th.player {
-    color: #d2f492;
+    color: #41a317;
     font-size: 80px;
     padding: 0px;
     margin: 0px;
 }
 
 td.player {
-    color: #d2f492;
+    color: #41a317;
     font-family: "Jersey 20 Charted", sans-serif;
     font-size: 220px;
     padding: 0px;
@@ -153,7 +153,7 @@ td.playerblocked {
 
 td.colon {
     background-color: #000000;
-    color: #d2f492;
+    color: #41a317;
     font-size: 120px;
     padding: 10px;
 }

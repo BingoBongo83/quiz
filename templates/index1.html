@@ -1,11 +1,15 @@
-{% extends 'base.html' %}
-{% block content %}
+<html>
+<head>
+  <meta charset="UTF-8" http-equiv="refresh" content="1">
+  <title>Musikquiz</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
 <table>
 <thead>
-    <tr><th class="roundname">{% block title %} {{points['round_name']}} {% endblock %}</th></tr>
-    <tr><td class="lastsong">letzte Frage:</td></tr>
-    <tr><th class="lastsong">{{last_question.get("question","-")}}</th></tr>
-    <tr><th class="lastsong">{{last_question.get("answer","-")}}</th></tr>
+    <tr><th class="roundname">{{points['round_name']}}</th></tr>
+    <tr><td class="lastsong">letzter song:</td></tr>
+    <tr><th class="lastsong">{{last_song.get("title","")}} - {{last_song.get("artist","")}} ({{last_song.get("year","")}})</th></tr>
 </thead>
 
 <tbody>
@@ -13,18 +17,18 @@
     <td>
         <table class="scoreboard"><thead>
         <tr class="scoreboard">
-            <th class="playerblocked">{{points['player_1_name']}}</th>
+            <th class="player">{{points['player_1_name']}}</th>
             <th></th>
-            <th class="player">{{points['player_2_name']}}</th>
+            <th class="playerblocked">{{points['player_2_name']}}</th>
             <th></th>
             <th class="player">{{points['player_3_name']}}</th>
             <th></th>
             <th class="player">{{points['player_4_name']}}</th>
         </tr>
         <tr>
-            <td class="playerblocked">&nbsp&nbsp{{points['player_1_points']}}&nbsp&nbsp</td>
+            <td class="player">&nbsp&nbsp{{points['player_1_points']}}&nbsp&nbsp</td>
             <td class="player">:</td>
-            <td class="player">&nbsp&nbsp{{points['player_2_points']}}&nbsp&nbsp</td>
+            <td class="playerblocked">&nbsp&nbsp{{points['player_2_points']}}&nbsp&nbsp</td>
             <td class="player">:</td>
             <td class="player">&nbsp&nbsp{{points['player_3_points']}}&nbsp&nbsp</td>
             <td class="player">:</td>
@@ -37,4 +41,5 @@
     <tr><td class="lastsong">Punkte zu vergeben: {{points['points_to_play']}}</td></tr>
 </tbody>
 </table>
-{% endblock %}
+</body>
+</html>

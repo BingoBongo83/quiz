@@ -1,10 +1,15 @@
-{% extends 'base.html' %}
-{% block content %}
+<html>
+<head>
+  <meta charset="UTF-8" http-equiv="refresh" content="1">
+  <title>Musikquiz</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
 <table class="countdown">
     <thead>
         <tr>
             <th class="countdown">
-                <p>🔥FeuerwehrQuiz🔥{% block title %} {% endblock %}</p>
+                <p>MusikQuiz 2024</p>
             </th>
         </tr>
     </thead>
@@ -18,4 +23,5 @@
         </tr>
     </tbody>
 </table>
-{% endblock %}
+</body>
+</html>
