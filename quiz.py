@@ -31,9 +31,9 @@ from PySide6.QtCore import Qt, QSize, QRect, QTimer
 from PySide6.QtGui import QFont, QPixmap, QAction, QIcon, QPainter, QBrush, QColor
 from handlers import procs
 from config import (
-    small_cover,
-    big_cover,
-    cover_path,
+    small_image,
+    big_image,
+    image_path,
     blockedBuzzerColor,
     pressedBuzzerColor,
     playerColor,
@@ -2391,9 +2391,9 @@ class GameWindow(QMainWindow):
 
         self.HLayoutNextQuestionInfo = QHBoxLayout()
 
-        NextQuestionCover = cover_path + "standard.jpg"
+        NextQuestionCover = image_path + "standard.jpg"
         self.NextQuestionCoverPixmap = QPixmap(NextQuestionCover)
-        self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_cover)
+        self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_image)
         self.NextQuestionCover = QLabel(self)
         self.NextQuestionCover.setPixmap(self.NextQuestionCoverPixmap)
 
@@ -2436,9 +2436,9 @@ class GameWindow(QMainWindow):
         # self.HLayoutSpotifySong.addWidget(self.currentSpotifySong)
         # self.VLayoutMain.addLayout(self.HLayoutSpotifySong)
 
-        PreviousQuestionCover = cover_path + "standard.jpg"
+        PreviousQuestionCover = image_path + "standard.jpg"
         self.PreviousQuestionCoverPixmap = QPixmap(PreviousQuestionCover)
-        self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_cover)
+        self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_image)
         self.PreviousQuestionCover = QLabel(self)
         self.PreviousQuestionCover.setPixmap(self.PreviousQuestionCoverPixmap)
 
@@ -2650,9 +2650,9 @@ class GameWindow(QMainWindow):
         )
         self.NextQuestionLabelComment.setPlainText(next_question["comment"])
         NextQuestionCover = next_question["image"]
-        NextQuestionCover = "".join(cover_path + NextQuestionCover)
+        NextQuestionCover = "".join(image_path + NextQuestionCover)
         self.NextQuestionCoverPixmap = QPixmap(NextQuestionCover)
-        self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_cover)
+        self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_image)
         self.NextQuestionCover.setPixmap(self.NextQuestionCoverPixmap)
 
         # self.currentSpotifySong.setText(
@@ -2663,10 +2663,10 @@ class GameWindow(QMainWindow):
             f"{previous_question['question']} - {previous_question['answer']})"
         )
         self.PreviousQuestionLabelComment.setPlainText(previous_question["comment"])
-        PreviousQuestionCover = previous_question["cover"]
-        PreviousQuestionCover = "".join(cover_path + PreviousQuestionCover)
+        PreviousQuestionCover = previous_question["image"]
+        PreviousQuestionCover = "".join(image_path + PreviousQuestionCover)
         self.PreviousQuestionCoverPixmap = QPixmap(PreviousQuestionCover)
-        self.PreviousQuestionCoverPixmap = self.PreviousQuestionCoverPixmap.scaled(small_cover)
+        self.PreviousQuestionCoverPixmap = self.PreviousQuestionCoverPixmap.scaled(small_image)
         self.PreviousQuestionCover.setPixmap(self.PreviousQuestionCoverPixmap)
 
         self.exit_button.setText: window("Schließen")

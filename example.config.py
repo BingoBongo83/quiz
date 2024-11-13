@@ -8,11 +8,11 @@ ARDUINO_USE = "yes"
 ARDUINO_PORT = "/dev/ttyACM0"
 ARDUINO_BAUD = 9600
 
-# standard cover if no album cover is found
-cover_image = "standard.jpg"
-small_cover = QSize(200, 200)
-big_cover = QSize(400, 400)
-cover_path = "/home/benny/Dokumente/musikquiz_local/musikquiz/static/cover/"
+# standard image if no album image is found
+image_image = "standard.jpg"
+small_image = QSize(200, 200)
+big_image = QSize(400, 400)
+image_path = "/home/benny/Dokumente/musikquiz_local/musikquiz/static/cover/"
 
 
 # player
