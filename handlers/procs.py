@@ -15,15 +15,15 @@ from faker import Faker
 arduino = serial.Serial(ARDUINO_PORT, ARDUINO_BAUD, timeout=1)
 
 
-def get_songs_for_round(round_id):
+def get_questions_for_round(round_id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
-    songs = []
-    result = connection.execute(text(f"SELECT id, title, artist, year, seq FROM songs WHERE round = {round_id} ORDER BY seq ASC"))
+    questions = []
+    result = connection.execute(text(f"SELECT id, question, answer, seq FROM questions WHERE round = {round_id} ORDER BY seq ASC"))
     for row in result:
-        songs.append([row.id, row.seq, row.title, row.artist, row.year])
+        songs.append([row.id, row.seq, row.question, row.answer])
     connection.close()
-    return songs
+    return questions
 
 def change_play_mode_silent(play_mode):
     engine = connect(QUIZ_TABLE)
