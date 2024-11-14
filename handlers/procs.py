@@ -735,9 +735,9 @@ def get_next_question(round_id):
 
 # to remove?
 def get_points_to_play(round_id):
-    next_song = get_next_song(round_id)
-    maximum = get_round_maximum_songs(round_id)
-    get_seq = next_song.get("seq", 0)
+    next_question = get_next_question(round_id)
+    maximum = get_round_maximum_questions(round_id)
+    get_seq = next_question.get("seq", 0)
     points_to_go = 0
     # for debugging:
     # print(f"points to go: {points_to_go}")
