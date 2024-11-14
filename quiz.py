@@ -2608,7 +2608,7 @@ class GameWindow(QMainWindow):
             self.pBQuizControls.setStyleSheet("color: rgb(255, 0, 0);")
         if questionsToPlay in range(1, 6):
             self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
-        else:
+        if questionsToPlay > 5:
             self.pBQuizControls.setStyleSheet("color: rgb(249, 240, 107);")
         self.pBTikTak.setText("\u23f2 - ticking")
         self.pBSkipQuestionQuiz.setText("skip question")
