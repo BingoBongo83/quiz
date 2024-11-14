@@ -2571,13 +2571,9 @@ class GameWindow(QMainWindow):
         previous_question = {}
         previous_question = procs.get_last_question()
         maximum_questions = procs.get_round_maximum_questions(my_round_id)
-        print(f"DEBUG: maximum_questions: {maximum_questions}")
         maximum_questions_db = next_question.get("total", maximum_questions)
-        print(f"DEBUG: maximum_questions_db: {maximum_questions_db}")
         played_questions = procs.get_played_questions_for_round(my_round_id)
-        print(f"DEBUG: played_questions: {played_questions}")
         reserve_questions = 0
-        print(f"DEBUG: reserve_questions: {reserve_questions}")
         no_questions = 0
         if played_questions == int(maximum_questions_db):
             no_questions = 1
@@ -2606,8 +2602,8 @@ class GameWindow(QMainWindow):
         self.pBPlayer2Wrong.setText("X")
         self.pBPlayer3Wrong.setText("X")
         self.pBPlayer4Wrong.setText("X")
-        print(f"DEBUG: no_questions: {no_questions}")
-        print(f"DEBUG: questions to play: {questionsToPlay}")
+        # print(f"DEBUG: no_questions: {no_questions}")
+        # print(f"DEBUG: questions to play: {questionsToPlay}")
         # self.pBPreviousSongSpotify.setText("\u23ee")
         # self.pBPlaySpotify.setText("\u23f5")
         # self.pBPauseSpotify.setText("\u23f8")
@@ -2633,6 +2629,7 @@ class GameWindow(QMainWindow):
             self.pBQuizControls.setStyleSheet("color: rgb(0, 255, 0);")
             self.pBQuizControls.setText("Runde beendet!")
             self.pBPlayer1Correct.setEnabled(False)
+            self.pBPlayer1Correct.setStyleSheet("color: rgb(0, 0, 0);")
             self.pBPlayer1Wrong.setEnabled(False)
             self.pBPlayer2Correct.setEnabled(False)
             self.pBPlayer2Wrong.setEnabled(False)
