@@ -2326,6 +2326,9 @@ class GameWindow(QMainWindow):
         self.pBQuizControls.setFont(font2)
         self.pBQuizControls.setStyleSheet("color: rgb(249, 240, 107);")
         self.GridScoreLayout.addWidget(self.pBQuizControls, 5, 0, 1, 1)
+        
+        self.pBQuizControls.clicked.connect(lambda: procs.mark_all_questions_played_for_round(procs.get_play_round()))
+        self.pBQuizControls.clicked.connect(self.initGame)
 
         self.pBTikTak = QPushButton(self.verticalLayoutWidget)
         self.pBTikTak.setObjectName("pBTikTak")
@@ -2608,9 +2611,6 @@ class GameWindow(QMainWindow):
         # self.pBPauseSpotify.setText("\u23f8")
         # self.pBNextSongSpotify.setText("\u23ed")
         self.pBQuizControls.setText(question_count)
-        self.pBQuizControls.clicked.connect(lambda: procs.mark_all_questions_played_for_round(my_round_id))
-        print(f"DEBUG: ROUND ID: {my_round_id}")
-        self.pBQuizControls.clicked.connect(self.initGame)
 
         if not no_questions:
             self.pBPlayer1Correct.setEnabled(True)
