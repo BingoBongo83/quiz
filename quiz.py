@@ -2574,12 +2574,12 @@ class GameWindow(QMainWindow):
         maximum_questions_db = next_question.get("total", maximum_questions)
         reserve_questions = 0
         if maximum_questions > int(maximum_questions_db):
-            maximum_questions = maximum_questions_db
+            maximum_questions = int(maximum_questions_db)
         if maximum_questions < int(maximum_questions_db):
-            reserve_questions = maximum_questions_db - maximum_questions
+            reserve_questions = int(maximum_questions_db) - maximum_questions
         questionsToPlay = maximum_questions - next_question.get("seq", 0) + 1
         question_count = (
-            f"Frage: {next_question.get('seq',0)} / {maximum_questions} (+{reserve_questions}) / {questionsToPlay} "
+            f"Frage: {next_question.get('seq',0)} / {maximum_questions} (+{reserve_questions}) / {questionsToPlay}"
         )
         self.labelPlayer1Name.setText(player_1_name)
         self.labelPlayer2Name.setText(player_2_name)
@@ -2605,6 +2605,8 @@ class GameWindow(QMainWindow):
         # self.pBNextSongSpotify.setText("\u23ed")
         self.pBQuizControls.setText(question_count)
         if questionsToPlay < 6:
+            self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
+        elif questionsToPlay < 1:
             self.pBQuizControls.setStyleSheet("color: rgb(255, 0, 0);")
         else:
             self.pBQuizControls.setStyleSheet("color: rgb(249, 240, 107);")
