@@ -2694,7 +2694,7 @@ class GameWindow(QMainWindow):
         # )
 
         self.PreviousQuestionLabelTitle.setText(
-            f"{previous_question['question']}\n-> {previous_question['answer']})"
+            f"{previous_question['question']}\n-> {previous_question['answer']}"
         )
         self.PreviousQuestionLabelComment.setPlainText(previous_question["comment"])
         PreviousQuestionCover = previous_question["image"]
