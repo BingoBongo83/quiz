@@ -2347,7 +2347,8 @@ class GameWindow(QMainWindow):
 
         NextQuestionCover = image_path + "standard.jpg"
         self.NextQuestionCoverPixmap = QPixmap(NextQuestionCover)
-        self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_image)
+        self.NextQuestionCoverPixmap.setHeight(200)
+        # self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_image)
         self.NextQuestionCover = QLabel(self)
         self.NextQuestionCover.setPixmap(self.NextQuestionCoverPixmap)
 
