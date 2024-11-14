@@ -2610,7 +2610,7 @@ class GameWindow(QMainWindow):
             self.pBQuizControls.setText(f"Stechen: {stechen} / {reserve_questions}")
         if questionsToPlay == 1:
             self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
-            self.pBQuizControls.setText(f"Letzte Frage! (+{reserve_questions})")
+            self.pBQuizControls.setText(f"Letzte Frage! (+{reserve_questions} stechen)")
         if questionsToPlay in range(2, 6):
             self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
         if questionsToPlay > 5:
