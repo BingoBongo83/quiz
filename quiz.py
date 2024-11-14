@@ -386,6 +386,7 @@ class QuestionsWindow(QMainWindow):
         self.HLayoutMenu.addWidget(self.pBQuestionsRound7)
 
         def setMyRoundId(round_id):
+            print(f"setMyRoundId: {round_id}")
             self.QuestionEditRoundId = round_id
 
         print(f"QuestionEditRoundId: {self.QuestionEditRoundId}")
