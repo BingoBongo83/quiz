@@ -353,6 +353,7 @@ class QuestionsWindow(QMainWindow):
         self.pBQuestionsRound1.setText(round_1_name)
         self.pBQuestionsRound1.clicked.connect(lambda: self.GetQuestions(1))
         self.pBQuestionsRound1.clicked.connect(lambda: setMyRoundId(1))
+        self.pBQuestionsRound1.clicked.connect(lambda: self.DeactivateButton(self.pBQuestionsRound1))
         self.HLayoutMenu.addWidget(self.pBQuestionsRound1)
         self.pBQuestionsRound2 = QPushButton()
         self.pBQuestionsRound2.setText(round_2_name)
@@ -492,6 +493,10 @@ class QuestionsWindow(QMainWindow):
     def AddQuestion(self, round_id):
         pop = QuestionAdd(round_id, self)
         pop.show()
+
+    def DeactivateButton(self, button):
+        self.button.setDisabled(True)
+
 
     def closeQuestionsWindow(self):
         print("----- CLOSE QUESTIONS WINDOW -----")
