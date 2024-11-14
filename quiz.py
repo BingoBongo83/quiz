@@ -2573,11 +2573,14 @@ class GameWindow(QMainWindow):
         maximum_questions = procs.get_round_maximum_questions(my_round_id)
         maximum_questions_db = next_question.get("total", maximum_questions)
         reserve_questions = 0
+        no_questions = 0
+        if maximum_questions == int(maximum_questions_db):
+            no_questions = 1
         if maximum_questions > int(maximum_questions_db):
             maximum_questions = int(maximum_questions_db)
         if maximum_questions < int(maximum_questions_db):
             reserve_questions = int(maximum_questions_db) - maximum_questions
-        questionsToPlay = maximum_questions - next_question.get("seq", 2000) + 1
+        questionsToPlay = maximum_questions - next_question.get("seq", 0) + 1
         question_count = (
             f"Frage: {next_question.get('seq',0)} / {maximum_questions} (+{reserve_questions}) / {questionsToPlay}"
         )
@@ -2598,29 +2601,46 @@ class GameWindow(QMainWindow):
         self.pBPlayer2Wrong.setText("X")
         self.pBPlayer3Wrong.setText("X")
         self.pBPlayer4Wrong.setText("X")
-        print(f"questions to play: {questionsToPlay}")
+        print(f"DEBUG: no_questions: {no_questions}")
+        print(f"DEBUG: questions to play: {questionsToPlay}")
         # self.pBPreviousSongSpotify.setText("\u23ee")
         # self.pBPlaySpotify.setText("\u23f5")
         # self.pBPauseSpotify.setText("\u23f8")
         # self.pBNextSongSpotify.setText("\u23ed")
         self.pBQuizControls.setText(question_count)
-        if questionsToPlay < 1:
-            stechen = int(next_question.get('seq', 0)) - maximum_questions
-            self.pBQuizControls.setStyleSheet("color: rgb(255, 0, 0);")
-            self.pBQuizControls.setText(f"Stechen: {stechen} / {reserve_questions}")
-        if questionsToPlay == 1:
-            self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
-            self.pBQuizControls.setText(f"Letzte Frage! (+{reserve_questions})")
-        if questionsToPlay == 5:
-            self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 107);")
-            self.pBQuizControls.setText(f"noch 5 Fragen! (+{reserve_questions})")
-        if questionsToPlay in range(2, 5):
-            self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
-        if questionsToPlay > 5:
-            self.pBQuizControls.setStyleSheet("color: rgb(249, 240, 107);")
-        if questionsToPlay < -1000:
+
+        if no_questions == 0: 
+            if questionsToPlay < 1:
+                stechen = int(next_question.get('seq', 0)) - maximum_questions
+                self.pBQuizControls.setStyleSheet("color: rgb(255, 0, 0);")
+                self.pBQuizControls.setText(f"Stechen: {stechen} / {reserve_questions}")
+            if questionsToPlay == 1:
+                self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
+                self.pBQuizControls.setText(f"Letzte Frage! (+{reserve_questions})")
+            if questionsToPlay == 5:
+                self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 107);")
+                self.pBQuizControls.setText(f"noch 5 Fragen! (+{reserve_questions})")
+            if questionsToPlay in range(2, 5):
+                self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
+            if questionsToPlay > 5:
+                self.pBQuizControls.setStyleSheet("color: rgb(249, 240, 107);")
+        if no_questions == 1:
             self.pBQuizControls.setStyleSheet("color: rgb(0, 255, 0);")
             self.pBQuizControls.setText("Runde beendet!")
+            self.pBPlayer1Correct.setEnabled(False)
+            self.pBPlayer1Wrong.setEnabled(False)
+            self.pBPlayer2Correct.setEnabled(False)
+            self.pBPlayer2Wrong.setEnabled(False)
+            self.pBPlayer3Correct.setEnabled(False)
+            self.pBPlayer3Wrong.setEnabled(False)
+            self.pBPlayer4Correct.setEnabled(False)
+            self.pBPlayer4Wrong.setEnabled(False)
+            self.pBTikTak.setEnabled(False)
+            self.pBSkipQuestionQuiz.setEnabled(False)
+
+
+
+
         self.pBTikTak.setText("\u23f2 - ticking")
         self.pBSkipQuestionQuiz.setText("skip question")
         self.pBResetBuzzer.setText("reset buzzer")
