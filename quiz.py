@@ -2680,7 +2680,7 @@ class GameWindow(QMainWindow):
         self.pBResetBuzzer.setText("reset buzzer")
 
         self.NextQuestionLabelTitle.setText(
-            f"Frage: {next_question.get('question')}\nAntwort: {next_question.get('answer')}"
+            f"{next_question.get('question')}\n-> {next_question.get('answer')}"
         )
         self.NextQuestionLabelComment.setPlainText(next_question.get("comment"))
         NextQuestionCover = next_question.get("image", "standard.jpg")
@@ -2694,7 +2694,7 @@ class GameWindow(QMainWindow):
         # )
 
         self.PreviousQuestionLabelTitle.setText(
-            f"Frage: {previous_question['question']}\nAntwort: {previous_question['answer']})"
+            f"{previous_question['question']}\n-> {previous_question['answer']})"
         )
         self.PreviousQuestionLabelComment.setPlainText(previous_question["comment"])
         PreviousQuestionCover = previous_question["image"]
