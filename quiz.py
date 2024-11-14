@@ -2579,7 +2579,7 @@ class GameWindow(QMainWindow):
             reserve_questions = maximum_questions_db - maximum_questions
         questionsToPlay = maximum_questions - next_question.get("seq", 0) + 1
         question_count = (
-            f"# {next_question.get('seq',0)} / {maximum_questions} (+{reserve_questions}) (noch {questionsToPlay}) "
+            f"# {next_question.get('seq',0)} / {maximum_questions} (+{reserve_questions}) - {questionsToPlay} to go "
         )
         self.labelPlayer1Name.setText(player_1_name)
         self.labelPlayer2Name.setText(player_2_name)
