@@ -2605,7 +2605,9 @@ class GameWindow(QMainWindow):
         # self.pBNextSongSpotify.setText("\u23ed")
         self.pBQuizControls.setText(question_count)
         if questionsToPlay < 1:
+            stechen = int(next_question.get('seq', 0)) - maximum_questions
             self.pBQuizControls.setStyleSheet("color: rgb(255, 0, 0);")
+            self.pBQuizControls.setText(f"Stechen: {stechen} / {reserve_questions}")
         if questionsToPlay == 1:
             self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
             self.pBQuizControls.setText(f"Letzte Frage! (+{reserve_questions})")
