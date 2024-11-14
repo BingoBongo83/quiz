@@ -2610,7 +2610,27 @@ class GameWindow(QMainWindow):
         # self.pBNextSongSpotify.setText("\u23ed")
         self.pBQuizControls.setText(question_count)
 
-        if no_questions == 0: 
+        if no_questions == 0:
+            self.pBPlayer1Correct.setEnabled(True)
+            self.pBPlayer1Correct.setStyleSheet("color: rgb(0, 255, 0);")
+            self.pBPlayer1Wrong.setEnabled(True)
+            self.pBPlayer1Wrong.setStyleSheet("color: rgb(255, 0, 0);")
+            self.pBPlayer2Correct.setEnabled(True)
+            self.pBPlayer2Correct.setStyleSheet("color: rgb(0, 255, 0);")
+            self.pBPlayer2Wrong.setEnabled(True)
+            self.pBPlayer2Wrong.setStyleSheet("color: rgb(255, 0, 0);")
+            self.pBPlayer3Correct.setEnabled(True)
+            self.pBPlayer3Correct.setStyleSheet("color: rgb(0, 255, 0);")
+            self.pBPlayer3Wrong.setEnabled(True)
+            self.pBPlayer3Wrong.setStyleSheet("color: rgb(255, 0, 0);")
+            self.pBPlayer4Correct.setEnabled(True)
+            self.pBPlayer4Correct.setStyleSheet("color: rgb(0, 255, 0);")
+            self.pBPlayer4Wrong.setEnabled(True)
+            self.pBPlayer4Wrong.setStyleSheet("color: rgb(255, 0, 0);")
+            self.pBTikTak.setEnabled(True)
+            self.pBSkipQuestionQuiz.setEnabled(True)
+            self.pBResetBuzzer.setEnabled(True)
+
             if questionsToPlay < 1:
                 stechen = int(next_question.get('seq', 0)) - maximum_questions
                 self.pBQuizControls.setStyleSheet("color: rgb(255, 0, 0);")
