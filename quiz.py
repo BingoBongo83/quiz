@@ -2420,6 +2420,7 @@ class GameWindow(QMainWindow):
         self.PreviousQuestionLabelTitle.setText("Titel")
         self.PreviousQuestionLabelTitle.setFont(font2)
         self.PreviousQuestionLabelTitle.setFixedSize(800, 60)
+        self.PreviousQuestionLabelTitle.setWordWrap(True)
         self.PreviousQuestionLabelComment = QPlainTextEdit()
         self.PreviousQuestionLabelComment.setStyleSheet("font-size: 20px;")
         self.PreviousQuestionLabelComment.setFixedWidth(800)
