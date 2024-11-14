@@ -1089,6 +1089,17 @@ def get_round_maximum_questions(round_id):
     connection.close()
     return maximum
 
+def get_played_questions_for_round(round_id):
+    engine = connect(QUIZ_TABLE)
+    connection = engine.connect()
+    result = connection.execute(
+        text(f"select count(*) from questions where round = '{round_id}' and played = 1")
+    )
+    played = 0
+    for row in result:
+        played += row.played
+    connection.close()
+    return played
 
 def set_monitor_to_pause():
     engine = connect(QUIZ_TABLE)
