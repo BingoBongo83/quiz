@@ -1108,6 +1108,7 @@ def mark_all_questions_played_for_round(round_id):
         text(f"update questions set played = 1 where round = '{round_id}'")
     )
     connection.commit()
+    print(f"all questions for round {round_id} marked as played")
     connection.close()
 
 def set_monitor_to_pause():
