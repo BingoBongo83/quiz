@@ -2378,14 +2378,15 @@ class GameWindow(QMainWindow):
         self.NextQuestionLabelTop = QLabel(self)
         self.NextQuestionLabelTop.setText("Nächste Frage:")
         self.NextQuestionLabelTop.setFont(font2)
-        self.NextQuestionLabelTop.setFixedSize(1000, 30)
+        self.NextQuestionLabelTop.setFixedSize(800, 30)
         self.NextQuestionLabelTitle = QLabel(self)
         self.NextQuestionLabelTitle.setText("Titel")
         self.NextQuestionLabelTitle.setFont(font2)
-        self.NextQuestionLabelTitle.setFixedSize(1000, 60)
+        self.NextQuestionLabelTitle.setFixedSize(800, 60)
+        self.NextQuestionLabelTitle.setWordWrap(True)
         self.NextQuestionLabelComment = QPlainTextEdit()
         self.NextQuestionLabelComment.setStyleSheet("font-size: 20px;")
-        self.NextQuestionLabelComment.setFixedWidth(1000)
+        self.NextQuestionLabelComment.setFixedWidth(800)
 
         self.NextQuestionInfo.addWidget(
             self.NextQuestionLabelTop, 0, Qt.AlignmentFlag.AlignCenter
@@ -2414,14 +2415,14 @@ class GameWindow(QMainWindow):
         self.PreviousQuestionLabelTop = QLabel(self)
         self.PreviousQuestionLabelTop.setText("Vorherige Frage:")
         self.PreviousQuestionLabelTop.setFont(font2)
-        self.PreviousQuestionLabelTop.setFixedSize(1000, 30)
+        self.PreviousQuestionLabelTop.setFixedSize(800, 30)
         self.PreviousQuestionLabelTitle = QLabel(self)
         self.PreviousQuestionLabelTitle.setText("Titel")
         self.PreviousQuestionLabelTitle.setFont(font2)
-        self.PreviousQuestionLabelTitle.setFixedSize(1000, 60)
+        self.PreviousQuestionLabelTitle.setFixedSize(800, 60)
         self.PreviousQuestionLabelComment = QPlainTextEdit()
         self.PreviousQuestionLabelComment.setStyleSheet("font-size: 20px;")
-        self.PreviousQuestionLabelComment.setFixedWidth(1000)
+        self.PreviousQuestionLabelComment.setFixedWidth(800)
 
         self.PreviousQuestionInfo.addWidget(
             self.PreviousQuestionLabelTop, 0, Qt.AlignmentFlag.AlignCenter
