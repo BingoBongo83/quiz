@@ -2577,7 +2577,7 @@ class GameWindow(QMainWindow):
             maximum_questions = int(maximum_questions_db)
         if maximum_questions < int(maximum_questions_db):
             reserve_questions = int(maximum_questions_db) - maximum_questions
-        questionsToPlay = maximum_questions - next_question.get("seq", 1000) + 1
+        questionsToPlay = maximum_questions - next_question.get("seq", 2000) + 1
         question_count = (
             f"Frage: {next_question.get('seq',0)} / {maximum_questions} (+{reserve_questions}) / {questionsToPlay}"
         )
@@ -2618,6 +2618,9 @@ class GameWindow(QMainWindow):
             self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
         if questionsToPlay > 5:
             self.pBQuizControls.setStyleSheet("color: rgb(249, 240, 107);")
+        if questionsToPlay > 1000:
+            self.pBQuizControls.setStyleSheet("color: rgb(0, 255, 0);")
+            self.pBQuizControls.setText("Runde beendet!")
         self.pBTikTak.setText("\u23f2 - ticking")
         self.pBSkipQuestionQuiz.setText("skip question")
         self.pBResetBuzzer.setText("reset buzzer")
