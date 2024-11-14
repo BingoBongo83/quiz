@@ -386,10 +386,10 @@ class QuestionsWindow(QMainWindow):
         self.HLayoutMenu.addWidget(self.pBQuestionsRound7)
 
         def setMyRoundId(round_id):
-            print(f"setMyRoundId: {round_id}")
+            # print(f"setMyRoundId: {round_id}")
             self.QuestionEditRoundId = round_id
 
-        print(f"QuestionEditRoundId: {self.QuestionEditRoundId}")
+        # print(f"QuestionEditRoundId: {self.QuestionEditRoundId}")
 
         self.TopTitle = QLabel()
         self.TopTitle.setText("Questions")
@@ -462,7 +462,7 @@ class QuestionsWindow(QMainWindow):
             # for debug:
             # print(questionName)
             item.setText(questionName)
-            item.setData(Qt.UserRole, question[0])
+            item.setData(Qt.UserRole, xquestion[0])
             self.QuestionList.addItem(item)
 
     def RemoveQuestion(self):
