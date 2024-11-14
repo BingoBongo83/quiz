@@ -2781,7 +2781,7 @@ class MusikQuiz(QMainWindow):
         self.pBplayerNames = QPushButton("Spielernamen", self)
         self.pBplayerNames.setFixedSize(200, 30)
         self.pBplayerNames.clicked.connect(self.PlayerNames)
-        self.pBQuestions = QPushButton("Questions", self)
+        self.pBQuestions = QPushButton("Fragen", self)
         self.pBQuestions.setFixedSize(200, 30)
         self.pBQuestions.clicked.connect(self.Questions)
         self.stats_button = QPushButton("Statistiken", self)
