@@ -2598,7 +2598,7 @@ class GameWindow(QMainWindow):
         self.pBPlayer2Wrong.setText("X")
         self.pBPlayer3Wrong.setText("X")
         self.pBPlayer4Wrong.setText("X")
-
+        print(f"questions to play: {questionsToPlay}")
         # self.pBPreviousSongSpotify.setText("\u23ee")
         # self.pBPlaySpotify.setText("\u23f5")
         # self.pBPauseSpotify.setText("\u23f8")
