@@ -452,6 +452,7 @@ class QuestionsWindow(QMainWindow):
         self.QuestionEditRoundId = 1
 
         self.GetQuestions(self.QuestionEditRoundId)
+        self.DeactivateButton(self.pBQuestionsRound1)
 
     def GetQuestions(self, round_id):
         print(f"----- GET QUESTIONS ROUND {round_id} -----")
