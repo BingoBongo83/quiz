@@ -2604,9 +2604,9 @@ class GameWindow(QMainWindow):
         # self.pBPauseSpotify.setText("\u23f8")
         # self.pBNextSongSpotify.setText("\u23ed")
         self.pBQuizControls.setText(question_count)
-        if questionsToPlay == 0:
+        if questionsToPlay < 1:
             self.pBQuizControls.setStyleSheet("color: rgb(255, 0, 0);")
-        if questionsToPlay < 6:
+        if questionsToPlay in range(1, 6):
             self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
         else:
             self.pBQuizControls.setStyleSheet("color: rgb(249, 240, 107);")
