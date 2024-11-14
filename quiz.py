@@ -388,6 +388,8 @@ class QuestionsWindow(QMainWindow):
         def setMyRoundId(round_id):
             self.QuestionEditRoundId = round_id
 
+        print(f"QuestionEditRoundId: {self.QuestionEditRoundId}")
+
         self.TopTitle = QLabel()
         self.TopTitle.setText("Questions")
         self.TopTitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
