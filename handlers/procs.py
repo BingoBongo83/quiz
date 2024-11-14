@@ -1097,7 +1097,7 @@ def get_played_questions_for_round(round_id):
     )
     played = 0
     for row in result:
-        played = row.count
+        played = row[0]
     connection.close()
     return played
 
