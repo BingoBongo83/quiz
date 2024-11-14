@@ -1,5 +1,5 @@
 from configparser import ConfigParser
-from PySide6.QtCore import QSize
+from PySide6.QtCore import QSize, Qt
 import os
 
 QUIZ_TABLE = "quiz"
@@ -10,7 +10,10 @@ ARDUINO_BAUD = 9600
 
 # standard image if no album image is found
 image_image = "standard.jpg"
+
+
 small_image = QSize(200, 200)
+small_image.scale(200, 200, Qt.KeepAspectRatio)
 big_image = QSize(400, 400)
 image_path = "/home/benny/Dokumente/musikquiz_local/musikquiz/static/cover/"
 
