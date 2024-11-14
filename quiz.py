@@ -2571,13 +2571,13 @@ class GameWindow(QMainWindow):
         previous_question = {}
         previous_question = procs.get_last_question()
         maximum_questions = procs.get_round_maximum_questions(my_round_id)
-        # print(f"maximum: {next_question.get("total", maximum_questions)}")
         maximum_questions_db = next_question.get("total", maximum_questions)
+        reserve_questions = maximum_questions_db - maximum_questions
         if maximum_questions > int(maximum_questions_db):
             maximum_questions = maximum_questions_db
         questionsToPlay = maximum_questions - next_question.get("seq", 0) + 1
         question_count = (
-            f"question# {next_question.get('seq',0)} / {maximum_questions} (noch {questionsToPlay}) "
+            f"# {next_question.get('seq',0)} / {maximum_questions} (+{reserve_questions}) (noch {questionsToPlay}) "
         )
         self.labelPlayer1Name.setText(player_1_name)
         self.labelPlayer2Name.setText(player_2_name)
