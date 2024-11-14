@@ -2608,7 +2608,7 @@ class GameWindow(QMainWindow):
         # self.pBPauseSpotify.setText("\u23f8")
         # self.pBNextSongSpotify.setText("\u23ed")
         self.pBQuizControls.setText(question_count)
-        self.pBQuizControls.clicked.connect(lambda: procs.set_all_questions_played_for_round(my_round_id))
+        self.pBQuizControls.clicked.connect(lambda: procs.mark_all_questions_played_for_round(my_round_id))
 
         if not no_questions:
             self.pBPlayer1Correct.setEnabled(True)
