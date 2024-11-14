@@ -2571,9 +2571,13 @@ class GameWindow(QMainWindow):
         previous_question = {}
         previous_question = procs.get_last_question()
         maximum_questions = procs.get_round_maximum_questions(my_round_id)
+        print(f"DEBUG: maximum_questions: {maximum_questions}")
         maximum_questions_db = next_question.get("total", maximum_questions)
+        print(f"DEBUG: maximum_questions_db: {maximum_questions_db}")
         played_questions = procs.get_played_questions_for_round(my_round_id)
+        print(f"DEBUG: played_questions: {played_questions}")
         reserve_questions = 0
+        print(f"DEBUG: reserve_questions: {reserve_questions}")
         no_questions = 0
         if played_questions == int(maximum_questions_db):
             no_questions = 1
