@@ -482,6 +482,7 @@ class QuestionsWindow(QMainWindow):
 
     def EditQuestion(self, item):
         QuestionId = item.data(Qt.UserRole)
+        print(f"----- EDIT QUESTION {QuestionId} -----")
         pop = QuestionEditor(QuestionId, self)
         pop.show()
 
