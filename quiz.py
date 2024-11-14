@@ -2645,6 +2645,7 @@ class GameWindow(QMainWindow):
             #     self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
             if questionsToPlay > 5:
                 self.pBQuizControls.setStyleSheet("color: rgb(249, 240, 107);")
+                self.pBQuizControls.setText(f"noch {questionsToPlay} Fragen! (+{reserve_questions})")
         if no_questions == 1:
             self.pBQuizControls.setStyleSheet("color: rgb(0, 255, 0);")
             self.pBQuizControls.setText("Runde beendet!")
