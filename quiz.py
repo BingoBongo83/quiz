@@ -501,6 +501,14 @@ class QuestionsWindow(QMainWindow):
         pop.show()
 
     def DeactivateButton(self, button):
+        #enable all buttons:
+        self.pBQuestionsRound1.setDisabled(False)
+        self.pBQuestionsRound2.setDisabled(False)
+        self.pBQuestionsRound3.setDisabled(False)
+        self.pBQuestionsRound4.setDisabled(False)
+        self.pBQuestionsRound5.setDisabled(False)
+        self.pBQuestionsRound6.setDisabled(False)
+        self.pBQuestionsRound7.setDisabled(False)
         button.setDisabled(True)
 
 
