@@ -820,6 +820,22 @@ def remove_question_from_database(id):
     print(f"QUESTION {id} DELETED")
     connection.close()
 
+def get_question_details(id):
+    engine = connect(QUIZ_TABLE)
+    connection = engine.connect()
+    questionDetails = {}
+    result = connection.execute(text(f"select question, answer, round, seq, played, comment, image from questions where id = {id}"))
+    for row in result:
+        questionDetails["question"] = row.question
+        questionDetails["answer"] = row.answer
+        questionDetails["round"] = row.round
+        questionDetails["seq"] = row.seq
+        questionDetails["played"] = row.played
+        questionDetails["comment"] = row.comment
+        questionDetails["image"] = row.image
+    connection.close()
+    return questionDetails
+
 def change_question_details(id, question, answer, round, seq, played, comment, image):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
