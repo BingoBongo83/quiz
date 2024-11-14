@@ -2575,6 +2575,7 @@ class GameWindow(QMainWindow):
         reserve_questions = 0
         if maximum_questions > int(maximum_questions_db):
             maximum_questions = maximum_questions_db
+        if maximum_questions < int(maximum_questions_db):
             reserve_questions = maximum_questions_db - maximum_questions
         questionsToPlay = maximum_questions - next_question.get("seq", 0) + 1
         question_count = (
