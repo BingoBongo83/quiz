@@ -2295,56 +2295,6 @@ class GameWindow(QMainWindow):
         self.pBPlayer4Wrong.clicked.connect(self.initGame)
         self.GridScoreLayout.addWidget(self.pBPlayer4Wrong, 3, 3, 1, 1)
 
-        # self.pBPreviousSongSpotify = QPushButton(self.verticalLayoutWidget)
-        # self.pBPreviousSongSpotify.setObjectName("pBPreviousSongSpotify")
-        # self.pBPreviousSongSpotify.setMinimumSize(QSize(0, 40))
-        # self.pBPreviousSongSpotify.setMaximumSize(QSize(250, 16777215))
-        # self.pBPreviousSongSpotify.setFont(font2)
-        # self.pBPreviousSongSpotify.setStyleSheet(
-        #     "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
-        # )
-        # self.pBPreviousSongSpotify.clicked.connect(lambda: procs.media_previous_song())
-        # self.pBPreviousSongSpotify.clicked.connect(self.initGame)
-        # self.GridScoreLayout.addWidget(self.pBPreviousSongSpotify, 4, 0, 1, 1)
-
-        # self.pBPlaySpotify = QPushButton(self.verticalLayoutWidget)
-        # self.pBPlaySpotify.setObjectName("pBPlaySpotify")
-        # self.pBPlaySpotify.setMinimumSize(QSize(0, 40))
-        # self.pBPlaySpotify.setMaximumSize(QSize(250, 16777215))
-        # self.pBPlaySpotify.setFont(font2)
-        # self.pBPlaySpotify.setStyleSheet(
-        #     "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
-        # )
-        # self.pBPlaySpotify.setAutoDefault(True)
-        # self.pBPlaySpotify.setFlat(False)
-        # self.pBPlaySpotify.clicked.connect(lambda: procs.media_play())
-        # # self.pBPlaySpotify.clicked.connect(self.initGame)
-        # self.GridScoreLayout.addWidget(self.pBPlaySpotify, 4, 1, 1, 1)
-
-        # self.pBPauseSpotify = QPushButton(self.verticalLayoutWidget)
-        # self.pBPauseSpotify.setObjectName("pBPauseSpotify")
-        # self.pBPauseSpotify.setMinimumSize(QSize(0, 40))
-        # self.pBPauseSpotify.setMaximumSize(QSize(250, 16777215))
-        # self.pBPauseSpotify.setFont(font2)
-        # self.pBPauseSpotify.setStyleSheet(
-        #     "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
-        # )
-        # self.pBPauseSpotify.clicked.connect(lambda: procs.media_pause())
-        # self.pBPauseSpotify.clicked.connect(self.initGame)
-        # self.GridScoreLayout.addWidget(self.pBPauseSpotify, 4, 2, 1, 1)
-
-        # self.pBNextSongSpotify = QPushButton(self.verticalLayoutWidget)
-        # self.pBNextSongSpotify.setObjectName("pBNextSongSpotify")
-        # self.pBNextSongSpotify.setMinimumSize(QSize(0, 40))
-        # self.pBNextSongSpotify.setMaximumSize(QSize(250, 16777215))
-        # self.pBNextSongSpotify.setFont(font2)
-        # self.pBNextSongSpotify.setStyleSheet(
-        #     "background-color: rgb(249, 240, 107); color: rgb(0, 0, 0);"
-        # )
-        # self.pBNextSongSpotify.clicked.connect(lambda: procs.media_next_song())
-        # self.pBNextSongSpotify.clicked.connect(self.initGame)
-        # self.GridScoreLayout.addWidget(self.pBNextSongSpotify, 4, 3, 1, 1)
-
         self.pBQuizControls = QPushButton(self.verticalLayoutWidget)
         self.pBQuizControls.setObjectName("pBQuizControls")
         self.pBQuizControls.setEnabled(False)
@@ -2400,7 +2350,7 @@ class GameWindow(QMainWindow):
         self.NextQuestionInfo = QVBoxLayout()
 
         self.NextQuestionLabelTop = QLabel(self)
-        self.NextQuestionLabelTop.setText("Nächster Question:")
+        self.NextQuestionLabelTop.setText("Nächste Frage:")
         self.NextQuestionLabelTop.setFont(font2)
         self.NextQuestionLabelTop.setFixedSize(600, 30)
         self.NextQuestionLabelTitle = QLabel(self)
@@ -2426,15 +2376,6 @@ class GameWindow(QMainWindow):
         self.HLayoutNextQuestionInfo.setAlignment(Qt.AlignmentFlag.AlignHCenter)
         self.VLayoutMain.addLayout(self.HLayoutNextQuestionInfo)
 
-        # self.HLayoutSpotifySong = QHBoxLayout()
-        # self.HLayoutSpotifySong.setObjectName("HLayoutSpotifySong")
-        # self.currentSpotifySong = QLabel(self.verticalLayoutWidget)
-        # self.currentSpotifySong.setObjectName("currentSpotifySong")
-        # self.currentSpotifySong.setStyleSheet("color: rgb(0, 255, 0);")
-        # self.currentSpotifySong.setFont(font2)
-        # self.currentSpotifySong.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        # self.HLayoutSpotifySong.addWidget(self.currentSpotifySong)
-        # self.VLayoutMain.addLayout(self.HLayoutSpotifySong)
 
         PreviousQuestionCover = image_path + "standard.jpg"
         self.PreviousQuestionCoverPixmap = QPixmap(PreviousQuestionCover)
@@ -2445,7 +2386,7 @@ class GameWindow(QMainWindow):
         self.PreviousQuestionInfo = QVBoxLayout()
 
         self.PreviousQuestionLabelTop = QLabel(self)
-        self.PreviousQuestionLabelTop.setText("Vorheriger Question:")
+        self.PreviousQuestionLabelTop.setText("Vorherige Frage:")
         self.PreviousQuestionLabelTop.setFont(font2)
         self.PreviousQuestionLabelTop.setFixedSize(600, 30)
         self.PreviousQuestionLabelTitle = QLabel(self)
@@ -2757,12 +2698,11 @@ class MusikQuiz(QMainWindow):
         self.setWindowTitle("Musik Quiz")
         self.setGeometry(100, 100, 600, 300)
 
-        title = "MusikQuiz"
+        title = "Quiz"
 
         version_number = procs.get_version_number()
 
         self.fontTop = QFont()
-        # self.fontTop.setFamily(u"Verdana")
         self.fontTop.setPointSize(40)
         self.fontTop.setBold(True)
 
@@ -2784,9 +2724,9 @@ class MusikQuiz(QMainWindow):
         self.pBQuestions = QPushButton("Fragen", self)
         self.pBQuestions.setFixedSize(200, 30)
         self.pBQuestions.clicked.connect(self.Questions)
-        self.stats_button = QPushButton("Statistiken", self)
-        self.stats_button.setFixedSize(200, 30)
-        self.stats_button.clicked.connect(self.stats)
+        # self.stats_button = QPushButton("Statistiken", self)
+        # self.stats_button.setFixedSize(200, 30)
+        # self.stats_button.clicked.connect(self.stats)
         self.settings_button = QPushButton("Einstellungen", self)
         self.settings_button.setFixedSize(200, 30)
         self.settings_button.clicked.connect(self.settings)
@@ -2804,7 +2744,7 @@ class MusikQuiz(QMainWindow):
         MainLayout.addWidget(
             self.tournament_button, alignment=Qt.AlignmentFlag.AlignCenter
         )
-        MainLayout.addWidget(self.stats_button, alignment=Qt.AlignmentFlag.AlignCenter)
+        # MainLayout.addWidget(self.stats_button, alignment=Qt.AlignmentFlag.AlignCenter)
         MainLayout.addWidget(
             self.settings_button, alignment=Qt.AlignmentFlag.AlignCenter
         )
