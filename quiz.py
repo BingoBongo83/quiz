@@ -2606,7 +2606,10 @@ class GameWindow(QMainWindow):
         self.pBQuizControls.setText(question_count)
         if questionsToPlay < 1:
             self.pBQuizControls.setStyleSheet("color: rgb(255, 0, 0);")
-        if questionsToPlay in range(1, 6):
+        if questionsToPlay == 1:
+            self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
+            self.pBQuizControls.setText("Letzte Frage!")
+        if questionsToPlay in range(2, 6):
             self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
         if questionsToPlay > 5:
             self.pBQuizControls.setStyleSheet("color: rgb(249, 240, 107);")
