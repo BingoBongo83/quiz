@@ -495,7 +495,7 @@ class QuestionsWindow(QMainWindow):
         pop.show()
 
     def DeactivateButton(self, button):
-        self.button.setDisabled(True)
+        button.setDisabled(True)
 
 
     def closeQuestionsWindow(self):
