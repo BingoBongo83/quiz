@@ -2321,7 +2321,6 @@ class GameWindow(QMainWindow):
 
         self.pBQuizControls = QPushButton(self.verticalLayoutWidget)
         self.pBQuizControls.setObjectName("pBQuizControls")
-        self.pBQuizControls.setEnabled(False)
         self.pBQuizControls.setMinimumSize(QSize(0, 40))
         self.pBQuizControls.setMaximumSize(QSize(250, 16777215))
         self.pBQuizControls.setFont(font2)
@@ -2576,7 +2575,7 @@ class GameWindow(QMainWindow):
         reserve_questions = 0
         no_questions = False
         if played_questions == int(maximum_questions_db):
-            no_questions = 1
+            no_questions = True
         if maximum_questions > int(maximum_questions_db):
             maximum_questions = int(maximum_questions_db)
         if maximum_questions < int(maximum_questions_db):
@@ -2609,6 +2608,7 @@ class GameWindow(QMainWindow):
         # self.pBPauseSpotify.setText("\u23f8")
         # self.pBNextSongSpotify.setText("\u23ed")
         self.pBQuizControls.setText(question_count)
+        self.pBQuizControls.clicked.connect(lambda: procs.set_all_questions_played_for_round(my_round_id))
 
         if not no_questions:
             self.pBPlayer1Correct.setEnabled(True)
