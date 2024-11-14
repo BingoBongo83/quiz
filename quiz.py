@@ -2574,7 +2574,7 @@ class GameWindow(QMainWindow):
         maximum_questions_db = next_question.get("total", maximum_questions)
         played_questions = procs.get_played_questions_for_round(my_round_id)
         reserve_questions = 0
-        no_questions = 0
+        no_questions = False
         if played_questions == int(maximum_questions_db):
             no_questions = 1
         if maximum_questions > int(maximum_questions_db):
@@ -2610,7 +2610,7 @@ class GameWindow(QMainWindow):
         # self.pBNextSongSpotify.setText("\u23ed")
         self.pBQuizControls.setText(question_count)
 
-        if no_questions == 0:
+        if not no_questions:
             self.pBPlayer1Correct.setEnabled(True)
             self.pBPlayer1Correct.setStyleSheet("background-color: rgb(0, 255, 0); color: rgb(0,0,0);")
             self.pBPlayer1Wrong.setEnabled(True)
@@ -2646,7 +2646,7 @@ class GameWindow(QMainWindow):
             if questionsToPlay > 5:
                 self.pBQuizControls.setStyleSheet("color: rgb(0, 255, 0);")
                 self.pBQuizControls.setText(f"noch {questionsToPlay} Fragen! (+{reserve_questions})")
-        if no_questions == 1:
+        if no_questions:
             self.pBQuizControls.setStyleSheet("color: rgb(0, 255, 0);")
             self.pBQuizControls.setText("Runde beendet!")
             self.pBPlayer1Correct.setEnabled(False)

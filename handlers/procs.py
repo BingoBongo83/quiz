@@ -1101,6 +1101,15 @@ def get_played_questions_for_round(round_id):
     connection.close()
     return played
 
+def mark_all_questions_played_for_round(round_id):
+    engine = connect(QUIZ_TABLE)
+    connection = engine.connect()
+    connection.execute(
+        text(f"update questions set played = 1 where round = '{round_id}'")
+    )
+    connection.commit()
+    connection.close()
+
 def set_monitor_to_pause():
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
