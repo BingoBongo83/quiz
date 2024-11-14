@@ -2610,7 +2610,7 @@ class GameWindow(QMainWindow):
             f"{next_question.get('question')}\n{next_question.get('answer')}"
         )
         self.NextQuestionLabelComment.setPlainText(next_question.get("comment"))
-        NextQuestionCover = next_question.get("image")
+        NextQuestionCover = next_question.get("image", "standard.jpg")
         NextQuestionCover = "".join(image_path + NextQuestionCover)
         self.NextQuestionCoverPixmap = QPixmap(NextQuestionCover)
         self.NextQuestionCoverPixmap = self.NextQuestionCoverPixmap.scaled(small_image)
