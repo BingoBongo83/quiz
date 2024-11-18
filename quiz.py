@@ -431,7 +431,7 @@ class QuestionsWindow(QMainWindow):
         self.MaxQuestionsButton.clicked.connect(lambda: procs.set_round_max_questions(self.QuestionEditRoundId, self.MaxQuestions.text()))
         self.HLayoutMaximumValues.addWidget(self.LabelMaxQuestions)
         self.HLayoutMaximumValues.addWidget(self.MaxQuestions)
-        self.HLayoutMaximumValues.addWidget(self.LabelMaxQuestions)
+        self.HLayoutMaximumValues.addWidget(self.MaxQuestionsButton)
         
         
         self.VLayoutQuestions.addLayout(self.HLayoutMaximumValues)
