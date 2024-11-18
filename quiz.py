@@ -474,7 +474,7 @@ class QuestionsWindow(QMainWindow):
 
     def GetQuestions(self, round_id):
         print(f"----- GET QUESTIONS ROUND {round_id} -----")
-        maxQuestions = procs.get_round_max_questions(round_id)
+        maxQuestions = procs.get_round_maximum_questions(round_id)
         self.MaxQuestions.setText(str(maxQuestions))
         self.QuestionList.clear()
         questions = procs.get_questions_for_round(round_id)
