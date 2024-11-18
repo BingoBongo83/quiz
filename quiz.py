@@ -27,7 +27,7 @@ from PySide6.QtCharts import (
     QChartView,
     QValueAxis,
 )
-from PySide6.QtCore import Qt, QSize, QRect, QTimer, 
+from PySide6.QtCore import Qt, QSize, QRect, QTimer
 from PySide6.QtGui import QFont, QPixmap, QAction, QIcon, QPainter, QBrush, QColor, QIntValidator
 from handlers import procs
 from config import (
