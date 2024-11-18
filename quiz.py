@@ -27,7 +27,7 @@ from PySide6.QtCharts import (
     QChartView,
     QValueAxis,
 )
-from PySide6.QtCore import Qt, QSize, QRect, QTimer
+from PySide6.QtCore import Qt, QSize, QRect, QTimer, QIntValidator
 from PySide6.QtGui import QFont, QPixmap, QAction, QIcon, QPainter, QBrush, QColor
 from handlers import procs
 from config import (
@@ -423,11 +423,16 @@ class QuestionsWindow(QMainWindow):
         self.HLayoutMaximumValues.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.LabelMaxQuestions = QLabel()
         self.LabelMaxQuestions.setText("Maximale Fragen:")
+        self.LabelMaxQuestions.setFixedWidth(150)
         self.MaxQuestions = QLineEdit()
         self.MaxQuestions.setFixedWidth(50)
         self.MaxQuestions.setText("15")
+        self.MaxQuestions.setMaxLength(2)
+        self.MaxQuestions.setValidator(QIntValidator(0, 99))
+        self.MaxQuestions.setFixedWidth(50)
         self.MaxQuestionsButton = QPushButton()
         self.MaxQuestionsButton.setText("Speichern")
+        self.MaxQuestionsButton.setFixedWidth(100)
         self.MaxQuestionsButton.clicked.connect(lambda: procs.set_round_max_questions(self.QuestionEditRoundId, self.MaxQuestions.text()))
         self.HLayoutMaximumValues.addWidget(self.LabelMaxQuestions)
         self.HLayoutMaximumValues.addWidget(self.MaxQuestions)
