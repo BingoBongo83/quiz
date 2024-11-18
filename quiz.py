@@ -437,8 +437,8 @@ class QuestionsWindow(QMainWindow):
         self.HLayoutMaximumValues.addWidget(self.LabelMaxQuestions)
         self.HLayoutMaximumValues.addWidget(self.MaxQuestions)
         self.HLayoutMaximumValues.addWidget(self.MaxQuestionsButton)
-        
-        
+
+
         self.VLayoutQuestions.addLayout(self.HLayoutMaximumValues)
 
 
@@ -2351,8 +2351,9 @@ class GameWindow(QMainWindow):
         self.pBQuizControls.setFont(font2)
         self.pBQuizControls.setStyleSheet("color: rgb(249, 240, 107);")
         self.GridScoreLayout.addWidget(self.pBQuizControls, 5, 0, 1, 1)
-        
+
         self.pBQuizControls.clicked.connect(lambda: procs.mark_all_questions_played_for_round(procs.get_play_round()))
+        self.pBQuizControls.clicked.connect(lambda: procs.play_winner())
         self.pBQuizControls.clicked.connect(self.initGame)
 
         self.pBTikTak = QPushButton(self.verticalLayoutWidget)
@@ -2670,6 +2671,8 @@ class GameWindow(QMainWindow):
             if questionsToPlay in range(2, 6):
                 self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
                 self.pBQuizControls.setText(f"noch {questionsToPlay} Fragen! (+{reserve_questions})")
+            if questionsToPlay == 5:
+                procs.play_final()
             # if questionsToPlay in range(2, 5):
             #     self.pBQuizControls.setStyleSheet("color: rgb(255, 165, 0);")
             if questionsToPlay > 5:

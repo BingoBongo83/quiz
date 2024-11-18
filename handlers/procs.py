@@ -7,7 +7,7 @@ from sqlalchemy import text, create_engine
 import dbus
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
-from config import QUIZ_TABLE, config, ARDUINO_USE, ARDUINO_PORT, ARDUINO_BAUD 
+from config import QUIZ_TABLE, config, ARDUINO_USE, ARDUINO_PORT, ARDUINO_BAUD
 import serial
 from faker import Faker
 
@@ -147,6 +147,13 @@ def play_hit():
     pygame.mixer.music.load("sounds/hit.mp3")
     pygame.mixer.music.play()
 
+def play_final():
+    pygame.mixer.music.load("sounds/final.mp3")
+    pygame.mixer.music.play()
+
+def play_winner():
+    pygame.mixer.music.load("sounds/winner.mp3")
+    pygame.mixer.music.play()
 
 def generate_fake_names():
     FakeNames = []
@@ -159,7 +166,7 @@ def generate_fake_names():
     for i in range(16):
         connection.execute(text(f"update player set name = '{FakeNames[i]}' where id = {i+1}"))
         connection.commit()
-    connection.close() 
+    connection.close()
 
 def new_player_names(
     player1,
