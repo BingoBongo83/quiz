@@ -419,6 +419,24 @@ class QuestionsWindow(QMainWindow):
         self.VLayoutQuestions.addLayout(self.HLayoutMenu)
         self.VLayoutQuestions.addWidget(self.QuestionList)
 
+        self.HLayoutMaximumValues = QHBoxLayout()
+        self.HLayoutMaximumValues.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.LabelMaxQuestions = QLabel()
+        self.LabelMaxQuestions.setText("Maximale Fragen:")
+        self.MaxQuestions = QLineEdit()
+        self.MaxQuestions.setFixedWidth(50)
+        self.MaxQuestions.setText("15")
+        self.MaxQuestionsButton = QPushButton()
+        self.MaxQuestionsButton.setText("Speichern")
+        self.MaxQuestionsButton.clicked.connect(lambda: procs.set_round_max_questions(self.QuestionEditRoundId, self.MaxQuestions.text()))
+        self.HLayoutMaximumValues.addWidget(self.LabelMaxQuestions)
+        self.HLayoutMaximumValues.addWidget(self.MaxQuestions)
+        self.HLayoutMaximumValues.addWidget(self.LabelMaxQuestions)
+        
+        
+        self.VLayoutQuestions.addLayout(self.HLayoutMaximumValues)
+
+
         self.HLayoutButtons = QHBoxLayout()
         self.VLayoutQuestions.addLayout(self.HLayoutButtons)
 
@@ -456,6 +474,8 @@ class QuestionsWindow(QMainWindow):
 
     def GetQuestions(self, round_id):
         print(f"----- GET QUESTIONS ROUND {round_id} -----")
+        maxQuestions = procs.get_round_max_questions(round_id)
+        self.MaxQuestions.setText(str(maxQuestions))
         self.QuestionList.clear()
         questions = procs.get_questions_for_round(round_id)
         for xquestion in questions:

@@ -1089,6 +1089,15 @@ def get_round_maximum_questions(round_id):
     connection.close()
     return maximum
 
+def set_round_maximum_questions(round_id, maximum):
+    engine = connect(QUIZ_TABLE)
+    connection = engine.connect()
+    connection.execute(
+        text(f"update max_questions set maximum = '{maximum}' where round = '{round_id}'")
+    )
+    connection.commit()
+    connection.close()
+
 def get_played_questions_for_round(round_id):
     engine = connect(QUIZ_TABLE)
     connection = engine.connect()
