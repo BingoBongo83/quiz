@@ -596,6 +596,9 @@ class SettingsWindow(QMainWindow):
         self.FakeNamesButton.setText("Namen generieren")
         self.FakeNamesButton.clicked.connect(self.GenerateFakeNames)
 
+        self.ExportButton = QPushButton()
+        self.ExportButton.setText("Fragen Exportieren")
+        self.ExportButton.clicked.connect(lambda: procs.export_question_database())
 
         self.ResetButton = QPushButton()
         self.ResetButton.setText("Spiel zurücksetzen")
@@ -611,6 +614,7 @@ class SettingsWindow(QMainWindow):
             self.PlayModeWarning, 0, Qt.AlignmentFlag.AlignCenter
         )
         self.VLayoutStatistics.addWidget(self.FakeNamesButton)
+        self.VLayoutStatistics.addWidget(self.ExportButton)
         self.VLayoutStatistics.addWidget(self.ResetButton)
         self.VLayoutStatistics.addWidget(self.ExitButton)
 

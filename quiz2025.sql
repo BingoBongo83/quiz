@@ -88,7 +88,7 @@ CREATE TABLE `round` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `quiz`.`config` (`id`, `name`, `value`) VALUES
+INSERT INTO `config` (`id`, `name`, `value`) VALUES
 (1, 'monitor_round', '0'),
 (2, 'buzzer_blocked', '4'),
 (10, 'final_date', 'Dec 19 2024  18:00:00'),
@@ -98,9 +98,9 @@ INSERT INTO `quiz`.`config` (`id`, `name`, `value`) VALUES
 (14, 'buzzer_pressed', '4'),
 (15, 'version', '0.9');
 
-INSERT INTO `quiz`.`last_question` (`id`,`question`,`answer`,`image`,`comment`) VALUES (1,'','','standard.jpg','');
+INSERT INTO `last_question` (`id`,`question`,`answer`,`image`,`comment`) VALUES (1,'','','standard.jpg','');
 
-INSERT INTO `quiz`.`max_questions` (`id`, `round`, `maximum`) VALUES
+INSERT INTO `max_questions` (`id`, `round`, `maximum`) VALUES
 (1, '1', 15),
 (2, '2', 15),
 (3, '3', 15),
@@ -109,7 +109,7 @@ INSERT INTO `quiz`.`max_questions` (`id`, `round`, `maximum`) VALUES
 (6, '6', 20),
 (7, '7', 25);
 
-INSERT INTO `quiz`.`play_off` (`id`, `player`, `points`) VALUES
+INSERT INTO `play_off` (`id`, `player`, `points`) VALUES
 (1, 4, 6),
 (2, 5, 10),
 (3, 11, 4),
@@ -117,7 +117,7 @@ INSERT INTO `quiz`.`play_off` (`id`, `player`, `points`) VALUES
 (5, 6, 4),
 (6, 12, 2);
 
-INSERT INTO `quiz`.`player` (`id`, `name`) VALUES
+INSERT INTO `player` (`id`, `name`) VALUES
 (1, 'Alena'),
 (2, 'Michelle'),
 (3, 'Leni'),
@@ -135,7 +135,7 @@ INSERT INTO `quiz`.`player` (`id`, `name`) VALUES
 (15, 'Hans-Herbert'),
 (16, 'Eleonore');
 
-INSERT INTO `quiz`.`player_round` (`id`, `player_round_id`, `player`, `round`, `points`, `is_active`, `color`) VALUES
+INSERT INTO `player_round` (`id`, `player_round_id`, `player`, `round`, `points`, `is_active`, `color`) VALUES
 (1, 1, 1, 1, 0, 1, NULL),
 (2, 2, 2, 1, 0, 1, NULL),
 (3, 3, 3, 1, 0, 1, NULL),
@@ -166,7 +166,7 @@ INSERT INTO `quiz`.`player_round` (`id`, `player_round_id`, `player`, `round`, `
 (28, 4, 13, 7, 0, 1, NULL),
 (29, 1, 1, 8, 0, 1, NULL);
 
-INSERT INTO `quiz`.`questions` (`id`, `question`, `answer`, `round`, `seq`, `played`, `comment`, `image`) VALUES
+INSERT INTO `questions` (`id`, `question`, `answer`, `round`, `seq`, `played`, `comment`, `image`) VALUES
 (111, 'Wer war der erste Bundeskanzler der BRD?', 'Konrad Adenauer', 1, 1, 0, 'Kommentar', 'adenauer.jpg'),
 (112, 'Wie hoch ist der Kölner Dom?', '157 Meter', 1, 2, 0, 'Kommentar', 'koelnerdom.jpg'),
 (113, 'der wievielte Monat ist der September?', 'der 9.', 1, 18, 0, 'Kommentar', 'september.jpg'),
@@ -267,7 +267,7 @@ Judikative=richterliche', 'gewalten.jpg'),
 (202, 'Wer schrieb den Erlkönig?', 'Johann Wolfgang von Goethe', 3, 15, 0, 'Kommentar', 'erlkoenig.jpg'),
 (203, 'Wer schrieb Krieg und Frieden?', 'Leo Tolstoi', 6, 8, 0, 'Kommentar', 'kriegundfrieden.jpg');
 
-INSERT INTO `quiz`.`round` (`id`, `round`) VALUES
+INSERT INTO `round` (`id`, `round`) VALUES
 (1, 'Vorrunde 1'),
 (2, 'Vorrunde 2'),
 (3, 'Vorrunde 3'),

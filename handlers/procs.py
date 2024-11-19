@@ -10,6 +10,7 @@ import pygame
 from config import QUIZ_TABLE, config, ARDUINO_USE, ARDUINO_PORT, ARDUINO_BAUD
 import serial
 from faker import Faker
+import csv
 
 # if arduino cant connect try this to find ttyACM* or ttyUSB* port: ls /dev/tty*
 arduino = serial.Serial(ARDUINO_PORT, ARDUINO_BAUD, timeout=1)
@@ -806,6 +807,16 @@ def get_song_details_by_name(title):
         songDetails["cover"] = row.cover
     connection.close()
     return songDetails
+
+def export_question_database():
+    engine = connect(QUIZ_TABLE)
+    connection = engine.connect()
+    result = connection.execute(text("select * from questions"))
+    with open("questions.csv", "w", newline="") as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow([i[0] for i in result.keys()])
+        csvwriter.writerows(result)
+    connection.close()
 
 def add_question_to_database(question, answer, round, seq, played, comment, image):
     engine = connect(QUIZ_TABLE)
