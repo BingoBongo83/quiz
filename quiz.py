@@ -18,6 +18,8 @@ from PySide6.QtWidgets import (
     QAbstractItemView,
     QDialog,
     QPlainTextEdit,
+    QToolButton,
+    QFileDialog
 )
 from PySide6.QtCharts import (
     QBarCategoryAxis,
@@ -65,11 +67,10 @@ class QuestionAdd(QDialog):
     def __init__(self, round_id, parent):
         super().__init__(parent)
         self.setWindowTitle("Add Question")
-        self.resize(600, 300)
         self.label = QLabel(self)
 
         self.MainLayout = QWidget(self)
-        self.setGeometry(QRect(20, 20, 760, 760))
+        self.setGeometry(QRect(20, 20, 530, 760))
         self.VLayout = QVBoxLayout(self.MainLayout)
         self.VLayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.MainLayout.setLayout(self.VLayout)
@@ -91,7 +92,7 @@ class QuestionAdd(QDialog):
 
         # count Questions in round for default seq value
         countQuestions = procs.count_questions_by_round(round_id)
-
+        self.imagename = "standard.jpg"
         self.questionQuestion = QLineEdit()
         self.questionQuestion.setFixedSize(400, 30)
         self.questionQuestion.setText("Frage")
@@ -112,8 +113,12 @@ class QuestionAdd(QDialog):
         self.questionComment.setTabChangesFocus(True)
         self.questionComment.setText("Kommentar")
         self.questionImage = QLineEdit()
-        self.questionImage.setFixedSize(400, 30)
+        self.questionImage.setFixedSize(350, 30)
         self.questionImage.setText("standard.jpg")
+        self.questionImageBrowseButton = QToolButton()
+        self.questionImageBrowseButton.setText("...")
+        self.questionImageBrowseButton.setFixedSize(30, 30)
+        self.questionImageBrowseButton.clicked.connect(self.onquestionImageButtonClickedBrowseImage)
 
         self.LineQuestionTitle = QHBoxLayout()
         self.VLayout.addLayout(self.LineQuestionTitle)
@@ -161,19 +166,43 @@ class QuestionAdd(QDialog):
             self.LabelQuestionImage, 0, Qt.AlignmentFlag.AlignRight
         )
         self.LineQuestionImage.addWidget(self.questionImage, 0, Qt.AlignmentFlag.AlignLeft)
+        self.LineQuestionImage.addWidget(self.questionImageBrowseButton, 0, Qt.AlignmentFlag.AlignRight)
+       
+        image_preview = image_path + "standard.jpg"
+        self.questionImagePreview = QPixmap(image_preview)
+        self.questionImagePreview = self.questionImagePreview.scaled(small_image)
+        self.questionImagePreviewLabel = QLabel()
+        self.questionImagePreviewLabel.setPixmap(self.questionImagePreview)
+
+        self.VLayout.addWidget(self.questionImagePreviewLabel, 0, Qt.AlignmentFlag.AlignCenter)
 
         self.ChangeButton = QPushButton()
         self.ChangeButton.setText("Hinzufügen")
+        self.ChangeButton.setFixedSize(180, 30)
         self.ChangeButton.clicked.connect(lambda: self.AddNewQuestion())
         self.ChangeButton.clicked.connect(self.close)
-        self.VLayout.addWidget(self.ChangeButton)
+        self.VLayout.addWidget(self.ChangeButton, 0, Qt.AlignmentFlag.AlignCenter)
         self.ExitButton = QPushButton()
         self.ExitButton.setText("Schließen")
+        self.ExitButton.setFixedSize(180, 30)
         self.ExitButton.clicked.connect(self.close)
-        self.VLayout.addWidget(self.ExitButton)
+        self.VLayout.addWidget(self.ExitButton, 0, Qt.AlignmentFlag.AlignCenter)
 
         self.VLayout.addWidget(self.label)
 
+    def onquestionImageButtonClickedBrowseImage(self):
+        self.filename, filter = QFileDialog.getOpenFileName(parent=self, caption='Open file', dir='.', filter='*.jpg')
+
+        if self.filename:
+            self.imagename = os.path.basename(self.filename)
+            self.questionImage.setText(self.imagename)
+            self.questionImagePreview = QPixmap(self.filename)
+            self.questionImagePreview = self.questionImagePreview.scaled(small_image)
+            self.questionImagePreviewLabel.setPixmap(self.questionImagePreview)
+        else :
+            self.questionImage.setText("standard.jpg")
+            self.imagename = "standard.jpg"
+    
     def AddNewQuestion(self):
         procs.add_question_to_database(
             self.questionQuestion.text(),
@@ -190,7 +219,7 @@ class QuestionEditor(QDialog):
     def __init__(self, id, parent):
         super().__init__(parent)
         self.setWindowTitle("Frage bearbeiten")
-        self.setGeometry(QRect(20, 20, 530, 660))
+        self.setGeometry(QRect(20, 20, 530, 760))
         self.label = QLabel(self)
 
         self.MainLayout = QWidget(self)
@@ -201,7 +230,7 @@ class QuestionEditor(QDialog):
         self.MainLayout.setLayout(self.VLayout)
 
         questionDetails = procs.get_question_details(id)
-
+        self.imagename = questionDetails["image"]
         self.LabelQuestionTitle = QLabel()
         self.LabelQuestionTitle.setText("Frage:")
         self.LabelQuestionTitle.setFixedWidth(100)
@@ -244,8 +273,12 @@ class QuestionEditor(QDialog):
         self.questionComment.setTabChangesFocus(True)
         self.questionComment.setText(questionDetails["comment"])
         self.questionImage = QLineEdit()
-        self.questionImage.setFixedSize(400, 30)
+        self.questionImage.setFixedSize(350, 30)
         self.questionImage.setText(questionDetails["image"])
+        self.questionImageBrowseButton = QToolButton()
+        self.questionImageBrowseButton.setText("...")
+        self.questionImageBrowseButton.setFixedSize(30, 30)
+        self.questionImageBrowseButton.clicked.connect(self.onquestionImageButtonClickedBrowseImage)
 
         self.LineQuestionTitle = QHBoxLayout()
         self.VLayout.addLayout(self.LineQuestionTitle)
@@ -293,19 +326,52 @@ class QuestionEditor(QDialog):
             self.LabelQuestionImage, 0, Qt.AlignmentFlag.AlignRight
         )
         self.LineQuestionImage.addWidget(self.questionImage, 0, Qt.AlignmentFlag.AlignLeft)
+        self.LineQuestionImage.addWidget(self.questionImageBrowseButton, 0, Qt.AlignmentFlag.AlignRight)
+        
+        questionImage = questionDetails.get("image", "standard.jpg")
+        if questionImage == "":
+            questionImage = "standard.jpg"
+       
+        image_preview = "".join(image_path + questionImage)
+        self.questionImagePreview = QPixmap(image_preview)
+        self.questionImagePreview = self.questionImagePreview.scaled(small_image)
+        self.questionImagePreviewLabel = QLabel()
+        self.questionImagePreviewLabel.setPixmap(self.questionImagePreview)
 
+        self.VLayout.addWidget(self.questionImagePreviewLabel, 0, Qt.AlignmentFlag.AlignCenter)
+        
         self.ChangeButton = QPushButton()
-        self.ChangeButton.setText("Ändern/speichern")
+        self.ChangeButton.setText("Speichern")
+        self.ChangeButton.setFixedSize(180, 30)
         self.ChangeButton.clicked.connect(lambda: self.changeQuestionDetails(id))
-        self.VLayout.addWidget(self.ChangeButton)
+        self.VLayout.addWidget(self.ChangeButton, 0, Qt.AlignmentFlag.AlignCenter)
         self.ExitButton = QPushButton()
         self.ExitButton.setText("Schließen")
+        self.ExitButton.setFixedSize(180, 30)
         self.ExitButton.clicked.connect(self.close)
-        self.VLayout.addWidget(self.ExitButton)
+        self.VLayout.addWidget(self.ExitButton, 0, Qt.AlignmentFlag.AlignCenter)
 
         self.VLayout.addWidget(self.label)
 
+    def onquestionImageButtonClickedBrowseImage(self):
+        self.filename, filter = QFileDialog.getOpenFileName(parent=self, caption='Open file', dir='.', filter='*.jpg')
+
+        if self.filename:
+            self.imagename = os.path.basename(self.filename)
+            self.questionImage.setText(self.imagename)
+            self.questionImagePreview = QPixmap(self.filename)
+            self.questionImagePreview = self.questionImagePreview.scaled(small_image)
+            self.questionImagePreviewLabel.setPixmap(self.questionImagePreview)
+        else :
+            self.questionImage.setText("standard.jpg")
+            self.imagename = "standard.jpg"
+
     def changeQuestionDetails(self, id):
+        if self.imagename != "standard.jpg":
+            if self.imagename != "":
+                print("image not changed")
+            else:
+                os.system(f"cp {self.filename} {image_path}{self.imagename}")
         procs.change_question_details(
             id,
             self.questionQuestion.text(),
@@ -2177,7 +2243,7 @@ class GameWindow(QMainWindow):
         self.RoundLabel.setText("RUNDE")
         self.RoundLabel.setFont(font_top)
         self.CBRoundMenu = QComboBox(self)
-        self.TopLayout.addWidget(self.CBRoundMenu)
+        self.TopLayout.addWidget(self.CBRoundMenu, 0, Qt.AlignmentFlag.AlignCenter)
         self.CBRoundMenu.setObjectName("CBRoundMenu")
         self.CBRoundMenu.setMinimumSize(QSize(200, 0))
         self.CBRoundMenu.setMaximumSize(QSize(200, 250))
