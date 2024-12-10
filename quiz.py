@@ -189,21 +189,33 @@ class QuestionAdd(QDialog):
         self.VLayout.addWidget(self.ExitButton, 0, Qt.AlignmentFlag.AlignCenter)
 
         self.VLayout.addWidget(self.label)
+        self.filename = self.imagename
 
     def onquestionImageButtonClickedBrowseImage(self):
         self.filename, filter = QFileDialog.getOpenFileName(parent=self, caption='Open file', dir='.', filter='*.jpg')
 
         if self.filename:
             self.imagename = os.path.basename(self.filename)
+            print("file upload true")
+            print(f"filename: {self.filename}")
+            print(f"imagename: {self.imagename}")
             self.questionImage.setText(self.imagename)
             self.questionImagePreview = QPixmap(self.filename)
             self.questionImagePreview = self.questionImagePreview.scaled(small_image)
             self.questionImagePreviewLabel.setPixmap(self.questionImagePreview)
         else :
+            print("file upload false")
             self.questionImage.setText("standard.jpg")
             self.imagename = "standard.jpg"
-    
+            print(f"imagename: {self.imagename}")
+            print(f"filename: {self.filename}")
+
     def AddNewQuestion(self):
+        if self.filename != self.imagename:
+            print("image upload")
+            os.system(f"cp {self.filename} {image_path}{self.imagename}")
+        else:
+            print("no image upload")
         procs.add_question_to_database(
             self.questionQuestion.text(),
             self.questionAnswer.text(),
@@ -352,26 +364,33 @@ class QuestionEditor(QDialog):
         self.VLayout.addWidget(self.ExitButton, 0, Qt.AlignmentFlag.AlignCenter)
 
         self.VLayout.addWidget(self.label)
+        self.filename = self.imagename
 
     def onquestionImageButtonClickedBrowseImage(self):
         self.filename, filter = QFileDialog.getOpenFileName(parent=self, caption='Open file', dir='.', filter='*.jpg')
 
         if self.filename:
             self.imagename = os.path.basename(self.filename)
+            print("file upload true")
+            print(f"filename: {self.filename}")
+            print(f"imagename: {self.imagename}")
             self.questionImage.setText(self.imagename)
             self.questionImagePreview = QPixmap(self.filename)
             self.questionImagePreview = self.questionImagePreview.scaled(small_image)
             self.questionImagePreviewLabel.setPixmap(self.questionImagePreview)
         else :
+            print("file upload false")
             self.questionImage.setText("standard.jpg")
             self.imagename = "standard.jpg"
+            print(f"imagename: {self.imagename}")
+            print(f"filename: {self.filename}")
 
     def changeQuestionDetails(self, id):
-        if self.imagename != "standard.jpg":
-            if self.imagename != "":
-                print("image not changed")
-            else:
-                os.system(f"cp {self.filename} {image_path}{self.imagename}")
+        if self.filename != self.imagename:
+            print("image change")
+            os.system(f"cp {self.filename} {image_path}{self.imagename}")
+        else:
+            print("no image change")    
         procs.change_question_details(
             id,
             self.questionQuestion.text(),
