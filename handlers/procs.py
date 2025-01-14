@@ -169,6 +169,35 @@ def generate_fake_names():
         connection.commit()
     connection.close()
 
+def new_player_names_playoff(
+    player1,
+    player2,
+    player3,
+    player4,
+    player5,
+    player6,
+    player7,
+    player8,
+    player9,
+    player10,
+    player11,
+    player12,
+    
+):
+    update_player_name(1, player1)
+    update_player_name(2, player2)
+    update_player_name(3, player3)
+    update_player_name(4, player4)
+    update_player_name(5, player5)
+    update_player_name(6, player6)
+    update_player_name(7, player7)
+    update_player_name(8, player8)
+    update_player_name(9, player9)
+    update_player_name(10, player10)
+    update_player_name(11, player11)
+    update_player_name(12, player12)
+    reset_player_points_silent()
+
 def new_player_names(
     player1,
     player2,

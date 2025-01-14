@@ -1797,6 +1797,7 @@ class PlayerNamesWindow(QMainWindow):
         super(PlayerNamesWindow, self).__init__(parent)
         self.setWindowTitle("Spieler Namen")
         self.setGeometry(100, 100, 800, 800)
+        play_mode = int(procs.get_play_mode())
 
         round_1_name = procs.get_round_name(1)
         round_2_name = procs.get_round_name(2)
@@ -1911,10 +1912,11 @@ class PlayerNamesWindow(QMainWindow):
         self.VLayoutPlayerNames.addLayout(self.HLayoutPlayerNamesRow10)
         self.VLayoutPlayerNames.addLayout(self.HLayoutPlayerNamesRow11)
         self.VLayoutPlayerNames.addLayout(self.HLayoutPlayerNamesRow12)
-        self.VLayoutPlayerNames.addLayout(self.HLayoutPlayerNamesRow13)
-        self.VLayoutPlayerNames.addLayout(self.HLayoutPlayerNamesRow14)
-        self.VLayoutPlayerNames.addLayout(self.HLayoutPlayerNamesRow15)
-        self.VLayoutPlayerNames.addLayout(self.HLayoutPlayerNamesRow16)
+        if play_mode == 1:
+            self.VLayoutPlayerNames.addLayout(self.HLayoutPlayerNamesRow13)
+            self.VLayoutPlayerNames.addLayout(self.HLayoutPlayerNamesRow14)
+            self.VLayoutPlayerNames.addLayout(self.HLayoutPlayerNamesRow15)
+            self.VLayoutPlayerNames.addLayout(self.HLayoutPlayerNamesRow16)
 
         self.HLayoutButtons = QHBoxLayout()
         self.HLayoutButtons.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -2088,18 +2090,19 @@ class PlayerNamesWindow(QMainWindow):
         self.pBchangePlayer12Name.clicked.connect(
             lambda: procs.update_player_name(12, self.lEplayer12Name.text())
         )
-        self.pBchangePlayer13Name.clicked.connect(
-            lambda: procs.update_player_name(13, self.lEplayer13Name.text())
-        )
-        self.pBchangePlayer14Name.clicked.connect(
-            lambda: procs.update_player_name(14, self.lEplayer14Name.text())
-        )
-        self.pBchangePlayer15Name.clicked.connect(
-            lambda: procs.update_player_name(15, self.lEplayer15Name.text())
-        )
-        self.pBchangePlayer16Name.clicked.connect(
-            lambda: procs.update_player_name(16, self.lEplayer16Name.text())
-        )
+        if play_mode == 1:
+            self.pBchangePlayer13Name.clicked.connect(
+                lambda: procs.update_player_name(13, self.lEplayer13Name.text())
+            )
+            self.pBchangePlayer14Name.clicked.connect(
+                lambda: procs.update_player_name(14, self.lEplayer14Name.text())
+            )
+            self.pBchangePlayer15Name.clicked.connect(
+                lambda: procs.update_player_name(15, self.lEplayer15Name.text())
+            )
+            self.pBchangePlayer16Name.clicked.connect(
+                lambda: procs.update_player_name(16, self.lEplayer16Name.text())
+            )
         self.lEplayer1Name.setText(player_1_name)
         self.lEplayer2Name.setText(player_2_name)
         self.lEplayer3Name.setText(player_3_name)
@@ -2112,10 +2115,11 @@ class PlayerNamesWindow(QMainWindow):
         self.lEplayer10Name.setText(player_10_name)
         self.lEplayer11Name.setText(player_11_name)
         self.lEplayer12Name.setText(player_12_name)
-        self.lEplayer13Name.setText(player_13_name)
-        self.lEplayer14Name.setText(player_14_name)
-        self.lEplayer15Name.setText(player_15_name)
-        self.lEplayer16Name.setText(player_16_name)
+        if play_mode == 1:
+            self.lEplayer13Name.setText(player_13_name)
+            self.lEplayer14Name.setText(player_14_name)
+            self.lEplayer15Name.setText(player_15_name)
+            self.lEplayer16Name.setText(player_16_name)
 
         self.HLayoutPlayerNamesRow1.addWidget(self.labelPlayer1Round)
         self.HLayoutPlayerNamesRow2.addWidget(self.labelPlayer2Round)
@@ -2129,10 +2133,12 @@ class PlayerNamesWindow(QMainWindow):
         self.HLayoutPlayerNamesRow10.addWidget(self.labelPlayer10Round)
         self.HLayoutPlayerNamesRow11.addWidget(self.labelPlayer11Round)
         self.HLayoutPlayerNamesRow12.addWidget(self.labelPlayer12Round)
-        self.HLayoutPlayerNamesRow13.addWidget(self.labelPlayer13Round)
-        self.HLayoutPlayerNamesRow14.addWidget(self.labelPlayer14Round)
-        self.HLayoutPlayerNamesRow15.addWidget(self.labelPlayer15Round)
-        self.HLayoutPlayerNamesRow16.addWidget(self.labelPlayer16Round)
+        if play_mode == 1:
+
+            self.HLayoutPlayerNamesRow13.addWidget(self.labelPlayer13Round)
+            self.HLayoutPlayerNamesRow14.addWidget(self.labelPlayer14Round)
+            self.HLayoutPlayerNamesRow15.addWidget(self.labelPlayer15Round)
+            self.HLayoutPlayerNamesRow16.addWidget(self.labelPlayer16Round)
 
         self.HLayoutPlayerNamesRow1.addWidget(self.lEplayer1Name)
         self.HLayoutPlayerNamesRow2.addWidget(self.lEplayer2Name)
@@ -2146,10 +2152,11 @@ class PlayerNamesWindow(QMainWindow):
         self.HLayoutPlayerNamesRow10.addWidget(self.lEplayer10Name)
         self.HLayoutPlayerNamesRow11.addWidget(self.lEplayer11Name)
         self.HLayoutPlayerNamesRow12.addWidget(self.lEplayer12Name)
-        self.HLayoutPlayerNamesRow13.addWidget(self.lEplayer13Name)
-        self.HLayoutPlayerNamesRow14.addWidget(self.lEplayer14Name)
-        self.HLayoutPlayerNamesRow15.addWidget(self.lEplayer15Name)
-        self.HLayoutPlayerNamesRow16.addWidget(self.lEplayer16Name)
+        if play_mode == 1:
+            self.HLayoutPlayerNamesRow13.addWidget(self.lEplayer13Name)
+            self.HLayoutPlayerNamesRow14.addWidget(self.lEplayer14Name)
+            self.HLayoutPlayerNamesRow15.addWidget(self.lEplayer15Name)
+            self.HLayoutPlayerNamesRow16.addWidget(self.lEplayer16Name)
 
         self.HLayoutPlayerNamesRow1.addWidget(self.pBchangePlayer1Name)
         self.HLayoutPlayerNamesRow2.addWidget(self.pBchangePlayer2Name)
@@ -2163,31 +2170,49 @@ class PlayerNamesWindow(QMainWindow):
         self.HLayoutPlayerNamesRow10.addWidget(self.pBchangePlayer10Name)
         self.HLayoutPlayerNamesRow11.addWidget(self.pBchangePlayer11Name)
         self.HLayoutPlayerNamesRow12.addWidget(self.pBchangePlayer12Name)
-        self.HLayoutPlayerNamesRow13.addWidget(self.pBchangePlayer13Name)
-        self.HLayoutPlayerNamesRow14.addWidget(self.pBchangePlayer14Name)
-        self.HLayoutPlayerNamesRow15.addWidget(self.pBchangePlayer15Name)
-        self.HLayoutPlayerNamesRow16.addWidget(self.pBchangePlayer16Name)
+        if play_mode == 1:
+            self.HLayoutPlayerNamesRow13.addWidget(self.pBchangePlayer13Name)
+            self.HLayoutPlayerNamesRow14.addWidget(self.pBchangePlayer14Name)
+            self.HLayoutPlayerNamesRow15.addWidget(self.pBchangePlayer15Name)
+            self.HLayoutPlayerNamesRow16.addWidget(self.pBchangePlayer16Name)
 
     def ChangeAllPlayerNames(self):
         print("----- CHANGED ALL PLAYER NAMES -----")
-        procs.new_player_names(
-            self.lEplayer1Name.text(),
-            self.lEplayer2Name.text(),
-            self.lEplayer3Name.text(),
-            self.lEplayer4Name.text(),
-            self.lEplayer5Name.text(),
-            self.lEplayer6Name.text(),
-            self.lEplayer7Name.text(),
-            self.lEplayer8Name.text(),
-            self.lEplayer9Name.text(),
-            self.lEplayer10Name.text(),
-            self.lEplayer11Name.text(),
-            self.lEplayer12Name.text(),
-            self.lEplayer13Name.text(),
-            self.lEplayer14Name.text(),
-            self.lEplayer15Name.text(),
-            self.lEplayer16Name.text(),
-        )
+        play_mode = int(procs.get_play_mode())
+        if play_mode == 1:
+            procs.new_player_names(
+                self.lEplayer1Name.text(),
+                self.lEplayer2Name.text(),
+                self.lEplayer3Name.text(),
+                self.lEplayer4Name.text(),
+                self.lEplayer5Name.text(),
+                self.lEplayer6Name.text(),
+                self.lEplayer7Name.text(),
+                self.lEplayer8Name.text(),
+                self.lEplayer9Name.text(),
+                self.lEplayer10Name.text(),
+                self.lEplayer11Name.text(),
+                self.lEplayer12Name.text(),
+                self.lEplayer13Name.text(),
+                self.lEplayer14Name.text(),
+                self.lEplayer15Name.text(),
+                self.lEplayer16Name.text(),
+            )
+        if play_mode == 2:
+            procs.new_player_names_playoff(
+                self.lEplayer1Name.text(),
+                self.lEplayer2Name.text(),
+                self.lEplayer3Name.text(),
+                self.lEplayer4Name.text(),
+                self.lEplayer5Name.text(),
+                self.lEplayer6Name.text(),
+                self.lEplayer7Name.text(),
+                self.lEplayer8Name.text(),
+                self.lEplayer9Name.text(),
+                self.lEplayer10Name.text(),
+                self.lEplayer11Name.text(),
+                self.lEplayer12Name.text(),
+            )
 
     def closePlayerNameWindow(self):
         print("----- CLOSE PLAYER NAME WINDOW -----")
@@ -2197,32 +2222,53 @@ class PlayerNamesWindow(QMainWindow):
         print("----- SHUFFLED ALL PLAYERS -----")
         # get players from database
         players = []
-
-        for i in range(1, 17):
-            players.append(procs.get_player_name_from_global_id(i))
-        # shuffle players
-        random.shuffle(players)
+        play_mode = int(procs.get_play_mode())
 
         # write players to database in new order
-        for i in range(1, 17):
-            procs.update_player_name(i, players[i - 1])
-        # update text fields
-        self.lEplayer1Name.setText(players[0])
-        self.lEplayer2Name.setText(players[1])
-        self.lEplayer3Name.setText(players[2])
-        self.lEplayer4Name.setText(players[3])
-        self.lEplayer5Name.setText(players[4])
-        self.lEplayer6Name.setText(players[5])
-        self.lEplayer7Name.setText(players[6])
-        self.lEplayer8Name.setText(players[7])
-        self.lEplayer9Name.setText(players[8])
-        self.lEplayer10Name.setText(players[9])
-        self.lEplayer11Name.setText(players[10])
-        self.lEplayer12Name.setText(players[11])
-        self.lEplayer13Name.setText(players[12])
-        self.lEplayer14Name.setText(players[13])
-        self.lEplayer15Name.setText(players[14])
-        self.lEplayer16Name.setText(players[15])
+        if play_mode == 1:
+            for i in range(1, 17):
+                players.append(procs.get_player_name_from_global_id(i))
+            # shuffle players
+            random.shuffle(players)
+            for i in range(1, 17):
+                procs.update_player_name(i, players[i - 1])
+            # update text fields
+            self.lEplayer1Name.setText(players[0])
+            self.lEplayer2Name.setText(players[1])
+            self.lEplayer3Name.setText(players[2])
+            self.lEplayer4Name.setText(players[3])
+            self.lEplayer5Name.setText(players[4])
+            self.lEplayer6Name.setText(players[5])
+            self.lEplayer7Name.setText(players[6])
+            self.lEplayer8Name.setText(players[7])
+            self.lEplayer9Name.setText(players[8])
+            self.lEplayer10Name.setText(players[9])
+            self.lEplayer11Name.setText(players[10])
+            self.lEplayer12Name.setText(players[11])
+            self.lEplayer13Name.setText(players[12])
+            self.lEplayer14Name.setText(players[13])
+            self.lEplayer15Name.setText(players[14])
+            self.lEplayer16Name.setText(players[15])
+        if play_mode == 2:
+            for i in range(1, 13):
+                players.append(procs.get_player_name_from_global_id(i))
+            # shuffle players
+            random.shuffle(players)
+            for i in range(1, 13):
+                procs.update_player_name(i, players[i - 1])
+            # update text fields
+            self.lEplayer1Name.setText(players[0])
+            self.lEplayer2Name.setText(players[1])
+            self.lEplayer3Name.setText(players[2])
+            self.lEplayer4Name.setText(players[3])
+            self.lEplayer5Name.setText(players[4])
+            self.lEplayer6Name.setText(players[5])
+            self.lEplayer7Name.setText(players[6])
+            self.lEplayer8Name.setText(players[7])
+            self.lEplayer9Name.setText(players[8])
+            self.lEplayer10Name.setText(players[9])
+            self.lEplayer11Name.setText(players[10])
+            self.lEplayer12Name.setText(players[11])
 
         # print shuffled list:
         # print(players)
