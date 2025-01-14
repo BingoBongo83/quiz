@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from tkinter import Image
 from flask import Flask, request, render_template
 from handlers import procs
 import os
