@@ -518,7 +518,7 @@ class QuestionsWindow(QMainWindow):
         self.MaxQuestionsButton = QPushButton()
         self.MaxQuestionsButton.setText("Speichern")
         self.MaxQuestionsButton.setFixedWidth(100)
-        self.MaxQuestionsButton.clicked.connect(lambda: procs.set_round_max_questions(self.QuestionEditRoundId, self.MaxQuestions.text()))
+        self.MaxQuestionsButton.clicked.connect(lambda: procs.set_round_maximum_questions(self.QuestionEditRoundId, self.MaxQuestions.text()))
         self.HLayoutMaximumValues.addWidget(self.LabelMaxQuestions)
         self.HLayoutMaximumValues.addWidget(self.MaxQuestions)
         self.HLayoutMaximumValues.addWidget(self.MaxQuestionsButton)
