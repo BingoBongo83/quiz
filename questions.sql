@@ -5,10 +5,10 @@
 -- https://tableplus.com/
 --
 -- Database: quiz
--- Generation Time: 2024-12-19 09:42:27.317699
+-- Generation Time: 2025-01-14 15:46:15.130547
 -- -------------------------------------------------------------
 
-DROP TABLE `quiz`.`questions`;
+DROP TABLE `questions`;
 
 
 CREATE TABLE `questions` (
@@ -24,7 +24,7 @@ CREATE TABLE `questions` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=275 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `quiz`.`questions` (`id`, `question`, `answer`, `round`, `seq`, `played`, `comment`, `image`) VALUES 
+INSERT INTO `questions` (`id`, `question`, `answer`, `round`, `seq`, `played`, `comment`, `image`) VALUES 
 (111, 'Wer war der erste Bundeskanzler der BRD?', 'Konrad Adenauer', 1, 16, 0, 'Kommentar', 'adenauer.jpg'),
 (112, 'Wie hoch ist der Kölner Dom?', '157 Meter', 1, 21, 0, 'Kommentar', 'koelnerdom.jpg'),
 (113, 'der wievielte Monat ist der September?', 'der 9.', 1, 17, 0, 'Kommentar', 'september.jpg'),
